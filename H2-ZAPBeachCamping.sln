@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZAPBeachCampingLib", "H2-ZAPBeachCamping\ZAPBeachCampingLib.csproj", "{966CBC7C-C7EC-44C9-AE36-2E53B360AAAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{966CBC7C-C7EC-44C9-AE36-2E53B360AAAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{966CBC7C-C7EC-44C9-AE36-2E53B360AAAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{966CBC7C-C7EC-44C9-AE36-2E53B360AAAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{966CBC7C-C7EC-44C9-AE36-2E53B360AAAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2984B5C3-FC50-4349-9301-891BF5DB6FE1}
+	EndGlobalSection
+EndGlobal
