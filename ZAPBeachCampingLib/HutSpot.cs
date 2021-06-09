@@ -16,8 +16,8 @@ namespace ZAPBeachCampingLib
         };
         public HutType HutType{ get; private set; }
         public bool IsCleaned { get; set; } = true;
-        public HutSpot(int number,  List<Addition> additions, HutType hutType) 
-            : base(number, SpotType.HutSite, additions, prices)
+        public HutSpot(string number, bool isGoodView, HutType hutType) 
+            : base(number, SpotType.HutSite, isGoodView, prices)
         {
             HutType = hutType;
         }

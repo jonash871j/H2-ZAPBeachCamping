@@ -21,8 +21,8 @@ namespace ZAPBeachCampingLib
 
         public CampingType CampingType { get; set; }
 
-        public CampingSpot(int number, List<Addition> additions, CampingType campingType) 
-            : base(number, SpotType.CampingSite, additions, prices)
+        public CampingSpot(string number, bool isGoodView, CampingType campingType) 
+            : base(number, SpotType.CampingSite, isGoodView, prices)
         {
             CampingType = campingType;
         }
