@@ -44,6 +44,7 @@
     <Compile Include="Addition.cs" />
     <Compile Include="CampingSpot.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="DataAccess.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="HutSpot.cs" />
     <Compile Include="Price.cs" />
@@ -51,7 +52,6 @@
     <Compile Include="Reservation.cs" />
     <Compile Include="Spot.cs" />
     <Compile Include="TentSpot.cs" />
-    <Compile Include="TentSpotBase.cs" />
     <Compile Include="TimeChecker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
