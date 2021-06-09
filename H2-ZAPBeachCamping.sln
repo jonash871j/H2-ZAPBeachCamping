@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZAPBeachCampingLib", "H2-ZAPBeachCamping\ZAPBeachCampingLib.csproj", "{966CBC7C-C7EC-44C9-AE36-2E53B360AAAA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{CC69B099-0DCC-456E-939C-6C63482EF74B}"
 	ProjectSection(SolutionItems) = preProject
 		Tables.sql = Tables.sql
@@ -12,20 +10,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZAPBeachCampingASP", "ZAPBeachCampingASP\ZAPBeachCampingASP.csproj", "{3240C9B4-00A1-4BC8-9D36-9C7E1A703A5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZAPBeachCampingLib", "ZAPBeachCampingLib\ZAPBeachCampingLib.csproj", "{83372DAA-595A-4199-AC4F-8F87CA18CAF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{966CBC7C-C7EC-44C9-AE36-2E53B360AAAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{966CBC7C-C7EC-44C9-AE36-2E53B360AAAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{966CBC7C-C7EC-44C9-AE36-2E53B360AAAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{966CBC7C-C7EC-44C9-AE36-2E53B360AAAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3240C9B4-00A1-4BC8-9D36-9C7E1A703A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3240C9B4-00A1-4BC8-9D36-9C7E1A703A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3240C9B4-00A1-4BC8-9D36-9C7E1A703A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3240C9B4-00A1-4BC8-9D36-9C7E1A703A5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83372DAA-595A-4199-AC4F-8F87CA18CAF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83372DAA-595A-4199-AC4F-8F87CA18CAF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83372DAA-595A-4199-AC4F-8F87CA18CAF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83372DAA-595A-4199-AC4F-8F87CA18CAF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
