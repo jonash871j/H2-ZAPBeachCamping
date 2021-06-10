@@ -21,6 +21,10 @@ p{
 .nav-link{
     font-size: 24px;
 }
+.nav-selected {
+    font-weight: bold;
+    color: white !important;
+}
 
 .navbar-brand {
     font-size: 28px;
