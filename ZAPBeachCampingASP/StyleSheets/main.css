@@ -1,0 +1,14 @@
+﻿body{
+    margin:0;
+    padding: 0;
+    background-color: #eeeeee;
+}
+#nav-color {
+    background-color: #56cc9d;
+}
+h1,h3{
+    color:white;
+}
+.opacity-2{
+    opacity: 0.5;
+}
