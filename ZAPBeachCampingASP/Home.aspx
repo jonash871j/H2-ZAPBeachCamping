@@ -25,15 +25,13 @@
 
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Forside</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
                     <div class="collapse navbar-collapse" id="navbarColor01">
                         <ul class="navbar-nav me-auto">
+                              <li class="nav-item">
+                                <a class="nav-link nav-selected" href="#">Forside</a>
+                            </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Booking</a>
+                                <a class="nav-link" href="Booking.aspx">Booking</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Om os</a>
@@ -50,17 +48,17 @@
                 <div class="row" style="margin: 20px 20px;">
                     <div class="col-xs-12 col-sm-10 col-md-4 box-padding">
                         <h2 class="color-id-1">Bedste campingplads</h2>
-                        <p class="color-id-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. </p>
+                        <p class="color-id-2">Vores gæster sætter pris på design, kvalitet og masser af god plads på campingpladsen. Derfor investerer vi hvert år i nye lækre omgivelser og forbedringer, der gør hele campingoplevelsen mindst 6 stjerner værd. Og som de første i Skandinavien tilbyder vi nu XL luksuspladser til dig, der gerne vil have lidt ekstra i ferien. </p>
                     </div>
 
                     <div class="col-xs-12 col-sm-10 col-md-4 box-padding">
                         <h2 class="color-id-1">En uforglemmelig tur</h2>
-                        <p class="color-id-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. </p>
+                        <p class="color-id-2">Vi ved, at den enkelte campinggæst er lige så unik som sten på stranden, og derfor også har specifikke ønsker til deres ferie. Vi forsøger derfor hele tiden er udvide vores katalog i forhold campingpladser og faciliteter, så vi kan imødekomme så mange som muligt. Vi elsker nemlig, når vores campingplads er fuld af glade mennesker, der bare vil nyde en god ferie i afslappende omgivelser.   </p>
                     </div>
 
                     <div class="col-xs-12 col-sm-10 col-md-4 box-padding">
                         <h2 class="color-id-1">Camping i midtjylland</h2>
-                        <p class="color-id-2">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. </p>
+                        <p class="color-id-2">Nogle campinggæster er glade for det enkle og en ferie uden for meget luksus, men vi oplever også at efterspørgslen bliver større og større på campingpladser, der tilbyder lidt ekstra til campingferien. En campingferie behøver nemlig ikke betyde, at I skal dele toilet med andre eller undvære de elektroniske bekvemmeligheder - selvom det er charmerende i sig selv.</p>
                     </div>
                 </div>
             </div>
