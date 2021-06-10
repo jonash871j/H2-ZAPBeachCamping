@@ -10,5 +10,76 @@ h1,h3{
     color:white;
 }
 .opacity-2{
-    opacity: 0.5;
+    opacity: 0.8;
 }
+p{
+    font-size: 20px;
+    text-align:justify;
+    text-justify: inter-word;
+}
+
+.nav-link{
+    font-size: 24px;
+}
+
+.navbar-brand {
+    font-size: 28px;
+}
+
+.color-id-1{
+    color: #222222;
+}
+
+.color-id-2 {
+    color: #444444;
+}
+
+.color-id-3 {
+    color: #d5d5d5;
+}
+
+.box-padding{
+    padding: 2%;
+}
+
+.carousel-item{
+    transition: -webkit-transform 0.5s ease;
+    transition: transform 0.5s ease;
+    transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+    -webkit-backface-visibility:visible;
+    backface-visibility:visible;
+
+}
+
+.image-text-background {
+    background-color: #212121aa;
+    position:absolute;
+    top:65%;
+    transform: translateY(-50%);
+}
+
+footer {
+    background-color: #252525;
+    color: #d5d5d5;
+    padding-top: 2rem;
+    padding: 64px;
+}
+hr.light{
+    border-top: 1px solid #d5d5d5;
+    width:75%;
+    margin-top: .8rem;
+    margin-bottom: 1rem;
+}
+
+footer a {
+    color: #d5d5d5;
+
+}
+
+hr.light-100 {
+    border-top: 1px solid #d5d5d5;
+    width: 100%;
+    margin-top: .8rem;
+    margin-bottom: 1rem;
+}
+

@@ -73,6 +73,7 @@
     <Content Include="Images\Slider2.jpg" />
     <Content Include="Images\Slider3.jpg" />
     <Content Include="Images\ZAP_Logo.png" />
+    <Content Include="Images\ZAP_Logo_footer.png" />
     <Content Include="StyleSheets\bootstrap.css" />
     <Content Include="StyleSheets\bootstrap.min.css" />
     <Content Include="StyleSheets\main.css" />
