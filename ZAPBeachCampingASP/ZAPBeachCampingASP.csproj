@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Booking.aspx" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Home.aspx" />
     <Content Include="Images\Banner.jpg" />
     <Content Include="Images\Slider1.jpg" />
@@ -75,6 +76,7 @@
     <Content Include="Images\Slider3.jpg" />
     <Content Include="Images\ZAP_Logo.png" />
     <Content Include="Images\ZAP_Logo_footer.png" />
+    <Content Include="Scripts\OrderScript.js" />
     <Content Include="StyleSheets\bootstrap.css" />
     <Content Include="StyleSheets\bootstrap.min.css" />
     <Content Include="StyleSheets\main.css" />
@@ -98,6 +100,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -112,9 +118,7 @@
       <Name>ZAPBeachCampingLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

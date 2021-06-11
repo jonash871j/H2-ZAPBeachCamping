@@ -5,8 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <%--<link href="\StyleSheets\bootstrap.min.css" rel="stylesheet" />--%>
     <link href="\StyleSheets\bootstrap.css" rel="stylesheet" />
-    <link href="\StyleSheets\bootstrap.min.css" rel="stylesheet" />
     <link href="\StyleSheets\main.css" rel="stylesheet" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <nav class="navbar navbar-expand navbar-dark bg-primary">
                 <div class="container-fluid">
                     <div class="collapse navbar-collapse" id="navbarColor01">
                         <ul class="navbar-nav me-auto">
@@ -76,7 +76,7 @@
                         <div class="carousel-caption image-text-background">
                             <h1 class="display-2">ZAP BEACH CAMPING</h1>
                             <h3>BOOK DIN FERIE</h3>
-                            <button type="button" class="btn btn-primary btn-lg">BOOK NU</button>
+                            <a href="Booking.aspx" class="btn btn-primary btn-lg">BOOK NU</a>
                         </div>
                     </div>
                     <div class="carousel-item">
@@ -84,7 +84,7 @@
                         <div class="carousel-caption image-text-background">
                             <h1 class="display-2">ZAP BEACH CAMPING</h1>
                             <h3>BOOK DIN FERIE</h3>
-                            <button type="button" class="btn btn-primary btn-lg">BOOK NU</button>
+                            <a href="Booking.aspx" class="btn btn-primary btn-lg">BOOK NU</a>
                         </div>
                     </div>
                     <div class="carousel-item">
@@ -92,7 +92,7 @@
                         <div class="carousel-caption image-text-background">
                             <h1 class="display-2">ZAP BEACH CAMPING</h1>
                             <h3>BOOK DIN FERIE</h3>
-                            <button type="button" class="btn btn-primary btn-lg">BOOK NU</button>
+                            <a href="Booking.aspx" class="btn btn-primary btn-lg">BOOK NU</a>
                         </div>
                     </div>
                 </div>

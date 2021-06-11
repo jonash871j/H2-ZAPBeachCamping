@@ -9,6 +9,7 @@
     <link href="\StyleSheets\bootstrap.min.css" rel="stylesheet" />
     <link href="\StyleSheets\main.css" rel="stylesheet" />
 
+    <script src="\Scripts\OrderScript.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -23,7 +24,7 @@
                 </div>
             </div>
 
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <nav class="navbar navbar-expand navbar-dark bg-primary">
                 <div class="container-fluid">
 
 
@@ -46,76 +47,61 @@
                 </div>
             </nav>
 
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <fieldset disabled="">
-                            <label class="form-label" for="disabledInput">Disabled input</label>
-                            <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled="">
-                        </fieldset>
-                    </div>
+            <div class="row box-padding">
+                <div class="col-lg-2 col-md-1"></div>
+                <div class="col-lg-8 col-md-10">
+                    <div class="alert alert-dismissible alert-light p-5">
 
-                    <div class="form-group">
-                        <fieldset>
-                            <label class="form-label mt-4" for="readOnlyInput">Readonly input</label>
-                            <input class="form-control" id="readOnlyInput" type="text" placeholder="Readonly input here..." readonly="">
-                        </fieldset>
-                    </div>
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-2"><strong>1. Rejseperiode</strong></div>
+                            <div class="col-2"><strong>2. Dine valg</strong></div>
+                            <div class="col-2"><strong>3. Dine Oplysninger</strong></div>
+                            <div class="col-2"><strong>4. Fakture</strong></div>
+                            <div class="col-2"></div>
+                        </div>
 
-                    <div class="form-group has-success">
-                        <label class="form-label mt-4" for="inputValid">Valid input</label>
-                        <input type="text" value="correct value" class="form-control is-valid" id="inputValid">
-                        <div class="valid-feedback">Success! You've done it.</div>
-                    </div>
 
-                    <div class="form-group has-danger">
-                        <label class="form-label mt-4" for="inputInvalid">Invalid input</label>
-                        <input type="text" value="wrong value" class="form-control is-invalid" id="inputInvalid">
-                        <div class="invalid-feedback">Sorry, that username's taken. Try another?</div>
-                    </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary" style="float: right;">Tilbage</button>
+                            </div>
+                            <div class="col-8">
+                                <div class="progress mt-2">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-primary">Næste</button>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label class="col-form-label col-form-label-lg mt-4" for="inputLarge">Large input</label>
-                        <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg" id="inputLarge">
-                    </div>
+                        <hr />
+                        <div class="row box-padding">
+                            <div class="col-6">
+                                <div id="order-tab-1">
+                                    <h4>Vælg ankomst dato</h4>
+                                    <input class="form-control" type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
 
-                    <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault">Default input</label>
-                        <input type="text" class="form-control" placeholder="Default input" id="inputDefault">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-form-label col-form-label-sm mt-4" for="inputSmall">Small input</label>
-                        <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" id="inputSmall">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label mt-4">Input addons</label>
-                        <div class="form-group">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">$</span>
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <span class="input-group-text">.00</span>
+                                    <h4 class="mt-4">Vælg hjem dato</h4>
+                                    <input class="form-control" type="date" id="end" name="trip-end" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+                                </div>
+                                <div id="order-tab-2" class="block: none;">
+                                    <h4>Side 2</h4>
+                                </div>
+                                <div id="order-tab-3" class="block: none;">
+                                    <h4>Side 3</h4>
+                                </div>
+                                <div id="order-tab-4" class="block: none;">
+                                    <h4>Side 4</h4>
+                                </div>
+                            </div>
+                            <div class="col-6">
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label mt-4">Floating labels</label>
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput">Email address</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Password</label>
-                        </div>
-                    </div>
                 </div>
-                
-                <div class="col-lg-6">
-
-                </div>
+                <div class="col-lg-2 col-md-1"></div>
             </div>
 
 
