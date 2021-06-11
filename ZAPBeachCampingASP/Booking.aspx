@@ -55,45 +55,72 @@
                         <div class="row">
                             <div class="col-2"></div>
                             <div class="col-2"><strong>1. Rejseperiode</strong></div>
-                            <div class="col-2"><strong>2. Dine valg</strong></div>
-                            <div class="col-2"><strong>3. Dine Oplysninger</strong></div>
-                            <div class="col-2"><strong>4. Fakture</strong></div>
+                            <div class="col-2"><strong>2. Camping placering</strong></div>
+                            <div class="col-2"><strong>3. Tillægsydelser</strong></div>
+                            <div class="col-2"><strong>4. Dine oplysninger</strong></div>
                             <div class="col-2"></div>
                         </div>
 
 
                         <div class="row">
                             <div class="col-2">
-                                <button type="button" class="btn btn-primary" style="float: right;">Tilbage</button>
+                                <button id="bn_previewsTab" type="button" class="btn btn-primary disabled" onclick="PreviewsTab();" style="float: right;">Tilbage</button>
                             </div>
                             <div class="col-8">
-                                <div class="progress mt-2">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                                <div class="progress mt-2" style="background-color: #e3e3e3;">
+                                    <div id="prb_orderProgrss" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
                                 </div>
                             </div>
                             <div class="col-2">
-                                <button type="button" class="btn btn-primary">Næste</button>
+                                <button id="bn_nextTab" type="button" class="btn btn-primary" onclick="NextTab();">Næste</button>
                             </div>
                         </div>
 
                         <hr />
                         <div class="row box-padding">
                             <div class="col-6">
-                                <div id="order-tab-1">
+                                <div id="dv_orderTab1">
                                     <h4>Vælg ankomst dato</h4>
                                     <input class="form-control" type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
 
                                     <h4 class="mt-4">Vælg hjem dato</h4>
                                     <input class="form-control" type="date" id="end" name="trip-end" value="2018-07-22" min="2018-01-01" max="2018-12-31">
                                 </div>
-                                <div id="order-tab-2" class="block: none;">
+                                <div id="dv_orderTab2" class="block: none;">
                                     <h4>Side 2</h4>
                                 </div>
-                                <div id="order-tab-3" class="block: none;">
+                                <div id="dv_orderTab3" class="block: none;">
                                     <h4>Side 3</h4>
                                 </div>
-                                <div id="order-tab-4" class="block: none;">
-                                    <h4>Side 4</h4>
+                                <div id="dv_orderTab4" class="block: none;">
+                                    <h4>Dine oplysninger</h4>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Fornavn</label>
+                                        <input class="form-control" placeholder="Intast fornavn">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Efternavn</label>
+                                        <input class="form-control" placeholder="Intast efternavn">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" placeholder="Intast email">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Telefonnummer</label>
+                                        <input type="email" class="form-control" placeholder="Intast telefonnummer">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Adresse</label>
+                                        <input class="form-control" placeholder="Intast adresse">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">By</label>
+                                        <input class="form-control" placeholder="Intast by">
+                                    </div>
+                                </div>
+                                <div id="dv_orderTab5" class="block: none;">
+                                    <h4>Tak for din besilling!</h4>
                                 </div>
                             </div>
                             <div class="col-6">
