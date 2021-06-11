@@ -36,16 +36,3 @@ INSERT INTO Spots(Number, SpotType, IsGoodView) VALUES('H14', 3, 0);
 INSERT INTO HutSpots(Number, IsCleaned, HutType) VALUES('H14', 1, 2);
 INSERT INTO Spots(Number, SpotType, IsGoodView) VALUES('H15', 3, 0);
 INSERT INTO HutSpots(Number, IsCleaned, HutType) VALUES('H15', 1, 2);
-
-
- enum SpotType
-    {
-        TentSite = 1,
-        CampingSite = 2,
-        HutSite = 3,
-    };
-    public enum HutType
-    {
-        Default = 1,
-        Luxury = 2,
-    }

@@ -8,15 +8,19 @@ namespace ZAPBeachCampingLib
     {
         #region Properties
 
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string Email { get; private set; }
-        public string City { get; private set; }
-        public string Address { get; private set; }
-        public string PhoneNumber { get; private set; }
+        public string FirstName { get; internal set; }
+        public string LastName { get; internal set; }
+        public string Email { get; internal set; }
+        public string City { get; internal set; }
+        public string Address { get; internal set; }
+        public string PhoneNumber { get; internal set; }
         #endregion
         
         #region Constructor
+
+        internal Customer() 
+        { 
+        }
         public Customer(string firstName, string lastName, string email, string city, string address, string phoneNumber)
         {
             FirstName = firstName;

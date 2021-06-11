@@ -8,16 +8,22 @@ namespace ZAPBeachCampingLib
     {
         #region Properties
         public int OrderNumber { get; internal set; } = -1;
-        public Customer Customer { get; private set; }
-        public Spot Spot { get; private set; }
-        public DateTime StartDate { get; private set; }
-        public DateTime EndDate { get; private set; }
-        public List<CustomerType> CustomerTypes { get; private set; }
+        public Customer Customer { get; internal set; }
+        internal string CustomerEmail { get; set; }
+        public Spot Spot { get; internal set; }
+        public DateTime StartDate { get; internal set; }
+        public DateTime EndDate { get; internal set; }
+        public List<CustomerType> CustomerTypes { get; internal set; }
         public List<Addition> Additions { get; set; }
         public bool IsInvoiceSent { get; internal set; } = false;
         #endregion
 
         #region Constructors
+
+        internal Reservation()
+        {
+
+        }
         public Reservation(Customer customer, Spot spot, DateTime startDate, DateTime endDate, List<CustomerType> customerTypes, List<Addition> additions)
         {
             Customer = customer;

@@ -28,6 +28,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "DataAccess", "DataAccess\",
 		SlnRelativePath = "DataAccess\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{54DF8E77-5598-477E-807B-3D5924F3AF6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{36B74D4F-0F00-483B-A11C-B8A8EFE6799B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36B74D4F-0F00-483B-A11C-B8A8EFE6799B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{36B74D4F-0F00-483B-A11C-B8A8EFE6799B}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{54DF8E77-5598-477E-807B-3D5924F3AF6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54DF8E77-5598-477E-807B-3D5924F3AF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54DF8E77-5598-477E-807B-3D5924F3AF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54DF8E77-5598-477E-807B-3D5924F3AF6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
