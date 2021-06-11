@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZAPBeachCampingLib
 {
-    internal class DataAccess
+    internal partial class DataAccess
     {
-        //internal bool CreateReservation(Reservation reservation)
-        //{
-
-        //}
     }
 }

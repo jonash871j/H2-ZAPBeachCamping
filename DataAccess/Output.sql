@@ -1,3 +1,34 @@
+﻿CREATE OR ALTER PROCEDURE CreateCustomerTypes 
+	@OrderNumber INT,
+	@Value INT
+AS
+BEGIN
+	INSERT INTO CustomerTypes(OrderNumber, Value)
+	VALUES (@OrderNumber, @Value)
+END
+GO
+﻿CREATE OR ALTER PROCEDURE CreateReservationAdditions 
+	@OrderNumber INT,
+	@AdditionName VARCHAR(50)
+AS
+	INSERT INTO ReservationsAdditions(AdditionName, OrderNumber) 
+	VALUES(@AdditionName, @OrderNumber)
+GO﻿CREATE OR ALTER PROCEDURE GetAllAddtions 
+AS
+BEGIN
+	SELECT * FROM Additions
+END
+GOCREATE OR ALTER PROCEDURE DropAllTables
+AS
+	DROP TABLE CustomerTypes;
+	DROP TABLE ReservationsAdditions;
+	DROP TABLE Additions;
+	DROP TABLE Reservations;
+	DROP TABLE CampingSpots;
+	DROP TABLE HutSpots;
+	DROP TABLE Spots;
+	DROP TABLE Customers;
+GO
 ﻿CREATE OR ALTER PROCEDURE CreateReservation 
 						@Email VARCHAR(100), 
 						@Firstname VARCHAR(25), 
@@ -33,33 +64,4 @@ AS
 		INSERT INTO Reservations(CustomerEmail, SpotNumber, TotalPrice, StartDate, EndDate, IsInvoiceSent) 
 		VALUES (@Email, @SpotNumber, @TotalPrice, @StartDate, @EndDate, 0);
 	END
-GO
-
-CREATE OR ALTER PROCEDURE GetAllReservationsWithMissingInvoice 
-AS
-BEGIN
-	SELECT * 
-	FROM Reservations 
-	WHERE Reservations.IsInvoiceSent = 0
-END
-GO
-
-CREATE OR ALTER PROCEDURE MarkReservationAsSent
-	@OrderNumber INT
-AS
-BEGIN
-	UPDATE Reservations
-	SET IsInvoiceSent = 1
-	WHERE OrderNumber = @OrderNumber;
-END
-GO
-
-CREATE OR ALTER PROCEDURE GetReservation
-	@OrderNumber INT
-AS
-BEGIN
-	SELECT *
-	FROM Reservations
-	WHERE Reservations.OrderNumber = @OrderNumber
-END
 GO
