@@ -29,6 +29,24 @@ namespace ZAPBeachCampingLib
 
         #region CustomerTypes
 
+        public List<CustomerType> GetCustomerType(int orderNumber)
+        {
+
+            //return dal.GetCustomerType(orderNumber);
+            List<CustomerType> customerTypes = new List<CustomerType>();
+
+            foreach (CustomerType customerType in dal.GetCustomerType(orderNumber))
+            {
+                customerTypes.Add(customerType);
+            }
+            return customerTypes;
+        }
+
+        public void CreateCustomerTypes(int orderNumber, CustomerType value)
+        {
+            dal.CreateCustomerTypes(orderNumber, value);
+        }
+
 
 
         #endregion
@@ -40,11 +58,6 @@ namespace ZAPBeachCampingLib
         #region Reservation
         public List<Reservation> GetAllReservationsWithMissingInvoice()
         {
-            // Lige nu retunere du kun noget af reservations objektet,
-            // Du bliver nødt til at kalde GetReservation for hver reservation
-            return dal.GetAllReservationsWithMissingInvoice();
-
-            // Eksempel
             List<Reservation> reservations = new List<Reservation>();
             foreach (Reservation reservation in dal.GetAllReservationsWithMissingInvoice())
             {
@@ -58,6 +71,12 @@ namespace ZAPBeachCampingLib
         {
             Reservation reservation = dal.GetReservations(orderNumber);
             reservation.Customer = GetCustomer(reservation.CustomerEmail);
+
+            reservation.CustomerTypes = GetCustomerType(reservation.OrderNumber);
+
+
+            //reservation.Additions = GetAllAddtion();
+
             //reservation.CustomerTypes = Mangler
             //reservation.Additions = Mangler
             // reservation.Spot = Mangler, vent til i morgen
@@ -66,7 +85,7 @@ namespace ZAPBeachCampingLib
 
         public Reservation MarkReservationAsSent(int orderNumber)
         {
-            // Det samme gælder her, du retunere kun nået af reservations objektet
+            // Det samme gælder her, du retunere kun noget af reservations objektet
             return dal.MarkReservationAsSent(orderNumber);
         }
         #endregion

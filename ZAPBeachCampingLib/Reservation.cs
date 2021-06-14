@@ -11,6 +11,7 @@ namespace ZAPBeachCampingLib
         public Customer Customer { get; internal set; }
         internal string CustomerEmail { get; set; }
         public Spot Spot { get; internal set; }
+        public double TotalPrice { get; internal set; }
         public DateTime StartDate { get; internal set; }
         public DateTime EndDate { get; internal set; }
         public List<CustomerType> CustomerTypes { get; internal set; }
@@ -24,10 +25,11 @@ namespace ZAPBeachCampingLib
         {
 
         }
-        public Reservation(Customer customer, Spot spot, DateTime startDate, DateTime endDate, List<CustomerType> customerTypes, List<Addition> additions)
+        public Reservation(Customer customer, Spot spot, double totalPrice, DateTime startDate, DateTime endDate, List<CustomerType> customerTypes, List<Addition> additions)
         {
             Customer = customer;
             Spot = spot;
+            TotalPrice = totalPrice;
             StartDate = startDate;
             EndDate = endDate;
             CustomerTypes = customerTypes;

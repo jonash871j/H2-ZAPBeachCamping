@@ -1,4 +1,4 @@
-﻿CREATE OR ALTER PROCEDURE CreateReservation 
+﻿	CREATE OR ALTER PROCEDURE CreateReservation 
 						@Email VARCHAR(100), 
 						@Firstname VARCHAR(25), 
 						@LastName VARCHAR(25), 

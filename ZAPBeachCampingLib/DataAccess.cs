@@ -30,6 +30,19 @@ namespace ZAPBeachCampingLib
         }
         #endregion
 
+        #region CustomerTypes
+
+        public List<CustomerType> GetCustomerType(int orderNumber)
+        {
+            return GetDB((c) => c.Query<CustomerType>("GetCustomerType @OrderNumber", new { OrderNumber = orderNumber }).ToList());
+        }
+
+        public void CreateCustomerTypes(int orderNumber, CustomerType value)
+        {
+            GetDB((c) => c.Query<CustomerType>("CreateCustomerType @OrderNumber,  @Value", new { OrderNumber = orderNumber, Value = (int)value}));
+        }
+        #endregion
+
         #region Reservation
         public List<Reservation> GetAllReservationsWithMissingInvoice()
         {
@@ -39,20 +52,16 @@ namespace ZAPBeachCampingLib
 
         public Reservation GetReservations(int orderNumber)
         {
-            return GetDB((c) => c.Query<Reservation>("GetReservation @OrderNumber", new Reservation { OrderNumber = orderNumber }).FirstOrDefault());
+            return GetDB((c) => c.Query<Reservation>("GetReservation @OrderNumber", new { OrderNumber = orderNumber }).FirstOrDefault());
         }
 
         public Reservation MarkReservationAsSent(int orderNumber)
         {
-            return GetDB((c) => c.Query<Reservation>("MarkReservationAsSent @OrderNumber", new Reservation { OrderNumber = orderNumber }).FirstOrDefault());
+            return GetDB((c) => c.Query<Reservation>("MarkReservationAsSent @OrderNumber", new { OrderNumber = orderNumber }).FirstOrDefault());
         }
         #endregion
 
-        // Prøv at teste om dette virker, er ikke sikker
-        public void CreateCustomerTypes(int orderNumber, CustomerType customerType)
-        {
-            GetDB((c) => c.Query<CustomerType>("CreateCustomerType @OrderNumber @CustomerType,  @Value", new { OrderNumber = orderNumber, CustomerType = (int)customerType }));
-        }
+
 
         private T GetDB<T>(Func<IDbConnection, T> func)
         {

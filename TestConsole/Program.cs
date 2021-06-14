@@ -13,9 +13,17 @@ namespace TestConsole
         {
             Manager manager = new Manager();
 
+
             //foreach (Reservation reservation in manager.GetAllReservationsWithMissingInvoice())
             //{
-            //    Console.WriteLine(reservation.OrderNumber);
+            //    Console.WriteLine($"OrderNumber: {reservation.OrderNumber}");
+            //    Console.WriteLine($"CustomerEmail: {reservation.Customer.Email}");
+            //    //Console.WriteLine($"SpotNumber: {reservation.Spot.Number}");
+            //    Console.WriteLine($"Total Price: {reservation.TotalPrice}");
+            //    Console.WriteLine($"StartDate: {reservation.StartDate}");
+            //    Console.WriteLine($"EndDate: {reservation.EndDate}");
+            //    Console.WriteLine($"IsInvoiceSent: {reservation.IsInvoiceSent}");
+            //    Console.WriteLine();
             //}
 
 
@@ -26,9 +34,18 @@ namespace TestConsole
 
             //Console.WriteLine(manager.GetReservations(2).Customer.FirstName);
 
+
+            Console.WriteLine(manager.GetReservations(2).Customer.FirstName);
+
             //Console.WriteLine(manager.GetCustomer("Test@gmail.com").FirstName);
 
-            Console.WriteLine(manager.MarkReservationAsSent(11));
+            //Console.WriteLine(manager.MarkReservationAsSent(11));
+
+            //manager.CreateCustomerTypes(10, CustomerType.Adult);
+
+
+            //Console.WriteLine(manager.GetCustomerType(10));
+
 
         }
     }
