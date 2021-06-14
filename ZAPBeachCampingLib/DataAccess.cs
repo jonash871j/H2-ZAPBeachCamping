@@ -51,7 +51,7 @@ namespace ZAPBeachCampingLib
         // Prøv at teste om dette virker, er ikke sikker
         public void CreateCustomerTypes(int orderNumber, CustomerType customerType)
         {
-            GetDB((c) => c.Query<Reservation>("CreateCustomerType @OrderNumber @CustomerType,  @Value", new { OrderNumber = orderNumber, CustomerType = (int)customerType }).FirstOrDefault());
+            GetDB((c) => c.Query<CustomerType>("CreateCustomerType @OrderNumber @CustomerType,  @Value", new { OrderNumber = orderNumber, CustomerType = (int)customerType }));
         }
 
         private T GetDB<T>(Func<IDbConnection, T> func)
