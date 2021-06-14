@@ -18,9 +18,17 @@ namespace TestConsole
             //    Console.WriteLine(reservation.OrderNumber);
             //}
 
-            Console.WriteLine(manager.GetReservations(2).Customer.FirstName);
 
-            Console.WriteLine(manager.GetCustomer("Test@gmail.com").FirstName);
+            //foreach (Addition addition in manager.GetAllAddtion())
+            //{
+            //    Console.WriteLine($"{addition.Name} {addition.Price}");
+            //}
+
+            //Console.WriteLine(manager.GetReservations(2).Customer.FirstName);
+
+            //Console.WriteLine(manager.GetCustomer("Test@gmail.com").FirstName);
+
+            Console.WriteLine(manager.MarkReservationAsSent(11));
 
         }
     }

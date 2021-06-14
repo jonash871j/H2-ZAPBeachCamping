@@ -10,10 +10,39 @@ namespace ZAPBeachCampingLib
     {
         private DataAccess dal = new DataAccess();
 
+        #region Addition
+        public List<Addition> GetAllAddtion()
+        {
+            return dal.GetAllAddtion();
+        }
+        #endregion
+
+       
+
+        #region Customers
+
+        public Customer GetCustomer(string email)
+        {
+            return dal.GetCustomer(email);
+        }
+        #endregion
+
+        #region CustomerTypes
+
+
+
+        #endregion
+
+        #region ReservationAddition
+
+        #endregion
+
+        #region Reservation
         public List<Reservation> GetAllReservationsWithMissingInvoice()
         {
             return dal.GetAllReservationsWithMissingInvoice();
         }
+
 
         public Reservation GetReservations(int orderNumber)
         {
@@ -22,9 +51,10 @@ namespace ZAPBeachCampingLib
             return reservation;
         }
 
-        public Customer GetCustomer(string email)
+        public Reservation MarkReservationAsSent(int orderNumber)
         {
-            return dal.GetCustomer(email);
+            return dal.MarkReservationAsSent(orderNumber);
         }
+        #endregion
     }
 }

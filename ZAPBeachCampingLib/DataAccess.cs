@@ -13,27 +13,41 @@ namespace ZAPBeachCampingLib
     {
 
         private const string CONNECTION = "Server=ZBC-E-RO-23239\\MSSQLSERVER01;Database=Website;Trusted_Connection=True;";
-        public List<Reservation> GetAllReservationsWithMissingInvoice()
-        {
-            using (IDbConnection connection = new SqlConnection(CONNECTION))
-            {
-                var output = connection.Query<Reservation>("GetAllReservationsWithMissingInvoice").ToList();
-                return output;
-            }
-        }
 
-        public Reservation GetReservations(int orderNumber)
+
+        #region Additions
+        public List<Addition> GetAllAddtion()
         {
-            using (IDbConnection connection = new SqlConnection(CONNECTION))
-            {
-                return connection.Query<Reservation>("GetReservation @OrderNumber", new Reservation { OrderNumber = orderNumber}).FirstOrDefault();
-            }
+            return GetDB((c) => c.Query<Addition>("GetAllAddtions").ToList());
         }
+        #endregion
+
+        #region Customer
 
         public Customer GetCustomer(string email)
         {
             return GetDB((c) => c.Query<Customer>("GetCustomer @Email", new Customer { Email = email }).FirstOrDefault());
         }
+        #endregion
+
+        #region Reservation
+        public List<Reservation> GetAllReservationsWithMissingInvoice()
+        {
+
+            return GetDB((c) => c.Query<Reservation>("GetAllReservationsWithMissingInvoice").ToList());
+        }
+
+        public Reservation GetReservations(int orderNumber)
+        {
+            return GetDB((c) => c.Query<Reservation>("GetReservation @OrderNumber", new Reservation { OrderNumber = orderNumber }).FirstOrDefault());
+        }
+
+        public Reservation MarkReservationAsSent(int orderNumber)
+        {
+            return GetDB((c) => c.Query<Reservation>("MarkReservationAsSent @OrderNumber", new Reservation { OrderNumber = orderNumber }).FirstOrDefault());
+        }
+        #endregion
+
 
 
         private T GetDB<T>(Func<IDbConnection, T> func)

@@ -14,6 +14,10 @@ namespace ZAPBeachCampingLib
 
         #region Constructors
 
+        internal Addition() 
+        {
+        }
+
         public Addition(string name, double price, bool isDaily)
         {
             Name = name;
