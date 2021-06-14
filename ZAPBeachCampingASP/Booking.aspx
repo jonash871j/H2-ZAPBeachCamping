@@ -199,12 +199,38 @@
                                                 Udsigt til vandet (daglig betaling)
                                             </label>
                                         </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Slutrengøring i hytte
+                                            </label>
+                                        </div>
                                     </fieldset>
                                     <button id="bn_previewsTab" type="button" class="btn btn-primary mt-4">Beregn pris</button>
                                 </div>
                                 <%-- Tab 3: Additions --%>
                                 <div id="dv_orderTab3" class="block: none;">
-                                    <h4>Side 3</h4>
+                                    <h4>Tillægsydelser</h4>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Morgenkomplet (voksen)</label>
+                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Morgenkomplet (barn)</label>
+                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Adgang til badeland (voksen)</label>
+                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Adgang til badeland (barn)</label>
+                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Cykelleje (daglig betalning)</label>
+                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                    </div>
                                 </div>
                                 <%-- Tab 4: Your information --%>
                                 <div id="dv_orderTab4" class="block: none;">
@@ -239,36 +265,51 @@
                                     <h4>Tak for din besilling!</h4>
                                 </div>
                             </div>
-                            <div class="col-7 row">
-                                <div class="col-4">
-                                    <h6>Ankomst dato: </h6>
-                                    <h6>Hjem dato: </h6>
-                                    <h6 class="mt-4">Antal voksne: </h6>
-                                    <h6>Antal børn: </h6>
-                                    <h6>Antal hunde: </h6>
-                                    <h6 class="mt-4">Camping type: </h6>
-                                    <h6>Camping indstilling: </h6>
-                                    <h6>Udsigt til vandet: </h6>
+                            <%-- Booking order --%>
+                            <div class="col-7">
+                                <h4>Din ordre</h4>
+                                <div class="mt-3 row">
+                                    <div class="col-4">
+                                        <h6>Ankomst dato: </h6>
+                                        <h6>Hjem dato: </h6>
+                                        <h6>Sæson: </h6>
+                                        <h6 class="mt-4">Antal voksne: </h6>
+                                        <h6>Antal børn: </h6>
+                                        <h6>Antal hunde: </h6>
+                                        <h6 class="mt-4">Camping type: </h6>
+                                        <h6>Camping indstilling: </h6>
+                                        <h6>Udsigt til vandet: </h6>
+                                        <h6>Slutrengøring i hytte: </h6>
+                                    </div>
+                                    <div class="col-4">
+                                        <h6>22-07-2018</h6>
+                                        <h6>22-07-2018</h6>
+                                        <h6>Højsæson</h6>
+                                        <h6 class="mt-4">1</h6>
+                                        <h6>0</h6>
+                                        <h6>0</h6>
+                                        <h6 class="mt-4">Campingvogn</h6>
+                                        <h6>Stor plads</h6>
+                                        <h6>Nej</h6>
+                                        <h6>Nej</h6>
+                                    </div>
+                                    <div class="col-4">
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <h6 class="mt-4">82,- pr. rejsende</h6>
+                                        <h6>42,- pr. rejsende</h6>
+                                        <h6>30,- pr. rejsende</h6>
+                                        <h6 class="mt-4">
+                                            <br />
+                                        </h6>
+                                        <h6>80,- pr. dag</h6>
+                                        <h6>0,-</h6>
+                                        <h6>0,-</h6>
+                                        <h6></h6>
+                                    </div>
                                 </div>
-                                <div class="col-4">
-                                    <h6>22-07-2018</h6>
-                                    <h6>22-07-2018</h6>
-                                    <h6 class="mt-4">1</h6>
-                                    <h6>0</h6>
-                                    <h6>0</h6>
-                                    <h6 class="mt-4">Campingvogn</h6>
-                                    <h6>Stor plads</h6>
-                                    <h6>Nej</h6>
-                                </div>
-                                <div class="col-4">
-                                    <h6> </h6>
-                                    <h6> </h6>
-                                    <h6 class="mt-4">82,- pr. rejsende</h6>
-                                    <h6>42,- pr. rejsende</h6>
-                                    <h6>30,- pr. rejsende</h6>
-                                    <h6 class="mt-4"> </h6>
-                                    <h6></h6>
-                                </div>
+                                <h4 class="mt-5" style="text-align: right;">Total 1000,00 kr.</h4>
                             </div>
                         </div>
                     </div>
