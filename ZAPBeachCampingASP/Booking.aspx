@@ -26,8 +26,6 @@
 
             <nav class="navbar navbar-expand navbar-dark bg-primary">
                 <div class="container-fluid">
-
-
                     <div class="collapse navbar-collapse" id="navbarColor01">
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item">
@@ -55,7 +53,7 @@
                         <div class="row">
                             <div class="col-2"></div>
                             <div class="col-2"><strong>1. Rejseperiode</strong></div>
-                            <div class="col-2"><strong>2. Camping placering</strong></div>
+                            <div class="col-2"><strong>2. Campingplads</strong></div>
                             <div class="col-2"><strong>3. Tillægsydelser</strong></div>
                             <div class="col-2"><strong>4. Dine oplysninger</strong></div>
                             <div class="col-2"></div>
@@ -64,7 +62,7 @@
 
                         <div class="row">
                             <div class="col-2">
-                                <button id="bn_previewsTab" type="button" class="btn btn-primary disabled" onclick="PreviewsTab();" style="float: right;">Tilbage</button>
+                                <button id="bn_previewsTab" type="button" class="btn btn-primary disabled" onclick="progressHandler.previewsTab();" style="float: right;">Tilbage</button>
                             </div>
                             <div class="col-8">
                                 <div class="progress mt-2" style="background-color: #e3e3e3;">
@@ -72,22 +70,123 @@
                                 </div>
                             </div>
                             <div class="col-2">
-                                <button id="bn_nextTab" type="button" class="btn btn-primary" onclick="NextTab();">Næste</button>
+                                <button id="bn_nextTab" type="button" class="btn btn-primary" onclick="progressHandler.nextTab();">Næste</button>
                             </div>
                         </div>
 
                         <hr />
                         <div class="row box-padding">
-                            <div class="col-5">
+                            <div class="col-6">
                                 <%-- Tab 1: Travelperiod --%>
                                 <div id="dv_orderTab1">
-                                    <h4>Vælg ankomst dato</h4>
-                                    <input class="form-control" type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+                                    <div id="dv_travelperiodTab1">
+                                        <h4>Vælg ankomst dato</h4>
+                                        <input class="form-control" type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
 
-                                    <h4 class="mt-4">Vælg hjem dato</h4>
-                                    <input class="form-control" type="date" id="end" name="trip-end" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+                                        <h4 class="mt-4">Vælg hjem dato</h4>
+                                        <input class="form-control" type="date" id="end" name="trip-end" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+                                    </div>
+                                    <div id="dv_travelperiodTab2">
+                                        <h4>Sæsonplads</h4>
+                                        <div class="form-check disabled">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings1" checked="">
+                                                Forår 1. april til 30. juni (4.100,-)
+                                            </label>
+                                        </div>
+                                        <div class="form-check disabled">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings2">
+                                                Sommer 1. april til 30. semptember (9.300,-)
+                                            </label>
+                                        </div>
+                                        <div class="form-check disabled">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings3">
+                                                Efterår 15. august til 31. oktober (2.900,-)
+                                            </label>
+                                        </div>
+                                        <div class="form-check disabled">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings4">
+                                                Vinter 1. oktober til 31. marts (3.500,-)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check mt-4">
+                                        <input class="form-check-input" type="checkbox" value="" id="cb_seasonSite" onclick="travelperiodHandler.seasonSiteSelectionChanged();" />
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Sæsonplads
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <%-- Tab 2: Campingsite --%>
+                                <div id="dv_orderTab2">
+                                    <h4>Vælg camping type</h4>
+                                    <fieldset class="form-group">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" name="rb_campingType" id="rb_campingType1" checked="" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                Campingvogn
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" name="rb_campingType" id="rb_campingType2" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                Telt
+                                            </label>
+                                        </div>
+                                        <div class="form-check disabled">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input" name="rb_campingType" id="rb_campingType3" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                Hytte
+                                            </label>
+                                        </div>
+                                    </fieldset>
+                                    <h4 class="mt-4">Vælg camping indstilling</h4>
+                                    <fieldset class="form-group">
+                                        <div id="dv_campingSettingsTab1">
+                                            <div class="form-check disabled">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="rb_campingSettings1" id="optionsRadios4" value="option3" value="option1" checked="">
+                                                    Lille plads (pr. dag høj: 60,- lav: 50,-)
+                                                </label>
+                                            </div>
+                                            <div class="form-check disabled">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="rb_campingSettings1" id="optionsRadios5" value="option3">
+                                                    Stor plads (pr. dag høj: 80,- lav: 65,-)
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div id="dv_campingSettingsTab2">
+                                            <div class="form-check disabled">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="rb_campingSettings2" id="optionsRadios6" value="option3" checked="">
+                                                    Telt plads (pr. dag høj: 35,- lav: 45,-)
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div id="dv_campingSettingsTab3">
+                                            <div class="form-check disabled">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="rb_campingSettings3" id="optionsRadios7" value="option3" checked="">
+                                                    Standard hytte (pr. dag høj: 500,- lav: 350,-)
+                                                </label>
+                                            </div>
+                                            <div class="form-check disabled">
+                                                <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="rb_campingSettings3" id="optionsRadios8" value="option3">
+                                                    Luksus hytte (pr. dag høj: 850,- lav: 600,-)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
 
                                     <h4 for="exampleSelect2" class="form-label mt-4">Antal rejsende</h4>
+
                                     <div class="row">
                                         <div class="col-4">
                                             <label>Voksne</label>
@@ -95,119 +194,62 @@
                                         </div>
                                         <div class="col-4">
                                             <label>Børn</label>
-                                            <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                            <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="1">
                                         </div>
                                         <div class="col-4">
                                             <label>Hunde</label>
-                                            <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                            <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="1">
                                         </div>
+
                                     </div>
 
-                                </div>
 
-                                <%-- Tab 2: Camping site --%>
-                                <div id="dv_orderTab2" class="block: none;">
-                                    <h4>Vælg camping type</h4>
-                                    <fieldset class="form-group">
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingType" id="optionsRadios0" value="option1" checked="">
-                                                Campingvogn
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingType" id="optionsRadios1" value="option1">
-                                                Campingvogn m. sæsonplads
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingType" id="optionsRadios2" value="option2">
-                                                Telt
-                                            </label>
-                                        </div>
-                                        <div class="form-check disabled">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingType" id="optionsRadios3" value="option3">
-                                                Hytte
-                                            </label>
-                                        </div>
-                                    </fieldset>
-                                    <h4 class="mt-4">Vælg camping indstilling</h4>
-                                    <fieldset class="form-group">
-                                        <div class="form-check disabled">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingSettings" id="optionsRadios4" value="option3" value="option1" checked="">
-                                                Lille plads 
-                                            </label>
-                                        </div>
-                                        <div class="form-check disabled">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingSettings" id="optionsRadios5" value="option3">
-                                                Stor plads 
-                                            </label>
-                                        </div>
-                                        <div class="form-check disabled">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingSettings" id="optionsRadios6" value="option3">
-                                                Telt plads
-                                            </label>
-                                        </div>
-                                        <div class="form-check disabled">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingSettings" id="optionsRadios7" value="option3">
-                                                Standard hytte
-                                            </label>
-                                        </div>
-                                        <div class="form-check disabled">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingSettings" id="optionsRadios8" value="option3">
-                                                Luksus hytte
-                                            </label>
-                                        </div>
-                                        <div class="form-check disabled">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingSettings" id="optionsRadios8" value="option3">
-                                                Forår 1. april til 30. juni
-                                            </label>
-                                        </div>
-                                        <div class="form-check disabled">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingSettings" id="optionsRadios8" value="option3">
-                                                Sommer 1. april til 30. semptember
-                                            </label>
-                                        </div>
-                                        <div class="form-check disabled">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingSettings" id="optionsRadios8" value="option3">
-                                                Efterår 15. august til 31. oktober
-                                            </label>
-                                        </div>
-                                        <div class="form-check disabled">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingSettings" id="optionsRadios8" value="option3">
-                                                Vinter 1. oktober til 31. marts
-                                            </label>
-                                        </div>
-                                    </fieldset>
-                                    <h4 class="mt-4">Andet</h4>
-                                    <fieldset class="form-group">
+
+                                    <label class="mt-3">Hver voksen koster pr. dag høj: 50,- lav: 50,-</label>
+                                    <label>Hver barn koster pr. dag høj: 50,- lav: 50,-</label>
+                                    <label>Hver hund koster pr. dag høj: 50,- lav: 50,-</label>
+
+                                </div>
+                                <%-- Tab 3: Additions --%>
+                                <div id="dv_orderTab3">
+                                    <h4>Tillægsydelser</h4>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Morgenkomplet 75,- pr. voksen</label>
+                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Morgenkomplet 50,- pr. barn</label>
+                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Adgang til badeland badeland 30,- pr. voksen</label>
+                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Adgang til badeland 15,- pr. barn</label>
+                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">Cykelleje 200,- pr dag</label>
+                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
+                                    </div>
+                                    <fieldset class="form-group mt-3">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
-                                                Udsigt til vandet (daglig betaling)
+                                                Udsigt til vandet (75,- pr. dag)
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Slutrengøring i hytte (150,-)
                                             </label>
                                         </div>
                                     </fieldset>
-                                    <button id="bn_previewsTab" type="button" class="btn btn-primary mt-4">Beregn pris</button>
-                                </div>
-                                <%-- Tab 3: Additions --%>
-                                <div id="dv_orderTab3" class="block: none;">
-                                    <h4>Side 3</h4>
                                 </div>
                                 <%-- Tab 4: Your information --%>
-                                <div id="dv_orderTab4" class="block: none;">
+                                <div id="dv_orderTab4">
                                     <h4>Dine oplysninger</h4>
                                     <div class="form-group mt-3">
                                         <label class="form-label">Fornavn</label>
@@ -235,40 +277,40 @@
                                     </div>
                                 </div>
                                 <%-- Tab 5: Order successful --%>
-                                <div id="dv_orderTab5" class="block: none;">
+                                <div id="dv_orderTab5">
                                     <h4>Tak for din besilling!</h4>
                                 </div>
                             </div>
-                            <div class="col-7 row">
-                                <div class="col-4">
-                                    <h6>Ankomst dato: </h6>
-                                    <h6>Hjem dato: </h6>
-                                    <h6 class="mt-4">Antal voksne: </h6>
-                                    <h6>Antal børn: </h6>
-                                    <h6>Antal hunde: </h6>
-                                    <h6 class="mt-4">Camping type: </h6>
-                                    <h6>Camping indstilling: </h6>
-                                    <h6>Udsigt til vandet: </h6>
+                            <%-- Booking order --%>
+                            <div class="col-6">
+                                <h4>Din ordre</h4>
+                                <div class="mt-3 row">
+                                    <div class="col-6">
+                                        <h6>Ankomst dato: </h6>
+                                        <h6>Hjem dato: </h6>
+                                        <h6 class="mt-4">Antal voksne: </h6>
+                                        <h6>Antal børn: </h6>
+                                        <h6>Antal hunde: </h6>
+                                        <h6 class="mt-4">Camping type: </h6>
+                                        <h6>Camping indstilling: </h6>
+                                        <h6>Udsigt til vandet: </h6>
+                                        <h6>Slutrengøring i hytte: </h6>
+                                        <h6 class="mt-4">Antal tilægsydelser: </h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6>22-07-2018</h6>
+                                        <h6>22-07-2018</h6>
+                                        <h6 class="mt-4">1</h6>
+                                        <h6>0</h6>
+                                        <h6>0</h6>
+                                        <h6 class="mt-4">Campingvogn</h6>
+                                        <h6>Stor plads</h6>
+                                        <h6>Nej</h6>
+                                        <h6>Nej</h6>
+                                        <h6 class="mt-4">4</h6>
+                                    </div>
                                 </div>
-                                <div class="col-4">
-                                    <h6>22-07-2018</h6>
-                                    <h6>22-07-2018</h6>
-                                    <h6 class="mt-4">1</h6>
-                                    <h6>0</h6>
-                                    <h6>0</h6>
-                                    <h6 class="mt-4">Campingvogn</h6>
-                                    <h6>Stor plads</h6>
-                                    <h6>Nej</h6>
-                                </div>
-                                <div class="col-4">
-                                    <h6> </h6>
-                                    <h6> </h6>
-                                    <h6 class="mt-4">82,- pr. rejsende</h6>
-                                    <h6>42,- pr. rejsende</h6>
-                                    <h6>30,- pr. rejsende</h6>
-                                    <h6 class="mt-4"> </h6>
-                                    <h6></h6>
-                                </div>
+                                <h4 class="mt-5" style="text-align: right;">Total 1000,00 kr.</h4>
                             </div>
                         </div>
                     </div>
