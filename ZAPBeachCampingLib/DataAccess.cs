@@ -33,10 +33,6 @@ namespace ZAPBeachCampingLib
         public Customer GetCustomer(string email)
         {
             return GetDB((c) => c.Query<Customer>("GetCustomer @Email", new Customer { Email = email }).FirstOrDefault());
-            //using (IDbConnection connection = new SqlConnection(CONNECTION))
-            //{
-            //    return connection.Query<Customer>("GetCustomer @Email", new Customer { Email = email}).FirstOrDefault();
-            //}
         }
 
 
