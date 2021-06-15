@@ -15,6 +15,10 @@ namespace ZAPBeachCampingLib
         #endregion
 
         #region Constructors
+
+        internal Spot()
+        {
+        }
         public Spot(string number, SpotType spotType, bool isGoodView, Dictionary<string, Price> prices)
         {
             Number = number;

@@ -13,6 +13,10 @@ namespace ZAPBeachCampingLib
             {"SPOT_FEE", new Price(35, 45) },
         };
 
+        internal TentSpot()
+        {
+        }
+
         public TentSpot(string number, bool isGoodView) 
             : base(number, SpotType.TentSite, isGoodView, prices)
         {

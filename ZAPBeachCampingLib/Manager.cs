@@ -29,65 +29,64 @@ namespace ZAPBeachCampingLib
 
         #region CustomerTypes
 
-        public List<CustomerType> GetCustomerType(int orderNumber)
+        public List<CustomerType> GetCustomerTypes(int orderNumber)
         {
 
-            //return dal.GetCustomerType(orderNumber);
-            List<CustomerType> customerTypes = new List<CustomerType>();
-
-            foreach (CustomerType customerType in dal.GetCustomerType(orderNumber))
-            {
-                customerTypes.Add(customerType);
-            }
-            return customerTypes;
+            return dal.GetCustomerType(orderNumber);
         }
 
         public void CreateCustomerTypes(int orderNumber, CustomerType value)
         {
             dal.CreateCustomerTypes(orderNumber, value);
         }
-
-
-
-        #endregion
-
-        #region ReservationAddition
-
         #endregion
 
         #region Reservation
         public List<Reservation> GetAllReservationsWithMissingInvoice()
         {
-            List<Reservation> reservations = new List<Reservation>();
-            foreach (Reservation reservation in dal.GetAllReservationsWithMissingInvoice())
-            {
-                reservations.Add(GetReservations(reservation.OrderNumber));
-            }
-            return reservations;
+            return GetFullReservations(dal.GetAllReservationsWithMissingInvoice());
         }
 
-
-        public Reservation GetReservations(int orderNumber)
+        public Reservation GetReservation(int orderNumber)
         {
-            Reservation reservation = dal.GetReservations(orderNumber);
+            Reservation reservation = dal.GetReservation(orderNumber);
             reservation.Customer = GetCustomer(reservation.CustomerEmail);
-
-            reservation.CustomerTypes = GetCustomerType(reservation.OrderNumber);
-
-
-            //reservation.Additions = GetAllAddtion();
-
-            //reservation.CustomerTypes = Mangler
-            //reservation.Additions = Mangler
-            // reservation.Spot = Mangler, vent til i morgen
+            reservation.CustomerTypes = dal.GetCustomerType(reservation.OrderNumber);
+            reservation.Additions = dal.GetReservationAdditions(orderNumber);
+            reservation.Spot = dal.GetSpot(reservation.SpotNumber);
+            
             return reservation;
         }
 
-        public Reservation MarkReservationAsSent(int orderNumber)
+        public void MarkReservationAsSent(int orderNumber)
         {
-            // Det samme gælder her, du retunere kun noget af reservations objektet
-            return dal.MarkReservationAsSent(orderNumber);
+            dal.MarkReservationAsSent(orderNumber);
         }
         #endregion
+
+        public List<Spot> GetSpotsBySearch(DateTime startDate, DateTime endDate, SpotType spotType, bool isGoodView)
+        {
+            List<Spot> spots = dal.GetSpotsBySearch(spotType, isGoodView);
+
+            foreach(string unavaibleSpotNumber in dal.GetAllUnavailbleSpotNumbersBetweenDate(startDate, endDate))
+            {
+                Spot spotToRemove = spots.SingleOrDefault(s => s.Number == unavaibleSpotNumber);
+                if (spotToRemove != null)
+                {
+                    spots.Remove(spotToRemove);
+                }
+            }
+            return spots;
+        }
+
+        private List<Reservation> GetFullReservations(List<Reservation> reservations) 
+        {
+            List<Reservation> fullReservations = new List<Reservation>();
+            foreach (Reservation reservation in reservations)
+            {
+                fullReservations.Add(GetReservation(reservation.OrderNumber));
+            }
+            return fullReservations;
+        }
     }
 }

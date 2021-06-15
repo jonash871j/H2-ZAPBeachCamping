@@ -21,6 +21,11 @@ namespace ZAPBeachCampingLib
 
         public CampingType CampingType { get; set; }
 
+        internal CampingSpot()
+        {
+
+        }
+
         public CampingSpot(string number, bool isGoodView, CampingType campingType) 
             : base(number, SpotType.CampingSite, isGoodView, prices)
         {

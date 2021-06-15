@@ -11,6 +11,7 @@ namespace ZAPBeachCampingLib
         public Customer Customer { get; internal set; }
         internal string CustomerEmail { get; set; }
         public Spot Spot { get; internal set; }
+        internal string SpotNumber { get; set; }
         public double TotalPrice { get; internal set; }
         public DateTime StartDate { get; internal set; }
         public DateTime EndDate { get; internal set; }

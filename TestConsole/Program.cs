@@ -35,7 +35,7 @@ namespace TestConsole
             //Console.WriteLine(manager.GetReservations(2).Customer.FirstName);
 
 
-            Console.WriteLine(manager.GetReservations(2).Customer.FirstName);
+            //Console.WriteLine(manager.GetReservations(2).Customer.FirstName);
 
             //Console.WriteLine(manager.GetCustomer("Test@gmail.com").FirstName);
 
@@ -43,10 +43,21 @@ namespace TestConsole
 
             //manager.CreateCustomerTypes(10, CustomerType.Adult);
 
+            Reservation r = manager.GetReservation(10);
 
-            //Console.WriteLine(manager.GetCustomerType(10));
+            Console.WriteLine(r.Customer.FirstName);
 
+            foreach (CustomerType item in r.CustomerTypes)
+            {
+                Console.WriteLine(item);
+            }
 
+            foreach (Addition item in r.Additions)
+            {
+                Console.WriteLine(item.Name);
+            }
+
+            Console.WriteLine(r.Spot.Number);
         }
     }
 }

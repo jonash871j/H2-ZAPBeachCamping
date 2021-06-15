@@ -39,7 +39,16 @@ namespace ZAPBeachCampingLib
 
         public void CreateCustomerTypes(int orderNumber, CustomerType value)
         {
-            GetDB((c) => c.Query<CustomerType>("CreateCustomerType @OrderNumber,  @Value", new { OrderNumber = orderNumber, Value = (int)value}));
+            GetDB((c) => c.Query<CustomerType>("CreateCustomerType @OrderNumber,  @Value", new { OrderNumber = orderNumber, Value = (int)value }));
+        }
+        #endregion
+
+
+        #region ReservationAdditions
+
+        public List<Addition> GetReservationAdditions(int orderNumber)
+        {
+            return GetDB((c) => c.Query<Addition>("GetReservationAdditions @OrderNumber", new { OrderNumber = orderNumber })).ToList();
         }
         #endregion
 
@@ -50,18 +59,66 @@ namespace ZAPBeachCampingLib
             return GetDB((c) => c.Query<Reservation>("GetAllReservationsWithMissingInvoice").ToList());
         }
 
-        public Reservation GetReservations(int orderNumber)
+        public Reservation GetReservation(int orderNumber)
         {
             return GetDB((c) => c.Query<Reservation>("GetReservation @OrderNumber", new { OrderNumber = orderNumber }).FirstOrDefault());
         }
 
-        public Reservation MarkReservationAsSent(int orderNumber)
+        public void MarkReservationAsSent(int orderNumber)
         {
-            return GetDB((c) => c.Query<Reservation>("MarkReservationAsSent @OrderNumber", new { OrderNumber = orderNumber }).FirstOrDefault());
+            GetDB((c) => c.Query<Reservation>("MarkReservationAsSent @OrderNumber", new { OrderNumber = orderNumber }).FirstOrDefault());
         }
         #endregion
 
 
+        #region Spots
+
+        public List<Spot> GetSpotsBySearch(SpotType spotType, bool isGoodView)
+        {
+            switch (spotType)
+            {
+                case SpotType.TentSite:
+                    return new List<Spot>(GetDB((c) => c.Query<TentSpot>("GetSiteBySearch @IsGoodView", new { IsGoodView = isGoodView }).ToList()));
+                case SpotType.CampingSite:
+                    return new List<Spot>(GetDB((c) => c.Query<CampingSpot>("GetCampingSiteBySearch @IsGoodView", new { IsGoodView = isGoodView }).ToList()));
+                case SpotType.HutSite:
+                    return new List<Spot>(GetDB((c) => c.Query<HutSpot>("GetHutSiteBySearch @IsGoodView", new { IsGoodView = isGoodView }).ToList()));
+                default:
+                    return null;
+            }
+        }
+        public Spot GetSpot(string spotNumber)
+        {
+            Spot spot = GetDB((c) => c.Query<TentSpot>("GetSite @Number", new { Number = spotNumber }).FirstOrDefault());
+
+            switch (spot.SpotType)
+            {
+                case SpotType.TentSite:
+                    return (GetDB((c) => c.Query<TentSpot>("GetSite @Number", new { Number = spotNumber }).FirstOrDefault()));
+                case SpotType.CampingSite:
+                    return (GetDB((c) => c.Query<CampingSpot>("GetCampingSite @Number", new { Number = spotNumber }).FirstOrDefault()));
+                case SpotType.HutSite:
+                    return (GetDB((c) => c.Query<HutSpot>("GetHutSite @Number", new { Number = spotNumber }).FirstOrDefault()));
+                default:
+                    return null;
+            }
+        }
+
+        public List<string> GetAllUnavailbleSpotNumbersBetweenDate(DateTime startDate, DateTime endDate)
+        {
+            return GetDB((c) => c.Query<string>("GetAllSpotNumbersBetweenDate @StartDate, @EndDate", new { StartDate = startDate, EndDate = endDate }).ToList());
+        }
+
+        public HutSpot GetHutSpot(string number)
+        {
+            return GetDB((c) => c.Query<HutSpot>("GetHutSpotBySearch @Number", new { Number = number }).FirstOrDefault());
+        }
+
+        public CampingSpot GetCampingSpot(string number)
+        {
+            return GetDB((c) => c.Query<CampingSpot>("GetCampingSpot @Number", new { Number = number }).FirstOrDefault());
+        }
+        #endregion
 
         private T GetDB<T>(Func<IDbConnection, T> func)
         {

@@ -16,6 +16,10 @@ namespace ZAPBeachCampingLib
         };
         public HutType HutType{ get; private set; }
         public bool IsCleaned { get; set; } = true;
+
+        internal HutSpot()
+        {
+        }
         public HutSpot(string number, bool isGoodView, HutType hutType) 
             : base(number, SpotType.HutSite, isGoodView, prices)
         {

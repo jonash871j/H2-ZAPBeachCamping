@@ -7,12 +7,13 @@ INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Adgang til badeland (
 INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Adgang til badeland (børn)', 15, 0);
 
 INSERT INTO Spots(Number, SpotType, IsGoodView) VALUES('2', 2, 0);
+INSERT INTO CampingSpots(Number, CampingType) VALUES('2', 0);
 INSERT INTO Spots(Number, SpotType, IsGoodView) VALUES('3', 2, 0);
+INSERT INTO CampingSpots(Number, CampingType) VALUES('3', 0);
 INSERT INTO Spots(Number, SpotType, IsGoodView) VALUES('4', 2, 0);
+INSERT INTO CampingSpots(Number, CampingType) VALUES('4', 1);
 
 INSERT INTO Spots(Number, SpotType, IsGoodView) VALUES('H1', 3, 1);
-INSERT INTO HutSpots(Number, IsCleaned, HutType) VALUES('H1', 1, 1);
-INSERT INTO Spots(Number, SpotType, IsGoodView) VALUES('H2', 3, 1);
 INSERT INTO HutSpots(Number, IsCleaned, HutType) VALUES('H2', 1, 1);
 INSERT INTO Spots(Number, SpotType, IsGoodView) VALUES('H3', 3, 1);
 INSERT INTO HutSpots(Number, IsCleaned, HutType) VALUES('H3', 1, 1);
