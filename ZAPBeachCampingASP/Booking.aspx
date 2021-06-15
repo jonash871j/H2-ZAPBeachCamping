@@ -71,6 +71,8 @@
                             </div>
                             <div class="col-2">
                                 <button id="bn_nextTab" type="button" class="btn btn-primary" onclick="progressHandler.nextTab();">Næste</button>
+                                <asp:Button runat="server" ID="TB_Order" CssClass="btn btn-primary"  OnClick="TB_Order_Click" OnClientClick="return orderData.update();" Text="Bestil" />
+                                <input type="hidden" name="HF_Customer" id="HF_Customer" value="" />
                             </div>
                         </div>
 
@@ -253,27 +255,27 @@
                                     <h4>Dine oplysninger</h4>
                                     <div class="form-group mt-3">
                                         <label class="form-label">Fornavn</label>
-                                        <input class="form-control" placeholder="Intast fornavn">
+                                        <input id="tb_firstName" class="form-control" placeholder="Intast fornavn">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label class="form-label">Efternavn</label>
-                                        <input class="form-control" placeholder="Intast efternavn">
+                                        <input id="tb_lastName" class="form-control" placeholder="Intast efternavn">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" placeholder="Intast email">
+                                        <input id="tb_email" type="email" class="form-control" placeholder="Intast email">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label class="form-label">Telefonnummer</label>
-                                        <input type="email" class="form-control" placeholder="Intast telefonnummer">
+                                        <input id="tb_phoneNumber" class="form-control" placeholder="Intast telefonnummer">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label class="form-label">Adresse</label>
-                                        <input class="form-control" placeholder="Intast adresse">
+                                        <input id="tb_address" class="form-control" placeholder="Intast adresse">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label class="form-label">By</label>
-                                        <input class="form-control" placeholder="Intast by">
+                                        <input id="tb_city" class="form-control" placeholder="Intast by">
                                     </div>
                                 </div>
                                 <%-- Tab 5: Order successful --%>

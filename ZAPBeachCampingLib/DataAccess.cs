@@ -11,7 +11,6 @@ namespace ZAPBeachCampingLib
 {
     internal class DataAccess
     {
-
         private const string CONNECTION = "Server=ZBC-E-RO-23239\\MSSQLSERVER01;Database=Website;Trusted_Connection=True;";
 
 
@@ -53,9 +52,19 @@ namespace ZAPBeachCampingLib
         #endregion
 
         #region Reservation
+        public void CreateReservation(Reservation reservation)
+        {
+            Reservation r = reservation;
+            Customer c = reservation.Customer;
+            Spot s = reservation.Spot;
+
+            GetDB(con => con.Query<Reservation>("CreateReservation @Email, @Firstname, " +
+                "@LastName, @City, @Address, @PhoneNumber, @SpotNumber, @TotalPrice, @StartDate, @EndDate", 
+                new { Email = c.Email, FirstName = c.FirstName, LastName = c.LastName,
+                City = c.City, Address = c.Address, SpotNumber = s.Number, r.TotalPrice, r.StartDate, r.EndDate}));
+        }
         public List<Reservation> GetAllReservationsWithMissingInvoice()
         {
-
             return GetDB((c) => c.Query<Reservation>("GetAllReservationsWithMissingInvoice").ToList());
         }
 
@@ -109,15 +118,6 @@ namespace ZAPBeachCampingLib
             return GetDB((c) => c.Query<string>("GetAllSpotNumbersBetweenDate @StartDate, @EndDate", new { StartDate = startDate, EndDate = endDate }).ToList());
         }
 
-        public HutSpot GetHutSpot(string number)
-        {
-            return GetDB((c) => c.Query<HutSpot>("GetHutSpotBySearch @Number", new { Number = number }).FirstOrDefault());
-        }
-
-        public CampingSpot GetCampingSpot(string number)
-        {
-            return GetDB((c) => c.Query<CampingSpot>("GetCampingSpot @Number", new { Number = number }).FirstOrDefault());
-        }
         #endregion
 
         private T GetDB<T>(Func<IDbConnection, T> func)

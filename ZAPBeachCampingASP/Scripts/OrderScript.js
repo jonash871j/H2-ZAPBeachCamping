@@ -1,11 +1,16 @@
 ﻿var progressHandler;
 var travelperiodHandler;
 var campingSettingsHandler;
+var orderData;
 
 window.onload = function () {
     progressHandler = new ProgressHandler();
     travelperiodHandler = new TravelperiodHandler();
     campingSettingsHandler = new CampingSettingsHandler();
+    orderData = new OrderData();
+
+    // localStorage.setItem("key", "value");
+    // var lastname = localStorage.getItem("key");
 }
 
 class ProgressHandler {
@@ -122,5 +127,25 @@ class CampingSettingsHandler {
             document.getElementById("dv_campingSettingsTab2").style.display = "block";
         else if (document.getElementById("rb_campingType3").checked == true)
             document.getElementById("dv_campingSettingsTab3").style.display = "block";
+    }
+}
+class Customer {
+    constructor() {
+        this.FirstName = document.getElementById("tb_firstName").value;
+        this.LastName = document.getElementById("tb_lastName").value;
+        this.Email = document.getElementById("tb_email").value;
+        this.Address = document.getElementById("tb_address").value;
+        this.PhoneNumber = document.getElementById("tb_phoneNumber").value;
+        this.City = document.getElementById("tb_city").value;
+    }
+}
+class OrderData {
+    constructor() {
+        
+    }
+
+    update() {
+        document.getElementById('HF_Customer').value = JSON.stringify(new Customer());
+        return true;
     }
 }

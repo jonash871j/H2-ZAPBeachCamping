@@ -42,6 +42,10 @@ namespace ZAPBeachCampingLib
         #endregion
 
         #region Reservation
+        public void CreateReservation(Reservation reservation)
+        {
+            dal.CreateReservation(reservation);
+        }
         public List<Reservation> GetAllReservationsWithMissingInvoice()
         {
             return GetFullReservations(dal.GetAllReservationsWithMissingInvoice());
@@ -63,7 +67,10 @@ namespace ZAPBeachCampingLib
             dal.MarkReservationAsSent(orderNumber);
         }
         #endregion
-
+        public Spot GetSpot(string spotNumber)
+        {
+            return dal.GetSpot(spotNumber);
+        }
         public List<Spot> GetSpotsBySearch(DateTime startDate, DateTime endDate, SpotType spotType, bool isGoodView)
         {
             List<Spot> spots = dal.GetSpotsBySearch(spotType, isGoodView);
