@@ -9,12 +9,13 @@
     <link href="\StyleSheets\bootstrap.min.css" rel="stylesheet" />
     <link href="\StyleSheets\main.css" rel="stylesheet" />
 
-    <script src="\Scripts\OrderScript.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+    <script src="\Scripts\OrderScript.js"></script>
+    <script src="\Scripts\DateLimitScript.js"></script>
 </head>
 <body>
     <%-- Error modal-dialog --%>
@@ -32,7 +33,8 @@
                             </div>
                             <div class="modal-body">
                                 <p>
-                                    <asp:Label runat="server" ID="LB_Error" /></p>
+                                    <asp:Label runat="server" ID="LB_Error" />
+                                </p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Luk</button>
@@ -115,10 +117,10 @@
                                 <div id="dv_orderTab1">
                                     <div id="dv_travelperiodTab1">
                                         <h4>Vælg ankomst dato</h4>
-                                        <input class="form-control" type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+                                        <input class="form-control" type="date" id="start" name="trip-start">
 
                                         <h4 class="mt-4">Vælg hjem dato</h4>
-                                        <input class="form-control" type="date" id="end" name="trip-end" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+                                        <input class="form-control" type="date" id="end" name="trip-end">
                                     </div>
                                     <div id="dv_travelperiodTab2">
                                         <h4>Sæsonplads</h4>
