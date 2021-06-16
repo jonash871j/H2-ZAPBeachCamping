@@ -9,9 +9,13 @@ using System.Threading.Tasks;
 
 namespace ZAPBeachCampingLib
 {
+    public delegate void ErrorEventHandler(string message);
+
     internal class DataAccess
     {
-        private const string CONNECTION = "Server=ZBC-E-RO-23239\\MSSQLSERVER01;Database=Website;Trusted_Connection=True;";
+        internal event ErrorEventHandler DataAccessFailure; 
+        //private const string CONNECTION = "Server=ZBC-E-RO-23239\\MSSQLSERVER01;Database=Website;Trusted_Connection=True;";
+        private const string CONNECTION = "Server=DK-ECI-JHH\\SQLEXPRESS;Database=ZAPBeachCamping;Trusted_Connection=True;";
 
 
         #region Additions
@@ -61,7 +65,7 @@ namespace ZAPBeachCampingLib
             GetDB(con => con.Query<Reservation>("CreateReservation @Email, @Firstname, " +
                 "@LastName, @City, @Address, @PhoneNumber, @SpotNumber, @TotalPrice, @StartDate, @EndDate", 
                 new { Email = c.Email, FirstName = c.FirstName, LastName = c.LastName,
-                City = c.City, Address = c.Address, SpotNumber = s.Number, r.TotalPrice, r.StartDate, r.EndDate}));
+                City = c.City, Address = c.Address, PhoneNumber = c.PhoneNumber, SpotNumber = s.Number, r.TotalPrice, r.StartDate, r.EndDate}));
         }
         public List<Reservation> GetAllReservationsWithMissingInvoice()
         {
@@ -122,9 +126,17 @@ namespace ZAPBeachCampingLib
 
         private T GetDB<T>(Func<IDbConnection, T> func)
         {
-            using (IDbConnection c = new SqlConnection(CONNECTION))
+            try
             {
-                return func(c);
+                using (IDbConnection c = new SqlConnection(CONNECTION))
+                {
+                    return func(c);
+                }
+            }
+            catch(Exception exception)
+            {
+                DataAccessFailure?.Invoke("Fatal data access failure: " + exception.Message);
+                return default(T);
             }
         }
     }

@@ -14,8 +14,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
 </head>
 <body>
+    <%-- Error modal-dialog --%>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal fade" id="mod_error">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Noget gik galt</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-dismiss="modal">
+                                    <span aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    <asp:Label runat="server" ID="LB_Error" /></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Luk</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%-- Banner --%>
     <form id="form1" runat="server">
         <div class="container-fluid px-0">
             <div class="row mx-0">
@@ -24,6 +53,7 @@
                 </div>
             </div>
 
+            <%-- Nav bar --%>
             <nav class="navbar navbar-expand navbar-dark bg-primary">
                 <div class="container-fluid">
                     <div class="collapse navbar-collapse" id="navbarColor01">
@@ -71,8 +101,10 @@
                             </div>
                             <div class="col-2">
                                 <button id="bn_nextTab" type="button" class="btn btn-primary" onclick="progressHandler.nextTab();">Næste</button>
-                                <asp:Button runat="server" ID="TB_Order" CssClass="btn btn-primary"  OnClick="TB_Order_Click" OnClientClick="return orderData.update();" Text="Bestil" />
+                                <asp:Button runat="server" ID="BN_Order" CssClass="btn btn-primary" OnClick="BN_Order_Click" OnClientClick="return orderData.update();" Text="Bestil" />
                                 <input type="hidden" name="HF_Customer" id="HF_Customer" value="" />
+                                <input type="hidden" name="HF_Camping" id="HF_Camping" value="" />
+                                <asp:HiddenField runat="server" ID="MF_Success" />
                             </div>
                         </div>
 
@@ -130,19 +162,19 @@
                                     <fieldset class="form-group">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingType" id="rb_campingType1" checked="" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                <input type="radio" class="form-check-input" name="spotType" id="rb_campingType1" value="2" checked="" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
                                                 Campingvogn
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingType" id="rb_campingType2" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                <input type="radio" class="form-check-input" name="spotType" id="rb_campingType2" value="1" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
                                                 Telt
                                             </label>
                                         </div>
                                         <div class="form-check disabled">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_campingType" id="rb_campingType3" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                <input type="radio" class="form-check-input" name="spotType" id="rb_campingType3" value="3" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
                                                 Hytte
                                             </label>
                                         </div>
@@ -152,13 +184,13 @@
                                         <div id="dv_campingSettingsTab1">
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="rb_campingSettings1" id="optionsRadios4" value="option3" value="option1" checked="">
+                                                    <input type="radio" class="form-check-input" name="campingType" value="1" checked="">
                                                     Lille plads (pr. dag høj: 60,- lav: 50,-)
                                                 </label>
                                             </div>
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="rb_campingSettings1" id="optionsRadios5" value="option3">
+                                                    <input type="radio" class="form-check-input" name="campingType" value="2">
                                                     Stor plads (pr. dag høj: 80,- lav: 65,-)
                                                 </label>
                                             </div>
@@ -166,7 +198,7 @@
                                         <div id="dv_campingSettingsTab2">
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="rb_campingSettings2" id="optionsRadios6" value="option3" checked="">
+                                                    <input type="radio" class="form-check-input" name="tentType" value="1" checked="">
                                                     Telt plads (pr. dag høj: 35,- lav: 45,-)
                                                 </label>
                                             </div>
@@ -174,13 +206,13 @@
                                         <div id="dv_campingSettingsTab3">
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="rb_campingSettings3" id="optionsRadios7" value="option3" checked="">
+                                                    <input type="radio" class="form-check-input" name="hutType" value="1" checked="">
                                                     Standard hytte (pr. dag høj: 500,- lav: 350,-)
                                                 </label>
                                             </div>
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="rb_campingSettings3" id="optionsRadios8" value="option3">
+                                                    <input type="radio" class="form-check-input" name="hutType" value="2">
                                                     Luksus hytte (pr. dag høj: 850,- lav: 600,-)
                                                 </label>
                                             </div>
@@ -192,15 +224,15 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <label>Voksne</label>
-                                            <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="1">
+                                            <input class="form-control" type="number" id="nb_adult" min="0" max="10" value="1">
                                         </div>
                                         <div class="col-4">
                                             <label>Børn</label>
-                                            <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="1">
+                                            <input class="form-control" type="number" id="nb_child" min="0" max="10" value="0">
                                         </div>
                                         <div class="col-4">
                                             <label>Hunde</label>
-                                            <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="1">
+                                            <input class="form-control" type="number" id="nb_dog" min="0" max="10" value="0">
                                         </div>
 
                                     </div>

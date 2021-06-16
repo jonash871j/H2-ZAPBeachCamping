@@ -9,6 +9,12 @@ namespace ZAPBeachCampingLib
     public class Manager
     {
         private DataAccess dal = new DataAccess();
+        public event ErrorEventHandler Failure;
+
+        public Manager()
+        {
+            dal.DataAccessFailure += OnFailure;
+        }
 
         #region Addition
         public List<Addition> GetAllAddtion()
@@ -42,9 +48,32 @@ namespace ZAPBeachCampingLib
         #endregion
 
         #region Reservation
-        public void CreateReservation(Reservation reservation)
+        public bool CreateReservation(Customer customer, ReservationPrefences reservationPrefences)
         {
-            dal.CreateReservation(reservation);
+            List<Spot> spots = GetSpotsBySearch(
+                new DateTime(2021, 6, 16), 
+                new DateTime(2021, 6, 18),
+                reservationPrefences.SpotType, 
+                false
+            );
+            if (spots.Count > 0)
+            {
+                dal.CreateReservation(new Reservation(
+                    customer,
+                    spots[0],
+                    0.0,
+                    new DateTime(2021, 6, 16),
+                    new DateTime(2021, 6, 18),
+                    reservationPrefences.GetCustomerTypes(),
+                    new List<Addition>()
+                ));
+                return true;
+            }
+            else
+            {
+                Failure.Invoke("Der er desværre ikke flere ledige pladser udfra dine valg.");
+                return false;
+            }
         }
         public List<Reservation> GetAllReservationsWithMissingInvoice()
         {
@@ -94,6 +123,10 @@ namespace ZAPBeachCampingLib
                 fullReservations.Add(GetReservation(reservation.OrderNumber));
             }
             return fullReservations;
+        }
+        private void OnFailure(string message)
+        {
+            Failure.Invoke(message);
         }
     }
 }

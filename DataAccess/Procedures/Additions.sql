@@ -1,8 +1,6 @@
 ﻿CREATE OR ALTER PROCEDURE GetAllAddtion
 AS
-BEGIN
 	SELECT * FROM Additions
-END
 GO
 
 

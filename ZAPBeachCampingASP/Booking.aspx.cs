@@ -16,19 +16,22 @@ namespace ZAPBeachCampingASP
 
         }
 
-        protected void TB_Order_Click(object sender, EventArgs e)
+        protected void BN_Order_Click(object sender, EventArgs e)
         {
             Customer customer = JsonSerializer.Deserialize<Customer>(Request.Form["HF_Customer"]);
+            ReservationPrefences reservationPrefences = JsonSerializer.Deserialize<ReservationPrefences>(Request.Form["HF_Camping"]);
             Manager manager = new Manager();
-            manager.CreateReservation(new Reservation(
-                customer,
-                manager.GetSpot("H1"),
-                0.0,
-                new DateTime(2021, 6, 15),
-                new DateTime(2021, 6, 18),
-                new List<CustomerType>(),
-                new List<Addition>()
-            ));
+            manager.Failure += OnFailure;
+            if (manager.CreateReservation(customer, reservationPrefences))
+            {
+                MF_Success.Value = "true";
+            }
+        }
+
+        private void OnFailure(string message)
+        {
+            LB_Error.Text = message;
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalView", "<script>$(document).ready(function(){$('#mod_error').modal('show');});</script>", false);
         }
     }
 }

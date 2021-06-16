@@ -1,4 +1,4 @@
-﻿	CREATE OR ALTER PROCEDURE CreateReservation 
+﻿CREATE OR ALTER PROCEDURE CreateReservation 
 						@Email VARCHAR(100), 
 						@Firstname VARCHAR(25), 
 						@LastName VARCHAR(25), 
@@ -37,29 +37,23 @@ GO
 
 CREATE OR ALTER PROCEDURE GetAllReservationsWithMissingInvoice 
 AS
-BEGIN
 	SELECT * 
 	FROM Reservations 
 	WHERE Reservations.IsInvoiceSent = 0
-END
 GO
 
 CREATE OR ALTER PROCEDURE MarkReservationAsSent
 	@OrderNumber INT
 AS
-BEGIN
 	UPDATE Reservations
 	SET IsInvoiceSent = 1
 	WHERE OrderNumber = @OrderNumber;
-END
 GO
 
 CREATE OR ALTER PROCEDURE GetReservation
 	@OrderNumber INT
 AS
-BEGIN
 	SELECT *
 	FROM Reservations
 	WHERE Reservations.OrderNumber = @OrderNumber
-END
 GO
