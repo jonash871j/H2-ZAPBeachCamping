@@ -8,8 +8,8 @@ namespace ZAPBeachCampingLib
 {
     public class ReservationPrefences
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
         public SpotType SpotType { get; set; }
         public CampingType CampingType { get; set; }
         public HutType HutType { get; set; }
