@@ -17,9 +17,30 @@ window.onload = function () {
 }
 window.onbeforeunload = function () {
     var sessionSaver = new SessionSaver();
+
+    if (document.getElementById("prb_orderProgrss").style.width == "100%") {
+        sessionSaver.clear();
+    }
 };
 class SessionSaver {
     constructor() {
+        this.save();
+    }
+
+    clear() {
+        sessionStorage.setItem("orderProgrss", "0%");
+
+        sessionStorage.setItem("endDate", "");
+        sessionStorage.setItem("startDate", "");
+
+        sessionStorage.setItem("firstName", "");
+        sessionStorage.setItem("lastName", "");
+        sessionStorage.setItem("email", "");
+        sessionStorage.setItem("address", "");
+        sessionStorage.setItem("phoneNumber", "");
+        sessionStorage.setItem("city", "");
+    }
+    save() {
         sessionStorage.setItem("orderProgrss", document.getElementById("prb_orderProgrss").style.width);
 
         sessionStorage.setItem("endDate", document.getElementById("dat_end").value);
