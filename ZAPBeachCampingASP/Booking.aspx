@@ -117,10 +117,10 @@
                                 <div id="dv_orderTab1">
                                     <div id="dv_travelperiodTab1">
                                         <h4>Vælg ankomst dato</h4>
-                                        <input class="form-control" type="date" id="start" name="trip-start">
+                                        <input class="form-control" type="date" id="dat_start" name="trip-start">
 
                                         <h4 class="mt-4">Vælg hjem dato</h4>
-                                        <input class="form-control" type="date" id="end" name="trip-end">
+                                        <input class="form-control" type="date" id="dat_end" name="trip-end">
                                     </div>
                                     <div id="dv_travelperiodTab2">
                                         <h4>Sæsonplads</h4>

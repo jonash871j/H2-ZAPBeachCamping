@@ -22,6 +22,9 @@ class SessionSaver {
     constructor() {
         sessionStorage.setItem("orderProgrss", document.getElementById("prb_orderProgrss").style.width);
 
+        sessionStorage.setItem("endDate", document.getElementById("dat_end").value);
+        sessionStorage.setItem("startDate", document.getElementById("dat_start").value);
+
         sessionStorage.setItem("firstName", document.getElementById("tb_firstName").value);
         sessionStorage.setItem("lastName", document.getElementById("tb_lastName").value);
         sessionStorage.setItem("email", document.getElementById("tb_email").value);
@@ -37,6 +40,9 @@ class SessionLoader {
             document.getElementById("prb_orderProgrss").style.width = orderProgrss;
             progressHandler.update();
         }
+
+        document.getElementById("dat_end").value = sessionStorage.getItem("endDate");
+        document.getElementById("dat_start").value = sessionStorage.getItem("startDate");
 
         document.getElementById("tb_firstName").value = sessionStorage.getItem("firstName");
         document.getElementById("tb_lastName").value = sessionStorage.getItem("lastName");
@@ -180,6 +186,9 @@ class Customer {
 }
 class Camping {
     constructor() {
+        this.StartDate = parseInt(document.getElementById("dat_start").valueAsDate);
+        this.EndDate = parseInt(document.getElementById("dat_end").valueAsDate);
+
         const spotTypes = document.querySelectorAll('input[name="spotType"]');
         for (const spotType of spotTypes) {
             if (spotType.checked) {

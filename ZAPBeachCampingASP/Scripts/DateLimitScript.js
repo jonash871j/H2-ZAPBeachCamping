@@ -14,7 +14,7 @@
 
 
     var maxDate = year + '-' + month + '-' + day;
-    $('#start').attr('min', maxDate);
+    $('#dat_start').attr('min', maxDate);
 });
 
 
@@ -24,12 +24,12 @@ $(function () {
 
 
 
-    document.getElementById("start").addEventListener("change", function () {
+    document.getElementById("dat_start").addEventListener("change", function () {
         newSelectedDate = this.value;
 
 
 
-        $('#end').attr('min', newSelectedDate);
+        $('#dat_end').attr('min', newSelectedDate);
     });
 });
 
@@ -40,7 +40,7 @@ $(function () {
 
 
 
-    document.getElementById("start").addEventListener("change", function () {
-        document.getElementById("end").valueAsDate = null;
+    document.getElementById("dat_start").addEventListener("change", function () {
+        document.getElementById("dat_end").valueAsDate = null;
     });
 });
