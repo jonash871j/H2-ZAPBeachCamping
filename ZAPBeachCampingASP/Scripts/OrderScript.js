@@ -186,8 +186,8 @@ class Customer {
 }
 class Camping {
     constructor() {
-        this.StartDate = parseInt(document.getElementById("dat_start").valueAsDate);
-        this.EndDate = parseInt(document.getElementById("dat_end").valueAsDate);
+        this.StartDate = document.getElementById("dat_start").valueAsDate;
+        this.EndDate = document.getElementById("dat_end").valueAsDate;
 
         const spotTypes = document.querySelectorAll('input[name="spotType"]');
         for (const spotType of spotTypes) {

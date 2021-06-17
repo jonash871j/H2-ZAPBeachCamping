@@ -50,9 +50,16 @@ namespace ZAPBeachCampingLib
         #region Reservation
         public bool CreateReservation(Customer customer, ReservationPrefences reservationPrefences)
         {
+            string errorMsg;
+            if (!reservationPrefences.IsValidDates(out errorMsg) || !customer.IsValid(out errorMsg))
+            {
+                Failure.Invoke(errorMsg);
+                return false;
+            }
+
             List<Spot> spots = GetSpotsBySearch(
-                new DateTime(2021, 6, 16), 
-                new DateTime(2021, 6, 18),
+                reservationPrefences.GetStartDate(),
+                reservationPrefences.GetEndDate(),
                 reservationPrefences.SpotType, 
                 false
             );
@@ -62,8 +69,8 @@ namespace ZAPBeachCampingLib
                     customer,
                     spots[0],
                     0.0,
-                    new DateTime(2021, 6, 16),
-                    new DateTime(2021, 6, 18),
+                    reservationPrefences.GetStartDate(),
+                    reservationPrefences.GetEndDate(),
                     reservationPrefences.GetCustomerTypes(),
                     new List<Addition>()
                 ));
