@@ -1,18 +1,18 @@
-﻿CREATE OR ALTER PROCEDURE GetAllAddtion
+CREATE OR ALTER PROCEDURE GetAllAddtion
 AS
 	SELECT * FROM Additions
 GO
 
 
 
-﻿CREATE OR ALTER PROCEDURE GetCustomer
+CREATE OR ALTER PROCEDURE GetCustomer
 	@Email VARCHAR(100)
 AS
 	SELECT * 
 	FROM Customers
 	WHERE Customers.Email = @Email
 GO
-﻿CREATE OR ALTER PROCEDURE CreateCustomerType
+CREATE OR ALTER PROCEDURE CreateCustomerType
 	@OrderNumber INT,
 	@Value INT
 AS
@@ -27,7 +27,7 @@ AS
 	FROM CustomerTypes
 	WHERE @OrderNumber = OrderNumber;
 GO
-﻿CREATE OR ALTER PROCEDURE CreateReservationAdditions
+CREATE OR ALTER PROCEDURE CreateReservationAdditions
 	@OrderNumber INT,
 	@AdditionName VARCHAR(50)
 AS
@@ -45,7 +45,7 @@ AS
 GO
 
 
-﻿CREATE OR ALTER PROCEDURE CreateReservation 
+CREATE OR ALTER PROCEDURE CreateReservation 
 						@Email VARCHAR(100), 
 						@Firstname VARCHAR(25), 
 						@LastName VARCHAR(25), 
@@ -104,7 +104,7 @@ AS
 	FROM Reservations
 	WHERE Reservations.OrderNumber = @OrderNumber
 GO
-﻿--CREATE OR ALTER PROCEDURE GetSpotsBySearch
+--CREATE OR ALTER PROCEDURE GetSpotsBySearch
 --	@SpotType INT,
 --	@IsGoodView BIT
 --AS
