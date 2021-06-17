@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -15,8 +16,12 @@ namespace ZAPBeachCampingLib
     {
         internal event ErrorEventHandler DataAccessFailure; 
         //private const string CONNECTION = "Server=ZBC-E-RO-23239\\MSSQLSERVER01;Database=Website;Trusted_Connection=True;";
-        private const string CONNECTION = "Server=DK-ECI-JHH\\SQLEXPRESS;Database=ZAPBeachCamping;Trusted_Connection=True;";
+        private string connectionString;
 
+        internal DataAccess()
+        {
+            connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        }
 
         #region Additions
         public List<Addition> GetAllAddtion()
@@ -128,7 +133,7 @@ namespace ZAPBeachCampingLib
         {
             try
             {
-                using (IDbConnection c = new SqlConnection(CONNECTION))
+                using (IDbConnection c = new SqlConnection(connectionString))
                 {
                     return func(c);
                 }
