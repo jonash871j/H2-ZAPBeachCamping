@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ZAPBeachCampingLib
 {
-    public class EmailSender
+    internal class EmailSender
     {
 
         private string clientEmail { get; set; }

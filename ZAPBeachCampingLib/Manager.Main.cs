@@ -1,18 +1,20 @@
 ﻿namespace ZAPBeachCampingLib
 {
+    public delegate void ErrorEventHandler(string message);
+
     public partial class Manager
     {
-        private DataAccess dal = new DataAccess();
-        public event ErrorEventHandler Failure;
+        private DataAccess dal;
+        public event ErrorEventHandler MissingInformation;
 
         public Manager()
         {
-            dal.DataAccessFailure += OnFailure;
+            dal = new DataAccess();
         }
 
         private void OnFailure(string message)
         {
-            Failure.Invoke(message);
+            MissingInformation?.Invoke(message);
         }
     }
 }

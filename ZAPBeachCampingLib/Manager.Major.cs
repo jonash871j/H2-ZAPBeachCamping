@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -16,21 +17,32 @@ namespace ZAPBeachCampingLib
         {
             new Thread(() =>
             {
-                Manager manager = new Manager();
-
-                while (true)
+                try
                 {
-                    List<Reservation> reservations = manager.GetAllReservationsWithMissingInvoice();
-                    Reservation reservation = reservations.FirstOrDefault();
+                    Manager manager = new Manager();
 
-                    if (reservation != null)
+                    while (true)
                     {
-                        reservation = manager.GetReservation(reservation.OrderNumber);
-                        manager.SendInvoice(reservation);
-                        manager.MarkReservationAsSent(reservation.OrderNumber);
-                    }
+                        List<Reservation> reservations = manager.GetAllReservationsWithMissingInvoice();
 
-                    Thread.Sleep(1000);
+                        if (reservations != null && reservations.Count == 0)
+                        {
+                            Reservation reservation = reservations.FirstOrDefault();
+                            reservation = manager.GetReservation(reservation.OrderNumber);
+                            manager.SendInvoice(reservation);
+                            manager.MarkReservationAsSent(reservation.OrderNumber);
+                        }
+
+                        Thread.Sleep(1000);
+                    }
+                }
+                catch(Exception exception)
+                {
+                    File.AppendAllText(
+                        ConfigurationManager.AppSettings["InvoicePath"] + "InvoiceThread-ErrorLog.log", 
+                        $"<{DateTime.Now}> {exception.Message}\n"
+                    );
+                    Thread.Sleep(100000);
                 }
             }).Start();
         }
@@ -80,7 +92,7 @@ namespace ZAPBeachCampingLib
             string errorMsg;
             if (!reservationPrefences.IsValidDates(out errorMsg) || !customer.IsValid(out errorMsg))
             {
-                Failure.Invoke(errorMsg);
+                MissingInformation.Invoke(errorMsg);
                 return false;
             }
 
@@ -110,7 +122,7 @@ namespace ZAPBeachCampingLib
             }
             else
             {
-                Failure.Invoke("Der er desværre ikke flere ledige pladser udfra dine valg.");
+                MissingInformation.Invoke("Der er desværre ikke flere ledige pladser udfra dine valg.");
                 return false;
             }
         }

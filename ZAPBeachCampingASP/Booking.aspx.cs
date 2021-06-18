@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -22,18 +23,31 @@ namespace ZAPBeachCampingASP
         {
             if (ConvertOrderDataFromJson(out var customer, out var reservationPrefences))
             {
-                Manager.Failure += OnFailure;
-                if (Manager.CreateReservation(customer, reservationPrefences))
+                try
                 {
-                    MF_Success.Value = "true";
+                    Manager.MissingInformation += OnModalMissingInformation;
+                    if (Manager.CreateReservation(customer, reservationPrefences))
+                    {
+                        MF_Success.Value = "true";
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ShowModalMsg("Fejl 500", exception.Message);
                 }
             }
         }
 
-        private void OnFailure(string message)
+        private void ShowModalMsg(string title, string body)
         {
-            LB_Error.Text = message;
+            LB_ModalTitle.Text = title;
+            LB_ModalBody.Text = body;
             ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalView", "<script>$(document).ready(function(){$('#mod_error').modal('show');});</script>", false);
+        }
+
+        private void OnModalMissingInformation(string msg)
+        {
+            ShowModalMsg("Du er ikke helt færdig med at udfylde", msg);
         }
 
         private bool ConvertOrderDataFromJson(out Customer customer, out BookingOptions reservationPrefences)
@@ -47,7 +61,7 @@ namespace ZAPBeachCampingASP
             }
             catch (Exception excetion)
             {
-                OnFailure("Dålige json pakker: " + excetion.Message);
+                ShowModalMsg("Client side fejl", "Dålige json pakker: " + excetion.Message);
 
                 customer = null;
                 reservationPrefences = null;

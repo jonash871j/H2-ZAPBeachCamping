@@ -27,14 +27,16 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Noget gik galt</h5>
+                                <h5 class="modal-title">
+                                    <asp:Label runat="server" ID="LB_ModalTitle" />
+                                </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-dismiss="modal">
                                     <span aria-hidden="true"></span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <p>
-                                    <asp:Label runat="server" ID="LB_Error" />
+                                    <asp:Label runat="server" ID="LB_ModalBody" />
                                 </p>
                             </div>
                             <div class="modal-footer">

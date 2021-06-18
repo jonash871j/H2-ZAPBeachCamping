@@ -15,13 +15,22 @@ namespace ZAPBeachCampingASP
     {
 
         /// <summary>
-        /// LB_Error control.
+        /// LB_ModalTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LB_Error;
+        protected global::System.Web.UI.WebControls.Label LB_ModalTitle;
+
+        /// <summary>
+        /// LB_ModalBody control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LB_ModalBody;
 
         /// <summary>
         /// form1 control.

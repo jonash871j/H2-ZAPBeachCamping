@@ -8,15 +8,14 @@ using System.Linq;
 
 namespace ZAPBeachCampingLib
 {
-    public delegate void ErrorEventHandler(string message);
-
     internal class DataAccess
     {
-        internal event ErrorEventHandler DataAccessFailure; 
-        private string connectionString;
+        private string _connectionString;
 
         internal DataAccess()
-            => connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        {
+            _connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        }
 
         // **** Additions
         public List<Addition> GetAllAddtion()
@@ -108,17 +107,9 @@ namespace ZAPBeachCampingLib
 
         private T GetDB<T>(Func<IDbConnection, T> func)
         {
-            try
+            using (IDbConnection c = new SqlConnection(_connectionString))
             {
-                using (IDbConnection c = new SqlConnection(connectionString))
-                {
-                    return func(c);
-                }
-            }
-            catch(Exception exception)
-            {
-                DataAccessFailure?.Invoke("Fatal data access failure: " + exception.Message);
-                return default(T);
+                return func(c);
             }
         }
     }

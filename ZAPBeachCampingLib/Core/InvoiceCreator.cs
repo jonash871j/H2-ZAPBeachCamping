@@ -8,7 +8,7 @@ using Microsoft.Office.Interop.Word;
 
 namespace ZAPBeachCampingLib
 {
-    class InvoiceCreator
+    internal class InvoiceCreator
     {
         private Application applicationWord;
         private Document document;
@@ -87,8 +87,9 @@ namespace ZAPBeachCampingLib
         /// </summary>
         private void CreateInvoice(Reservation reservation)
         {
-
             Customer c = reservation.Customer;
+            PriceCalculator priceCalculator = new PriceCalculator(reservation);
+
             //Customer information
             ReplaceText("ID_ADDRESS", c.Address);
             ReplaceText("ID_CITY", c.City);
@@ -108,7 +109,7 @@ namespace ZAPBeachCampingLib
                 ReplaceText($"ID_AM{i}", "123");
                 ReplaceText($"ID_PRICE{i}", "Hello");
             }
-            ReplaceText("ID_TOTAL", "Hello");
+            ReplaceText("ID_TOTAL", $"{priceCalculator.GetTotalPrice()} DKK");
         }
     }
 }
