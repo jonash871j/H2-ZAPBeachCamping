@@ -6,6 +6,7 @@ body{
 }
 #nav-color {
     background-color: #56cc9d;
+
 }
 h1,h3{
     color:white;
@@ -42,8 +43,11 @@ p {
 .color-id-3 {
     color: #d5d5d5;
 }
+.color-id-4 {
+    color: #5a5a5a;
+}
 
-.box-padding{
+.box-padding {
     padding: 2%;
 }
 
@@ -88,3 +92,32 @@ hr.light-100 {
     margin-bottom: 1rem;
 }
 
+.text-size {
+    font-size: 24px;
+}
+
+.text-align-center{
+    text-align:center !important;
+}
+
+
+/*About us page*/
+
+.color-border {
+    width: 50%;
+    border-bottom: 2px solid #78c2ad;
+    margin: 0 auto;
+    height: 16px;
+}
+
+.ct-u-size22 {
+    font-size: 22px;
+}
+
+.ct-u-fontWeight300 {
+    font-weight: 300;
+}
+
+.marginTop40 {
+    margin-top: 40px !important;
+}

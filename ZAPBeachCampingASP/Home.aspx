@@ -34,10 +34,10 @@
                                 <a class="nav-link" href="Booking.aspx">Booking</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Om os</a>
+                                <a class="nav-link" href="AboutUs.aspx">Om os</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Kontakt</a>
+                                <a class="nav-link" href="Contact.aspx">Kontakt</a>
                             </li>
                         </ul>
                     </div>
