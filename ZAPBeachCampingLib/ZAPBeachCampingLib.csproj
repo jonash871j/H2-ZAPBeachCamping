@@ -49,8 +49,10 @@
     <Compile Include="CampingSpot.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="DataAccess.cs" />
+    <Compile Include="EmailSender.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="HutSpot.cs" />
+    <Compile Include="InvoiceCreator.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Price.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
