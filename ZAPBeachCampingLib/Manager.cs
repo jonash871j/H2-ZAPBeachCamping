@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,10 +16,6 @@ namespace ZAPBeachCampingLib
         public Manager()
         {
             dal.DataAccessFailure += OnFailure;
-        }
-        static Manager()
-        {
-            StartInvoiceThread();
         }
 
         #region Addition
@@ -133,7 +130,7 @@ namespace ZAPBeachCampingLib
         }
         public static void StartInvoiceThread()
         {
-            Thread thread = new Thread(() =>
+            new Thread(() =>
             {
                 Manager manager = new Manager();
 
@@ -150,7 +147,7 @@ namespace ZAPBeachCampingLib
 
                     Thread.Sleep(500);
                 }
-            });
+            }).Start();
         }
         public void SendInvoice(Reservation reservation)
         {
@@ -158,7 +155,7 @@ namespace ZAPBeachCampingLib
                 new EmailSender("ZAPBeachCamping@gmail.com", "Passw0rd!123")
             );
             invoiceCreator.OpenWord();
-            invoiceCreator.Send(reservation, "", "Skabelon.docx");
+            invoiceCreator.Send(reservation, ConfigurationManager.AppSettings["FakturePath"], "Skabalon.docx");
             invoiceCreator.CloseWord();
         }
 

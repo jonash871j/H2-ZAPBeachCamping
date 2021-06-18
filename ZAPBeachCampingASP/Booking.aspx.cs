@@ -11,6 +11,8 @@ namespace ZAPBeachCampingASP
 {
     public partial class Booking : System.Web.UI.Page
     {
+        private Manager Manager { get => (Manager)Session["Manager"]; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -18,13 +20,13 @@ namespace ZAPBeachCampingASP
 
         protected void BN_Order_Click(object sender, EventArgs e)
         {
-            Customer customer = JsonSerializer.Deserialize<Customer>(Request.Form["HF_Customer"]);
-            ReservationPrefences reservationPrefences = JsonSerializer.Deserialize<ReservationPrefences>(Request.Form["HF_Camping"]);
-            Manager manager = new Manager();
-            manager.Failure += OnFailure;
-            if (manager.CreateReservation(customer, reservationPrefences))
+            if (ConvertOrderDataFromJson(out var customer, out var reservationPrefences))
             {
-                MF_Success.Value = "true";
+                Manager.Failure += OnFailure;
+                if (Manager.CreateReservation(customer, reservationPrefences))
+                {
+                    MF_Success.Value = "true";
+                }
             }
         }
 
@@ -32,6 +34,26 @@ namespace ZAPBeachCampingASP
         {
             LB_Error.Text = message;
             ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalView", "<script>$(document).ready(function(){$('#mod_error').modal('show');});</script>", false);
+        }
+
+        private bool ConvertOrderDataFromJson(out Customer customer, out ReservationPrefences reservationPrefences)
+        {
+            try
+            {
+                customer = JsonSerializer.Deserialize<Customer>(Request.Form["HF_Customer"]);
+                reservationPrefences = JsonSerializer.Deserialize<ReservationPrefences>(Request.Form["HF_Camping"]);
+                return true;
+
+            }
+            catch (Exception excetion)
+            {
+                OnFailure("Dålige json pakker: " + excetion.Message);
+
+                customer = null;
+                reservationPrefences = null;
+                return false;
+            }
+
         }
     }
 }

@@ -97,6 +97,7 @@
   <ItemGroup>
     <Content Include="Booking.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
     <Content Include="Images\Banner.jpg" />
     <Content Include="Images\Slider1.jpg" />
@@ -119,6 +120,9 @@
     </Compile>
     <Compile Include="Booking.aspx.designer.cs">
       <DependentUpon>Booking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
