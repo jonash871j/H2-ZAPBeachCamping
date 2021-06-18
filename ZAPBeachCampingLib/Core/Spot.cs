@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ZAPBeachCampingLib
 {
     public abstract class Spot
     {
-        #region Properties
         public string Number { get; private set; }
         public SpotType SpotType { get; private set; }
         public bool IsGoodView { get; set; }
         public Dictionary<string, Price> Prices { get; private set; }
-
-        #endregion
-
-        #region Constructors
 
         internal Spot(SpotType spotType, Dictionary<string, Price> prices)
         {
@@ -27,6 +20,5 @@ namespace ZAPBeachCampingLib
             Number = number;
             IsGoodView = isGoodView;
         }
-        #endregion
     }
 }

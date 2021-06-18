@@ -20,10 +20,5 @@ namespace ZAPBeachCampingLib
               : base(SpotType.HutSite, prices)
         {
         }
-        public HutSpot(string number, bool isGoodView, HutType hutType) 
-            : base(number, SpotType.HutSite, isGoodView, prices)
-        {
-            HutType = hutType;
-        }
     }
 }

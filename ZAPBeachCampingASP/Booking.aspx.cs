@@ -36,12 +36,12 @@ namespace ZAPBeachCampingASP
             ScriptManager.RegisterStartupScript(this, this.GetType(), "ModalView", "<script>$(document).ready(function(){$('#mod_error').modal('show');});</script>", false);
         }
 
-        private bool ConvertOrderDataFromJson(out Customer customer, out ReservationPrefences reservationPrefences)
+        private bool ConvertOrderDataFromJson(out Customer customer, out BookingOptions reservationPrefences)
         {
             try
             {
                 customer = JsonSerializer.Deserialize<Customer>(Request.Form["HF_Customer"]);
-                reservationPrefences = JsonSerializer.Deserialize<ReservationPrefences>(Request.Form["HF_Camping"]);
+                reservationPrefences = JsonSerializer.Deserialize<BookingOptions>(Request.Form["HF_Camping"]);
                 return true;
 
             }

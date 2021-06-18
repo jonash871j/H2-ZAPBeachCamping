@@ -35,10 +35,10 @@ CREATE TABLE Reservations
     OrderNumber INTEGER PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	CustomerEmail VarChar(100) NOT NULL,
 	SpotNumber VARCHAR(8) NOT NULL,
-	TotalPrice FLOAT NOT NULL,
 	StartDate DATE NOT NULL,
 	EndDate DATE NOT NULL,
 	IsInvoiceSent BIT NOT NULL,
+	IsPayForCleaning BIT NOT NULL,
 
 	FOREIGN KEY (CustomerEmail) REFERENCES Customers(Email),
 	FOREIGN KEY (SpotNumber) REFERENCES Spots(Number),

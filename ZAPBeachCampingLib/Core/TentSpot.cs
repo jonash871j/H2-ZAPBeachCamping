@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ZAPBeachCampingLib
 {
@@ -18,12 +16,5 @@ namespace ZAPBeachCampingLib
             : base(SpotType.TentSite, prices)
         {
         }
-
-        public TentSpot(string number, bool isGoodView) 
-            : base(number, SpotType.TentSite, isGoodView, prices)
-        {
-
-        }
-
     }
 }

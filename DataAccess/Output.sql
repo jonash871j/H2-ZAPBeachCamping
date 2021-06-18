@@ -3,8 +3,6 @@ AS
 	SELECT * FROM Additions
 GO
 
-
-
 CREATE OR ALTER PROCEDURE GetCustomer
 	@Email VARCHAR(100)
 AS

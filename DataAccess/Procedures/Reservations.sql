@@ -6,17 +6,17 @@
 						@Address VARCHAR(128), 
 						@PhoneNumber VARCHAR(20), 
 						@SpotNumber VARCHAR(8), 
-						@TotalPrice FLOAT, 
 						@StartDate DATE, 
-						@EndDate DATE
+						@EndDate DATE,
+						@IsPayForCleaning BIT
 AS
 	IF EXISTS (
 	SELECT Customers.Email 
 	FROM Customers 
 	WHERE Customers.Email = @Email)
 	BEGIN
-		INSERT INTO Reservations(CustomerEmail, SpotNumber, TotalPrice, StartDate, EndDate, IsInvoiceSent) 
-		VALUES(@Email, @SpotNumber, @TotalPrice, @StartDate, @EndDate, 0); 
+		INSERT INTO Reservations(CustomerEmail, SpotNumber, StartDate, EndDate, IsInvoiceSent, IsPayForCleaning) 
+		VALUES(@Email, @SpotNumber, @StartDate, @EndDate, 0, @IsPayForCleaning); 
 	END
 
 	ELSE
@@ -30,8 +30,8 @@ AS
 	FROM Reservations 
 	WHERE Reservations.CustomerEmail = @Email)
 	BEGIN
-		INSERT INTO Reservations(CustomerEmail, SpotNumber, TotalPrice, StartDate, EndDate, IsInvoiceSent) 
-		VALUES (@Email, @SpotNumber, @TotalPrice, @StartDate, @EndDate, 0);
+		INSERT INTO Reservations(CustomerEmail, SpotNumber, StartDate, EndDate, IsInvoiceSent, IsPayForCleaning) 
+		VALUES(@Email, @SpotNumber, @StartDate, @EndDate, 0, @IsPayForCleaning); 
 	END
 GO
 

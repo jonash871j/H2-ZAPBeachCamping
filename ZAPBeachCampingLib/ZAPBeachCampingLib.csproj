@@ -49,22 +49,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Addition.cs" />
-    <Compile Include="CampingSpot.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="DataAccess.cs" />
-    <Compile Include="EmailSender.cs" />
-    <Compile Include="Enum.cs" />
-    <Compile Include="HutSpot.cs" />
-    <Compile Include="InvoiceCreator.cs" />
-    <Compile Include="Manager.cs" />
-    <Compile Include="Price.cs" />
+    <Compile Include="Core\Addition.cs" />
+    <Compile Include="Core\CampingSpot.cs" />
+    <Compile Include="Core\Customer.cs" />
+    <Compile Include="Core\PriceCalculator.cs" />
+    <Compile Include="DataAccess\DataAccess.cs" />
+    <Compile Include="Core\EmailSender.cs" />
+    <Compile Include="Core\Enum.cs" />
+    <Compile Include="Core\HutSpot.cs" />
+    <Compile Include="Core\InvoiceCreator.cs" />
+    <Compile Include="Manager.Major.cs" />
+    <Compile Include="Manager.Minor.cs" />
+    <Compile Include="Manager.Main.cs" />
+    <Compile Include="Core\Price.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reservation.cs" />
-    <Compile Include="ReservationPrefences.cs" />
-    <Compile Include="Spot.cs" />
-    <Compile Include="TentSpot.cs" />
-    <Compile Include="TimeChecker.cs" />
+    <Compile Include="Core\Reservation.cs" />
+    <Compile Include="Core\BookingOptions.cs" />
+    <Compile Include="Core\Spot.cs" />
+    <Compile Include="Core\TentSpot.cs" />
+    <Compile Include="Core\TimeChecker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

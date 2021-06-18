@@ -26,11 +26,5 @@ namespace ZAPBeachCampingLib
         {
 
         }
-
-        public CampingSpot(string number, bool isGoodView, CampingType campingType)
-            : base(number, SpotType.CampingSite, isGoodView, prices)
-        {
-            CampingType = campingType;
-        }
     }
 }
