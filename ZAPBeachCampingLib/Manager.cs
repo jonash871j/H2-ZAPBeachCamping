@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ZAPBeachCampingLib
@@ -14,6 +15,10 @@ namespace ZAPBeachCampingLib
         public Manager()
         {
             dal.DataAccessFailure += OnFailure;
+        }
+        static Manager()
+        {
+            StartInvoiceThread();
         }
 
         #region Addition
@@ -125,6 +130,36 @@ namespace ZAPBeachCampingLib
                 }
             }
             return spots;
+        }
+        public static void StartInvoiceThread()
+        {
+            Thread thread = new Thread(() =>
+            {
+                Manager manager = new Manager();
+
+                while(true)
+                {
+                    List<Reservation> reservations = manager.GetAllReservationsWithMissingInvoice();
+                    Reservation reservation = reservations.FirstOrDefault();
+
+                    if (reservation != null)
+                    {
+                        manager.SendInvoice(reservation);
+                        manager.MarkReservationAsSent(reservation.OrderNumber);
+                    }
+
+                    Thread.Sleep(500);
+                }
+            });
+        }
+        public void SendInvoice(Reservation reservation)
+        {
+            InvoiceCreator invoiceCreator = new InvoiceCreator(
+                new EmailSender("ZAPBeachCamping@gmail.com", "Passw0rd!123")
+            );
+            invoiceCreator.OpenWord();
+            invoiceCreator.Send(reservation, "", "Skabelon.docx");
+            invoiceCreator.CloseWord();
         }
 
         private List<Reservation> GetFullReservations(List<Reservation> reservations) 
