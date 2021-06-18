@@ -67,7 +67,8 @@ namespace ZAPBeachCampingLib
             );
             if (spots.Count > 0)
             {
-                dal.CreateReservation(new Reservation(
+                Reservation reservation;
+                dal.CreateReservation(reservation = new Reservation(
                     customer,
                     spots[0],
                     0.0,
@@ -76,6 +77,8 @@ namespace ZAPBeachCampingLib
                     reservationPrefences.GetCustomerTypes(),
                     new List<Addition>()
                 ));
+
+                double price = reservation.GetTotalPrice();
                 return true;
             }
             else

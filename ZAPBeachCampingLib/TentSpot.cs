@@ -15,6 +15,7 @@ namespace ZAPBeachCampingLib
         };
 
         internal TentSpot()
+            : base(SpotType.TentSite, prices)
         {
         }
 

@@ -54,19 +54,23 @@ namespace ZAPBeachCampingLib
         }
         public double GetTotalTravelersPrice()
         {
+            double price = 0.0;
             foreach (CustomerType customerType in CustomerTypes)
             {
                 switch (customerType)
                 {
                     case CustomerType.Adult:
-                        return Spot.Prices["ADULT_PRICE"].GetPrice();
+                        price += Spot.Prices["ADULT_PRICE"].GetPrice();
+                        break;
                     case CustomerType.Child:
-                        return Spot.Prices["CHILD_PRICE"].GetPrice();
+                        price += Spot.Prices["CHILD_PRICE"].GetPrice();
+                        break;
                     case CustomerType.Dog:
-                        return Spot.Prices["DOG_PRICE"].GetPrice();
+                        price += Spot.Prices["DOG_PRICE"].GetPrice();
+                        break;
                 }
             }
-            return 0.0;
+            return price;
         }
         public double GetTotalCampingSpotPrice()
         {
@@ -77,9 +81,9 @@ namespace ZAPBeachCampingLib
                 switch (campingSpot.CampingType)
                 {
                     case CampingType.Small:
-                        return campingSpot.Prices["SMALL_SPOT_FEE"].GetPrice();
+                        return campingSpot.Prices["SMALL_SPOT_FEE"].GetPrice() * GetTravelPeriodInDays();
                     case CampingType.Large:
-                        return campingSpot.Prices["LARGE_SPOT_FEE"].GetPrice();
+                        return campingSpot.Prices["LARGE_SPOT_FEE"].GetPrice() * GetTravelPeriodInDays();
                     case CampingType.SeasonLarge:
                         break;
                 }
@@ -95,9 +99,9 @@ namespace ZAPBeachCampingLib
                 switch (hutSpot.HutType)
                 {
                     case HutType.Default:
-                        return hutSpot.Prices["DEFAULT_PRICE"].GetPrice();
+                        return hutSpot.Prices["DEFAULT_PRICE"].GetPrice() * GetTravelPeriodInDays();
                     case HutType.Luxury:
-                        return hutSpot.Prices["LUXURY_PRICE"].GetPrice();
+                        return hutSpot.Prices["LUXURY_PRICE"].GetPrice() * GetTravelPeriodInDays();
                 }
             }
             return 0.0;
@@ -106,7 +110,7 @@ namespace ZAPBeachCampingLib
         {
             if (Spot.SpotType == SpotType.TentSite)
             {
-                return ((TentSpot)Spot).Prices["SPOT_FEE"].GetPrice();
+                return ((TentSpot)Spot).Prices["SPOT_FEE"].GetPrice() * GetTravelPeriodInDays();
             }
             return 0.0;
         }
@@ -125,6 +129,10 @@ namespace ZAPBeachCampingLib
                 return 150.0;
             }
             return 0.0;
+        }
+        public int GetTravelPeriodInDays()
+        {
+            return (int)(EndDate - StartDate).TotalDays;
         }
     }
 }

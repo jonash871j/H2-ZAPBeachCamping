@@ -25,7 +25,7 @@ namespace ZAPBeachCampingLib
             {
                 for (int i = 0; i < amount; i++)
                 {
-                    customerTypes.Add(CustomerType.Adult);
+                    customerTypes.Add(customerType);
                 }
             }
 
@@ -58,7 +58,7 @@ namespace ZAPBeachCampingLib
         }
         public DateTime GetEndDate()
         {
-            return Convert.ToDateTime(StartDate);
+            return Convert.ToDateTime(EndDate);
         }
     }
 }

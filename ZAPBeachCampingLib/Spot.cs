@@ -16,14 +16,15 @@ namespace ZAPBeachCampingLib
 
         #region Constructors
 
-        internal Spot()
+        internal Spot(SpotType spotType, Dictionary<string, Price> prices)
         {
-        }
-        public Spot(string number, SpotType spotType, bool isGoodView, Dictionary<string, Price> prices)
-        {
-            Number = number;
             SpotType = spotType;
             Prices = prices;
+        }
+        public Spot(string number, SpotType spotType, bool isGoodView, Dictionary<string, Price> prices)
+            : this(spotType, prices)
+        {
+            Number = number;
             IsGoodView = isGoodView;
         }
         #endregion

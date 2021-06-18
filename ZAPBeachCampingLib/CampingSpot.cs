@@ -8,8 +8,8 @@ namespace ZAPBeachCampingLib
     {
         private static Dictionary<string, Price> prices = new Dictionary<string, Price>()
         {
-            {"SMALL_SPOT_FEE", new Price(500, 350) },
-            {"BIG_SPOT_FEE", new Price(850, 600) },
+            {"SMALL_SPOT_FEE", new Price(60, 50) },
+            {"BIG_SPOT_FEE", new Price(80, 65) },
             {"ADULT_PRICE", new Price(82, 87) },
             {"CHILD_PRICE", new Price(42, 49) },
             {"DOG_PRICE", new Price(30, 30) },
@@ -22,11 +22,12 @@ namespace ZAPBeachCampingLib
         public CampingType CampingType { get; set; }
 
         internal CampingSpot()
+            : base(SpotType.CampingSite, prices)
         {
 
         }
 
-        public CampingSpot(string number, bool isGoodView, CampingType campingType) 
+        public CampingSpot(string number, bool isGoodView, CampingType campingType)
             : base(number, SpotType.CampingSite, isGoodView, prices)
         {
             CampingType = campingType;

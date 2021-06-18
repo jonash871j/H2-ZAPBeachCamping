@@ -7,23 +7,25 @@ AS
 GO	
 
 CREATE OR ALTER PROCEDURE GetCampingSiteBySearch
-	@IsGoodView BIT
+	@IsGoodView BIT,
+	@CampingType INTEGER
 AS
 	SELECT * 
 	FROM CampingSpots
 	JOIN Spots
 	ON Spots.Number = CampingSpots.Number
-	WHERE IsGoodView = @IsGoodView
+	WHERE IsGoodView = @IsGoodView AND CampingSpots.CampingType = @CampingType
 GO
 
 CREATE OR ALTER PROCEDURE GetHutSiteBySearch
-	@IsGoodView BIT
+	@IsGoodView BIT,
+	@HutType INTEGER
 AS
 	SELECT * 
 	FROM HutSpots
 	JOIN Spots
 	ON Spots.Number = HutSpots.Number
-	WHERE IsGoodView = @IsGoodView
+	WHERE IsGoodView = @IsGoodView AND HutType = @HutType
 GO	
 
 CREATE OR ALTER PROCEDURE GetAllSpotNumbersBetweenDate
@@ -46,23 +48,21 @@ AS
 GO	
 
 CREATE OR ALTER PROCEDURE GetCampingSite
-	@Number VARCHAR(8),
-	@CampingType INTEGER
+	@Number VARCHAR(8)
 AS
 	SELECT * 
 	FROM CampingSpots
 	JOIN Spots
 	ON Spots.Number = CampingSpots.Number
-	WHERE CampingSpots.Number = @Number AND CampingSpots.CampingType = @CampingType
+	WHERE CampingSpots.Number = @Number
 GO
 
 CREATE OR ALTER PROCEDURE GetHutSite
-	@Number VARCHAR(8),
-	@HutType INTEGER
+	@Number VARCHAR(8)
 AS
 	SELECT * 
 	FROM HutSpots
 	JOIN Spots
 	ON Spots.Number = HutSpots.Number
-	WHERE HutSpots.Number = @Number AND HutSpots.HutType = @HutType
+	WHERE HutSpots.Number = @Number
 GO	
