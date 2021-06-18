@@ -1,16 +1,4 @@
-﻿--CREATE OR ALTER PROCEDURE GetSpotsBySearch
---	@SpotType INT,
---	@IsGoodView BIT
---AS
---BEGIN
---	SELECT * 
---	FROM Spots
---	WHERE SpotType = @SpotType
---	AND IsGoodView = @IsGoodView
---END
---GO	
-
-CREATE OR ALTER PROCEDURE GetSiteBySearch
+﻿CREATE OR ALTER PROCEDURE GetSiteBySearch
 	@IsGoodView BIT
 AS
 	SELECT * 
@@ -58,21 +46,23 @@ AS
 GO	
 
 CREATE OR ALTER PROCEDURE GetCampingSite
-	@Number VARCHAR(8)
+	@Number VARCHAR(8),
+	@CampingType INTEGER
 AS
 	SELECT * 
 	FROM CampingSpots
 	JOIN Spots
 	ON Spots.Number = CampingSpots.Number
-	WHERE CampingSpots.Number = @Number
+	WHERE CampingSpots.Number = @Number AND CampingSpots.CampingType = @CampingType
 GO
 
 CREATE OR ALTER PROCEDURE GetHutSite
-	@Number VARCHAR(8)
+	@Number VARCHAR(8),
+	@HutType INTEGER
 AS
 	SELECT * 
 	FROM HutSpots
 	JOIN Spots
 	ON Spots.Number = HutSpots.Number
-	WHERE HutSpots.Number = @Number
+	WHERE HutSpots.Number = @Number AND HutSpots.HutType = @HutType
 GO	

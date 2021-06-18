@@ -14,6 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+    <script src="\Scripts\OrderSessionScript.js"></script>
     <script src="\Scripts\OrderScript.js"></script>
     <script src="\Scripts\DateLimitScript.js"></script>
 </head>
@@ -164,19 +165,19 @@
                                     <fieldset class="form-group">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="spotType" id="rb_campingType1" value="2" checked="" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                <input type="radio" class="form-check-input" name="spotType" id="rb_spotType1" value="2" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
                                                 Campingvogn
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="spotType" id="rb_campingType2" value="1" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                <input type="radio" class="form-check-input" name="spotType" id="rb_spotType2" value="1" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
                                                 Telt
                                             </label>
                                         </div>
                                         <div class="form-check disabled">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="spotType" id="rb_campingType3" value="3" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                <input type="radio" class="form-check-input" name="spotType" id="rb_spotType3" value="3" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
                                                 Hytte
                                             </label>
                                         </div>
@@ -186,13 +187,13 @@
                                         <div id="dv_campingSettingsTab1">
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="campingType" value="1" checked="">
+                                                    <input type="radio" class="form-check-input" name="campingType" id="rb_campingType1" value="1">
                                                     Lille plads (pr. dag høj: 60,- lav: 50,-)
                                                 </label>
                                             </div>
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="campingType" value="2">
+                                                    <input type="radio" class="form-check-input" name="campingType" id="rb_campingType2" value="2">
                                                     Stor plads (pr. dag høj: 80,- lav: 65,-)
                                                 </label>
                                             </div>
@@ -200,7 +201,7 @@
                                         <div id="dv_campingSettingsTab2">
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="tentType" value="1" checked="">
+                                                    <input type="radio" class="form-check-input" name="tentType" id="rb_tentType1" value="1">
                                                     Telt plads (pr. dag høj: 35,- lav: 45,-)
                                                 </label>
                                             </div>
@@ -208,13 +209,13 @@
                                         <div id="dv_campingSettingsTab3">
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="hutType" value="1" checked="">
+                                                    <input type="radio" class="form-check-input" name="hutType" id="rb_hutType1"  value="1">
                                                     Standard hytte (pr. dag høj: 500,- lav: 350,-)
                                                 </label>
                                             </div>
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="hutType" value="2">
+                                                    <input type="radio" class="form-check-input" name="hutType" id="rb_hutType2" value="2">
                                                     Luksus hytte (pr. dag høj: 850,- lav: 600,-)
                                                 </label>
                                             </div>

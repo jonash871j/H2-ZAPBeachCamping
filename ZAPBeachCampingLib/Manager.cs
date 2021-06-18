@@ -60,7 +60,9 @@ namespace ZAPBeachCampingLib
             List<Spot> spots = GetSpotsBySearch(
                 reservationPrefences.GetStartDate(),
                 reservationPrefences.GetEndDate(),
-                reservationPrefences.SpotType, 
+                reservationPrefences.SpotType,
+                reservationPrefences.CampingType,
+                reservationPrefences.HutType,
                 false
             );
             if (spots.Count > 0)
@@ -107,9 +109,9 @@ namespace ZAPBeachCampingLib
         {
             return dal.GetSpot(spotNumber);
         }
-        public List<Spot> GetSpotsBySearch(DateTime startDate, DateTime endDate, SpotType spotType, bool isGoodView)
+        public List<Spot> GetSpotsBySearch(DateTime startDate, DateTime endDate, SpotType spotType, CampingType campingType, HutType hutType, bool isGoodView)
         {
-            List<Spot> spots = dal.GetSpotsBySearch(spotType, isGoodView);
+            List<Spot> spots = dal.GetSpotsBySearch(spotType, campingType, hutType, isGoodView);
 
             foreach(string unavaibleSpotNumber in dal.GetAllUnavailbleSpotNumbersBetweenDate(startDate, endDate))
             {
