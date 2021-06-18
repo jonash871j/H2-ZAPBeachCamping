@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ZAPBeachCampingLib
 {
@@ -30,8 +31,24 @@ namespace ZAPBeachCampingLib
             Address = address;
             PhoneNumber = phoneNumber;
         }
+        public bool IsValid(out string errorMsg)
+        {
+            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) ||
+                string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(City) ||
+                string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(PhoneNumber))
+            {
+                errorMsg = "Vi mangler nogle oplysninger om dig.";
+                return false;
+            }
+            errorMsg = "";
+            return true;
+        }
+        private bool IsValidPhoneNumber()
+        {
+            return Regex.Match(PhoneNumber, @"^(\+[0-9]{9})$").Success;
+        }
 
-        
+
         #endregion
     }
 }

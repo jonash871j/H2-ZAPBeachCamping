@@ -8,6 +8,8 @@ namespace ZAPBeachCampingLib
 {
     public class ReservationPrefences
     {
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
         public SpotType SpotType { get; set; }
         public CampingType CampingType { get; set; }
         public HutType HutType { get; set; }
@@ -21,7 +23,7 @@ namespace ZAPBeachCampingLib
 
             void AddCustomerTypes(int amount, CustomerType customerType)
             {
-                for (int i = 0; i < Adult; i++)
+                for (int i = 0; i < amount; i++)
                 {
                     customerTypes.Add(CustomerType.Adult);
                 }
@@ -32,6 +34,31 @@ namespace ZAPBeachCampingLib
             AddCustomerTypes(Dog, CustomerType.Dog);
 
             return customerTypes;
+        }
+
+        public bool IsValidDates(out string errorMsg)
+        {
+            if (GetStartDate().Date < DateTime.Now.Date)
+            {
+                errorMsg = "Start dato manlger.";
+                return false;
+            }
+            if (GetEndDate().Date < GetStartDate().Date)
+            {
+                errorMsg = "Slut dato manlger.";
+                return false;
+            }
+            errorMsg = "";
+            return true;
+        }
+
+        public DateTime GetStartDate()
+        {
+            return Convert.ToDateTime(StartDate);
+        }
+        public DateTime GetEndDate()
+        {
+            return Convert.ToDateTime(StartDate);
         }
     }
 }

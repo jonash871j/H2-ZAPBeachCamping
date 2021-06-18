@@ -50,10 +50,19 @@ namespace ZAPBeachCampingLib
         #region Reservation
         public bool CreateReservation(Customer customer, ReservationPrefences reservationPrefences)
         {
+            string errorMsg;
+            if (!reservationPrefences.IsValidDates(out errorMsg) || !customer.IsValid(out errorMsg))
+            {
+                Failure.Invoke(errorMsg);
+                return false;
+            }
+
             List<Spot> spots = GetSpotsBySearch(
-                new DateTime(2021, 6, 16), 
-                new DateTime(2021, 6, 18),
-                reservationPrefences.SpotType, 
+                reservationPrefences.GetStartDate(),
+                reservationPrefences.GetEndDate(),
+                reservationPrefences.SpotType,
+                reservationPrefences.CampingType,
+                reservationPrefences.HutType,
                 false
             );
             if (spots.Count > 0)
@@ -62,8 +71,8 @@ namespace ZAPBeachCampingLib
                     customer,
                     spots[0],
                     0.0,
-                    new DateTime(2021, 6, 16),
-                    new DateTime(2021, 6, 18),
+                    reservationPrefences.GetStartDate(),
+                    reservationPrefences.GetEndDate(),
                     reservationPrefences.GetCustomerTypes(),
                     new List<Addition>()
                 ));
@@ -100,9 +109,9 @@ namespace ZAPBeachCampingLib
         {
             return dal.GetSpot(spotNumber);
         }
-        public List<Spot> GetSpotsBySearch(DateTime startDate, DateTime endDate, SpotType spotType, bool isGoodView)
+        public List<Spot> GetSpotsBySearch(DateTime startDate, DateTime endDate, SpotType spotType, CampingType campingType, HutType hutType, bool isGoodView)
         {
-            List<Spot> spots = dal.GetSpotsBySearch(spotType, isGoodView);
+            List<Spot> spots = dal.GetSpotsBySearch(spotType, campingType, hutType, isGoodView);
 
             foreach(string unavaibleSpotNumber in dal.GetAllUnavailbleSpotNumbersBetweenDate(startDate, endDate))
             {

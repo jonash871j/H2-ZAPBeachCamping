@@ -91,16 +91,16 @@ namespace ZAPBeachCampingLib
 
         #region Spots
 
-        public List<Spot> GetSpotsBySearch(SpotType spotType, bool isGoodView)
+        public List<Spot> GetSpotsBySearch(SpotType spotType, CampingType campingType, HutType hutType, bool isGoodView)
         {
             switch (spotType)
             {
                 case SpotType.TentSite:
                     return new List<Spot>(GetDB((c) => c.Query<TentSpot>("GetSiteBySearch @IsGoodView", new { IsGoodView = isGoodView }).ToList()));
                 case SpotType.CampingSite:
-                    return new List<Spot>(GetDB((c) => c.Query<CampingSpot>("GetCampingSiteBySearch @IsGoodView", new { IsGoodView = isGoodView }).ToList()));
+                    return new List<Spot>(GetDB((c) => c.Query<CampingSpot>("GetCampingSiteBySearch @IsGoodView, @CampingType", new { IsGoodView = isGoodView, CampingType = (int)campingType }).ToList()));
                 case SpotType.HutSite:
-                    return new List<Spot>(GetDB((c) => c.Query<HutSpot>("GetHutSiteBySearch @IsGoodView", new { IsGoodView = isGoodView }).ToList()));
+                    return new List<Spot>(GetDB((c) => c.Query<HutSpot>("GetHutSiteBySearch @IsGoodView, @HutType", new { IsGoodView = isGoodView, HutType = (int)hutType }).ToList()));
                 default:
                     return null;
             }
