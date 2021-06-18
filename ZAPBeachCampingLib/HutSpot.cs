@@ -15,7 +15,6 @@ namespace ZAPBeachCampingLib
             {"DOG_PRICE", new Price(30, 30) },
         };
         public HutType HutType{ get; private set; }
-        public bool IsCleaned { get; set; } = true;
 
         internal HutSpot()
         {
