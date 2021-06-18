@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
 
-namespace Invoice
+namespace ZAPBeachCampingLib
 {
     class InvoiceCreator
     {
@@ -22,7 +22,7 @@ namespace Invoice
         /// <summary>
         /// Sends invoice to customer from reservation 
         /// </summary>
-        public void Send(string templatePath, string templateFilename)
+        public void Send(Reservation reservation, string templatePath, string templateFilename)
         {
             // Overide template document
             if (File.Exists(templatePath + "Temp.docx"))
@@ -37,7 +37,7 @@ namespace Invoice
             document = applicationWord.Documents.Open(templatePath + "Temp.docx");
 
             // Creates a invoice document for customer
-            CreateInvoice();
+            CreateInvoice(reservation);
 
             // Convents .docx to .pdf
             document.Save();
@@ -45,11 +45,11 @@ namespace Invoice
             document.Close();
 
             // Sends email to customer
-            //email.sendemailattachement(
-            //    "rasmus@vinperlen.dk",
-            //    "zap beach camping faktura",
-            //    "hej " + "rasmus" + "\n\ntusind tak for din bestilling, vi håber du får en uforglemmelig tur hos zap beach camping.\n\n\nmed venlig hilsen\n\nzap beach camping",
-            //    templatepath + "faktura.pdf");
+            email.SendEmailAttachement(
+                reservation.Customer.Email,
+                "ZAP Beach Camping faktura",
+                "Hej " + reservation.Customer.FirstName + "\n\nTusind tak for din bestilling, vi håber du får en uforglemmelig tur hos ZAP Beach Camping.\n\n\nMed venlig hilsen\n\nZAP Beach Camping",
+                templatePath + "Faktura.pdf");
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Invoice
         public void OpenWord()
         {
             applicationWord = new Application();
-            applicationWord.Visible = true;
+            applicationWord.Visible = false;
         }
 
         /// <summary>
@@ -85,20 +85,20 @@ namespace Invoice
         /// <summary>
         /// Used to create a invoice document based on reservation
         /// </summary>
-        private void CreateInvoice()
+        private void CreateInvoice(Reservation reservation)
         {
 
-
+            Customer c = reservation.Customer;
             //Customer information
-            ReplaceText("ID_ADDRESS", "Humlebivej 1");
-            ReplaceText("ID_CITY", "Holbæk, 4500");
-            ReplaceText("ID_PHONENUMBER", "12 23 45 56");
-            ReplaceText("ID_EMAIL", "12 23 45 56");
+            ReplaceText("ID_ADDRESS", c.Address);
+            ReplaceText("ID_CITY", c.City);
+            ReplaceText("ID_PHONENUMBER", c.PhoneNumber);
+            ReplaceText("ID_EMAIL", c.Email);
 
             //Order number and date
-            ReplaceText("ID_ORDRENUMMER", "123456789");
-            ReplaceText("ID_ARRIVAL", "2021-06-18");
-            ReplaceText("ID_DEPARTURE", "2021-06-21");
+            ReplaceText("ID_ORDRENUMMER", reservation.OrderNumber.ToString());
+            ReplaceText("ID_ARRIVAL", reservation.StartDate.ToShortDateString());
+            ReplaceText("ID_DEPARTURE", reservation.EndDate.ToShortDateString());
 
             //Order Information
 

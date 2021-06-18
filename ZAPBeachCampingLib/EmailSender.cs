@@ -6,7 +6,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Invoice
+namespace ZAPBeachCampingLib
 {
     public class EmailSender
     {
