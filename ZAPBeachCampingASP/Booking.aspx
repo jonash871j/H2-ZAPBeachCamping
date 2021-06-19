@@ -56,7 +56,6 @@
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-primary" onclick="onTest();">Debug</button>
     <%-- Banner --%>
     <form id="form1" runat="server">
         <%-- Client to server data --%>
