@@ -1,46 +1,56 @@
-﻿$(function () {
-    var dtToday = new Date();
+﻿// Used to converts date to yyyy-mm-dd with leadning zeros
+function getDateString(date) {
+    var dateString = date.getFullYear() + "-" +
+        ("0" + (date.getMonth() + 1)).slice(-2) + "-" +
+        ("0" + date.getDate()).slice(-2);
 
+    return dateString;
+}
 
+$(function () {
+    // Gets date of today
+    var minStartDate = new Date();
 
-    var month = dtToday.getMonth() + 1;
-    var day = dtToday.getDate();
-    var year = dtToday.getFullYear();
-    if (month < 10)
-        month = '0' + month.toString();
-    if (day < 10)
-        day = '0' + day.toString();
+    // Sets min date for start calender
+    $('#dat_start').attr('min', getDateString(minStartDate));
 
+    // When there is no selected start date
+    if ($('#dat_start').value == null) {
+        document.getElementById("dat_start").valueAsDate = minStartDate;
+    }
 
-
-    var maxDate = year + '-' + month + '-' + day;
-    $('#dat_start').attr('min', maxDate);
+    updateEndDate();
 });
 
 
 
 $(function () {
-    let newSelectedDate; // undefined
-
-
-
     document.getElementById("dat_start").addEventListener("change", function () {
-        newSelectedDate = this.value;
+        // Convert start date value to date object
+        var minEndDate = new Date(this.value);
 
+        // Adds one day from the start day
+        minEndDate.setDate(minEndDate.getDate() + 1);
 
-
-        $('#dat_end').attr('min', newSelectedDate);
+        // Sets min date for end calender
+        $('#dat_end').attr('min', getDateString(minEndDate));
     });
 });
 
 
+function updateEndDate() {
+    // Convert start date value to date object
+    var minEndDate = new Date(document.getElementById("dat_start").valueAsDate);
+
+    // Adds one day from the start day
+    minEndDate.setDate(minEndDate.getDate() + 1);
+
+    
+    document.getElementById("dat_end").valueAsDate = minEndDate;
+}
 
 $(function () {
-    let newSelectedDate; // undefined
-
-
-
     document.getElementById("dat_start").addEventListener("change", function () {
-        document.getElementById("dat_end").valueAsDate = null;
+        updateEndDate();
     });
 });

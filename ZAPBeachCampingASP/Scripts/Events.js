@@ -1,0 +1,26 @@
+﻿setInterval(function () {
+    document.getElementById("h_startDate").innerHTML = document.getElementById("dat_start").value;
+    document.getElementById("h_endDate").innerHTML = document.getElementById("dat_end").value;
+
+    document.getElementById("h_adult").innerHTML = document.getElementById("nb_adult").value;
+    document.getElementById("h_child").innerHTML = document.getElementById("nb_child").value;
+    document.getElementById("h_dog").innerHTML = document.getElementById("nb_dog").value;
+
+    document.getElementById("h_spotType").innerHTML = campingSettingsHandler.getSpotTypeDescription();
+    document.getElementById("h_spotSettingsType").innerHTML = campingSettingsHandler.getSpotSettingDescription();
+    document.getElementById("h_isGoodView").innerHTML = campingSettingsHandler.getIsGoodViewDescription();
+    document.getElementById("h_isPayingForCleaning").innerHTML = campingSettingsHandler.getIsPayingForCleaningDescription();
+
+    document.getElementById("h_additionAmount").innerHTML = additionsHandler.getAdditionsAmount();
+}, 100);
+
+
+function onNumberBoxChange(numberBox) {
+    if (numberBox.value == "" || parseInt(numberBox.value) < parseInt(numberBox.min)) {
+        numberBox.value = numberBox.min;
+    }
+
+    if (parseInt(numberBox.value) > parseInt(numberBox.max)) {
+        numberBox.value = numberBox.max;
+    }
+}

@@ -1,199 +1,89 @@
 ﻿var progressHandler;
 var travelperiodHandler;
 var campingSettingsHandler;
-var orderData;
-var elementArray = 
+var session;
+var customerHandler;
+var additionsHandler;
 
 window.onload = function () {
     progressHandler = new ProgressHandler();
     travelperiodHandler = new TravelperiodHandler();
     campingSettingsHandler = new CampingSettingsHandler();
-    orderData = new OrderData();
+    customerHandler = new CustomerHandler();
+    additionsHandler = new AdditionsHandler();
+    session = new Session();
 
-    var sessionLoader = new SessionLoader();
+    session.load();
 
     if (document.getElementById("MF_Success").value == "true") {
         progressHandler.nextTab();
     }
+
+
 }
 window.onbeforeunload = function () {
-    var sessionSaver = new SessionSaver();
+    session.save();
 
     if (document.getElementById("prb_orderProgrss").style.width == "100%") {
-        sessionSaver.clear();
+        session.clear();
     }
 };
 
-class ProgressHandler {
-    constructor() {
-        document.getElementById("dv_orderTab1").style.display = "block";
-        document.getElementById("dv_orderTab2").style.display = "none";
-        document.getElementById("dv_orderTab3").style.display = "none";
-        document.getElementById("dv_orderTab4").style.display = "none";
-        document.getElementById("dv_orderTab5").style.display = "none";
-        document.getElementById("BN_Order").style.display = "none";
-    }
-    nextTab() {
-        for (var i = 0; i < 100; i += 25) {
-            if (prb_orderProgrss.style.width == i + '%' && prb_orderProgrss.style.width != 100 + '%') {
-                prb_orderProgrss.style.width = (i + 25) + '%';
-                break;
-            }
-        }
-        this.update();
-    }
 
-    previewsTab() {
-        var prb_orderProgrss = document.getElementById("prb_orderProgrss");
+function onTest() {
+    //var s = new Session();
+    //s.default();
+    //s.load();
 
-        for (var i = 100; i >= 0; i -= 25) {
-            if (prb_orderProgrss.style.width == i + '%' && prb_orderProgrss.style.width != 0 + '%') {
-                prb_orderProgrss.style.width = (i - 25) + '%';
-                break;
-            }
-        }
-        this.update();
-    }
-
-    update() {
-        this.updatePreviewTabButtonState();
-        this.updateNextTabButtonState();
-        this.updateOrderTab();
-    }
-
-    updatePreviewTabButtonState() {
-        var prb_orderProgrss = document.getElementById("prb_orderProgrss");
-        var bn_previewsTab = document.getElementById("bn_previewsTab");
-
-        if (prb_orderProgrss.style.width == "0%") {
-            bn_previewsTab.classList.add("disabled");
-        }
-        else {
-            bn_previewsTab.classList.remove("disabled");
-        }
-    }
-    updateNextTabButtonState() {
-        var prb_orderProgrss = document.getElementById("prb_orderProgrss");
-        var bn_nextTab = document.getElementById("bn_nextTab");
-        var BN_Order = document.getElementById("BN_Order");
-        var bn_previewsTab = document.getElementById("bn_previewsTab");
-
-        if (prb_orderProgrss.style.width == "75%") {
-            BN_Order.style.display = "block"
-            bn_nextTab.style.display = "none"
-        }
-        else if (prb_orderProgrss.style.width == "100%") {
-            BN_Order.style.display = "none"
-            bn_nextTab.style.display = "block"
-
-            bn_nextTab.classList.add("disabled");
-            bn_previewsTab.classList.add("disabled");
-        }
-        else {
-            BN_Order.style.display = "none"
-            bn_nextTab.style.display = "block"
-        }
-    }
-    updateOrderTab() {
-        var tab = parseInt(document.getElementById("prb_orderProgrss").style.width) / 25 + 1;
-
-        for (var i = 1; i < 6; i++) {
-            if (tab == i) {
-                document.getElementById("dv_orderTab" + i).style.display = "block";
-            }
-            else {
-                document.getElementById("dv_orderTab" + i).style.display = "none";
-            }
-        }
-    }
 }
-class TravelperiodHandler {
-    constructor() {
-        document.getElementById("dv_travelperiodTab1").style.display = "block";
-        document.getElementById("dv_travelperiodTab2").style.display = "none";
-    }
 
-    seasonSiteSelectionChanged() {
-        if (document.getElementById("cb_seasonSite").checked == true) {
-            document.getElementById("dv_travelperiodTab1").style.display = "none";
-            document.getElementById("dv_travelperiodTab2").style.display = "block";
-        }
-        else {
-            document.getElementById("dv_travelperiodTab1").style.display = "block";
-            document.getElementById("dv_travelperiodTab2").style.display = "none";
-        }
-    }
-}
-class CampingSettingsHandler {
-    constructor() {
-        this.disableTabs();
-        document.getElementById("dv_campingSettingsTab1").style.display = "block";
-    }
-
-    disableTabs() {
-        document.getElementById("dv_campingSettingsTab1").style.display = "none";
-        document.getElementById("dv_campingSettingsTab2").style.display = "none";
-        document.getElementById("dv_campingSettingsTab3").style.display = "none";
-    }
-    campingTypeSelectionChanged() {
-        this.disableTabs();
-        if (document.getElementById("rb_spotType1").checked == true)
-            document.getElementById("dv_campingSettingsTab1").style.display = "block";
-        else if (document.getElementById("rb_spotType2").checked == true)
-            document.getElementById("dv_campingSettingsTab2").style.display = "block";
-        else if (document.getElementById("rb_spotType3").checked == true)
-            document.getElementById("dv_campingSettingsTab3").style.display = "block";
-    }
-}
-class Customer {
-    constructor() {
-        this.FirstName = document.getElementById("tb_firstName").value;
-        this.LastName = document.getElementById("tb_lastName").value;
-        this.Email = document.getElementById("tb_email").value;
-        this.Address = document.getElementById("tb_address").value;
-        this.PhoneNumber = document.getElementById("tb_phoneNumber").value;
-        this.City = document.getElementById("tb_city").value;
-    }
-}
-class Camping {
-    constructor() {
-        this.StartDate = document.getElementById("dat_start").valueAsDate;
-        this.EndDate = document.getElementById("dat_end").valueAsDate;
-
-        const spotTypes = document.querySelectorAll('input[name="spotType"]');
-        for (const spotType of spotTypes) {
-            if (spotType.checked) {
-                this.SpotType = parseInt(spotType.value);
-                break;
-            }
-        }
-        const campingTypes = document.querySelectorAll('input[name="campingType"]');
-        for (const campingType of campingTypes) {
-            if (campingType.checked) {
-                this.CampingType = parseInt(campingType.value);
-                break;
-            }
-        }
-        const hutTypes = document.querySelectorAll('input[name="hutType"]');
-        for (const hutType of hutTypes) {
-            if (hutType.checked) {
-                this.HutType = parseInt(hutType.value);
-                break;
-            }
-        }
-        this.Adult = parseInt(document.getElementById("nb_adult").value);
-        this.Child = parseInt(document.getElementById("nb_child").value);
-        this.Dog = parseInt(document.getElementById("nb_dog").value);
-    }
-}
-class OrderData {
+class Session {
     constructor() {
 
     }
 
-    update() {
-        document.getElementById('HF_Camping').value = JSON.stringify(new Camping());
-        document.getElementById('HF_Customer').value = JSON.stringify(new Customer());
-        return true;
+    default() {
+        sessionStorage.setItem("prb_orderProgrss", "0%");
+
+        sessionStorage.setItem("endDate", "");
+        sessionStorage.setItem("startDate", "");
+
+        campingSettingsHandler.sessionDefault();
+        additionsHandler.sessionDefault();
+        customerHandler.sessionDefault();
+    }
+    clear() {
+        this.default();
+    }
+    load() {
+        if (sessionStorage.getItem("firstLoad") == null) {
+            sessionStorage.setItem("firstLoad", "true");
+            this.default();
+        }
+
+        var orderProgrss = sessionStorage.getItem("prb_orderProgrss");
+        if (orderProgrss != null) {
+            document.getElementById("prb_orderProgrss").style.width = orderProgrss;
+            progressHandler.update();
+        }
+
+        document.getElementById("dat_end").value = sessionStorage.getItem("dat_end");
+        $('#dat_end').attr('min', sessionStorage.getItem("dat_end_min"));
+        document.getElementById("dat_start").value = sessionStorage.getItem("dat_start");
+
+        campingSettingsHandler.sessionLoad();
+        additionsHandler.sessionLoad();
+        customerHandler.sessionLoad();
+    }
+    save() {
+        sessionStorage.setItem("prb_orderProgrss", document.getElementById("prb_orderProgrss").style.width);
+
+        sessionStorage.setItem("dat_end", document.getElementById("dat_end").value);
+        sessionStorage.setItem("dat_end_min", $('#dat_end').attr('min'));
+        sessionStorage.setItem("dat_start", document.getElementById("dat_start").value);
+
+        campingSettingsHandler.sessionSave();
+        additionsHandler.sessionSave();
+        customerHandler.sessionSave();
     }
 }

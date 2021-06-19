@@ -11,10 +11,5 @@
         {
             dal = new DataAccess();
         }
-
-        private void OnFailure(string message)
-        {
-            MissingInformation?.Invoke(message);
-        }
     }
 }

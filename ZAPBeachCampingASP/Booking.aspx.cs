@@ -16,7 +16,10 @@ namespace ZAPBeachCampingASP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                HF_Additions.Value = JsonSerializer.Serialize(Manager.GetAllAddtion());
+            }
         }
 
         protected void BN_Order_Click(object sender, EventArgs e)
@@ -55,7 +58,7 @@ namespace ZAPBeachCampingASP
             try
             {
                 customer = JsonSerializer.Deserialize<Customer>(Request.Form["HF_Customer"]);
-                reservationPrefences = JsonSerializer.Deserialize<BookingOptions>(Request.Form["HF_Camping"]);
+                reservationPrefences = JsonSerializer.Deserialize<BookingOptions>(Request.Form["HF_BookingOptions"]);
                 return true;
 
             }
@@ -67,7 +70,6 @@ namespace ZAPBeachCampingASP
                 reservationPrefences = null;
                 return false;
             }
-
         }
     }
 }

@@ -92,7 +92,7 @@ namespace ZAPBeachCampingLib
             string errorMsg;
             if (!reservationPrefences.IsValidDates(out errorMsg) || !customer.IsValid(out errorMsg))
             {
-                MissingInformation.Invoke(errorMsg);
+                MissingInformation?.Invoke(errorMsg);
                 return false;
             }
 
@@ -103,7 +103,7 @@ namespace ZAPBeachCampingLib
                 reservationPrefences.SpotType,
                 reservationPrefences.CampingType,
                 reservationPrefences.HutType,
-                false
+                reservationPrefences.IsGoodView
             );
             if (spots.Count > 0)
             {
@@ -114,15 +114,15 @@ namespace ZAPBeachCampingLib
                     reservationPrefences.GetStartDate(),
                     reservationPrefences.GetEndDate(),
                     reservationPrefences.GetCustomerTypes(),
-                    new List<Addition>(),
-                    false
+                    reservationPrefences.Additions,
+                    reservationPrefences.IsPayingForCleaning
                 ));
 
                 return true;
             }
             else
             {
-                MissingInformation.Invoke("Der er desværre ikke flere ledige pladser udfra dine valg.");
+                MissingInformation?.Invoke("Der er desværre ikke flere ledige pladser udfra dine valg.");
                 return false;
             }
         }

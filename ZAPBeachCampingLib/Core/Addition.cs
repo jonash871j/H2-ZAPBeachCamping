@@ -6,24 +6,19 @@ namespace ZAPBeachCampingLib
 {
     public class Addition
     {
-        #region Properties
         public string Name { get; private set; }
         public double Price { get; private set; }
-        public bool IsDaily { get; private set; }
-        #endregion
-
-        #region Constructors
+        public bool IsDailyPayment { get; private set; }
 
         internal Addition() 
         {
         }
 
-        public Addition(string name, double price, bool isDaily)
+        public Addition(string name, double price, bool isDailyPayment)
         {
             Name = name;
             Price = price;
-            IsDaily = isDaily;
+            IsDailyPayment = isDailyPayment;
         }
-        #endregion
     }
 }

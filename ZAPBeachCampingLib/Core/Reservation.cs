@@ -9,7 +9,7 @@ namespace ZAPBeachCampingLib
         internal string CustomerEmail { get; set; } // FOREIGN KEY
         internal string SpotNumber { get; set; } // FOREIGN KEY
 
-        public int OrderNumber { get; private set; } = -1; 
+        public int OrderNumber { get; internal set; } = -1; 
         public Customer Customer { get; internal set; }
         public Spot Spot { get; internal set; }
         public List<CustomerType> CustomerTypes { get; internal set; }

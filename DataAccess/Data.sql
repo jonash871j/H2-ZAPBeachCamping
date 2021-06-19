@@ -1,10 +1,9 @@
 INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Sengelinned', 30, 0);
-INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Morgenkomplet(voksen)', 75, 0);
-INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Morgenkomplet(børn)', 50, 0);
-INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Slutrengøring', 150, 0);
+INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Morgenkomplet for voksen', 75, 0);
+INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Morgenkomplet for barn', 50, 0);
 INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Cykelleje', 200, 1);
-INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Adgang til badeland (voksen)', 30, 0);
-INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Adgang til badeland (børn)', 15, 0);
+INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Adgang til badeland for voksen', 30, 0);
+INSERT INTO Additions(Name, Price, IsDailyPayment) VALUES('Adgang til badeland for barn', 15, 0);
 
 INSERT INTO Spots(Number, SpotType, IsGoodView) VALUES('2', 2, 0);
 INSERT INTO CampingSpots(Number, CampingType) VALUES('2', 0);

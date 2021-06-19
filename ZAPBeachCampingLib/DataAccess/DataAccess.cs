@@ -33,19 +33,43 @@ namespace ZAPBeachCampingLib
             => GetDB((c) => c.Query<CustomerType>("CreateCustomerType @OrderNumber,  @Value", new { OrderNumber = orderNumber, Value = (int)value }));
 
         // **** ReservationAdditions
+        public void CreateReservationAdditions(int orderNumber, string additionName)
+            => GetDB((c) => c.Query<Addition>("CreateReservationAdditions @OrderNumber, @AdditionName", new { OrderNumber = orderNumber, AdditionName = additionName })).ToList();
+        
         public List<Addition> GetReservationAdditions(int orderNumber)
             => GetDB((c) => c.Query<Addition>("GetReservationAdditions @OrderNumber", new { OrderNumber = orderNumber })).ToList();
 
         // **** Reservation
         public void CreateReservation(Reservation reservation)
         {
-            Reservation r = reservation;
-            Customer c = reservation.Customer;
-            Spot s = reservation.Spot;
+            GetDB(con =>
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("Email", reservation.Customer.Email);
+                parameters.Add("Firstname", reservation.Customer.FirstName);
+                parameters.Add("LastName", reservation.Customer.LastName);
+                parameters.Add("City", reservation.Customer.City);
+                parameters.Add("Address", reservation.Customer.Address);
+                parameters.Add("PhoneNumber", reservation.Customer.PhoneNumber);
+                parameters.Add("SpotNumber", reservation.Spot.Number);
+                parameters.Add("StartDate", reservation.StartDate);
+                parameters.Add("EndDate", reservation.EndDate);
+                parameters.Add("IsPayForCleaning", reservation.IsPayForCleaning);
+                parameters.Add("OrderNumber", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
 
-            GetDB(con => con.Query<Reservation>("CreateReservation @Email, @Firstname, " +
-                "@LastName, @City, @Address, @PhoneNumber, @SpotNumber, @StartDate, @EndDate, @IsPayForCleaning", 
-                new { c.Email, c.FirstName, c.LastName, c.City, c.Address, c.PhoneNumber, SpotNumber = s.Number, r.StartDate, r.EndDate, r.IsPayForCleaning}));
+                con.Execute("CreateReservation", parameters, commandType: CommandType.StoredProcedure);
+
+                reservation.OrderNumber = parameters.Get<int>("OrderNumber");
+            });
+
+            foreach (CustomerType customerType in reservation.CustomerTypes)
+            {
+                CreateCustomerTypes(reservation.OrderNumber, customerType);
+            }
+            foreach (Addition addition in reservation.Additions)
+            {
+                CreateReservationAdditions(reservation.OrderNumber, addition.Name);
+            }
         }
 
         public Reservation GetReservation(int orderNumber)
@@ -110,6 +134,13 @@ namespace ZAPBeachCampingLib
             using (IDbConnection c = new SqlConnection(_connectionString))
             {
                 return func(c);
+            }
+        }
+        private void GetDB(Action<IDbConnection> func)
+        {
+            using (IDbConnection c = new SqlConnection(_connectionString))
+            {
+                func(c);
             }
         }
     }

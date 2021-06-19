@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ZAPBeachCampingLib
 {
@@ -13,6 +14,9 @@ namespace ZAPBeachCampingLib
         public int Adult { get; set; }
         public int Child { get; set; }
         public int Dog { get; set; }
+        public bool IsGoodView { get; set; }
+        public bool IsPayingForCleaning { get; set; }
+        public List<Addition> Additions { get; set; }
 
         public List<CustomerType> GetCustomerTypes()
         {
