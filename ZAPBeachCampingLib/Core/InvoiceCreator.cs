@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -87,29 +88,88 @@ namespace ZAPBeachCampingLib
         /// </summary>
         private void CreateInvoice(Reservation reservation)
         {
+            Reservation r = reservation;
             Customer c = reservation.Customer;
+            Spot s = reservation.Spot;
             PriceCalculator priceCalculator = new PriceCalculator(reservation);
+            int line = 1;
 
-            //Customer information
+            // **** Customer information
+            ReplaceText("ID_NAME", c.FirstName + " " + c.LastName);
             ReplaceText("ID_ADDRESS", c.Address);
             ReplaceText("ID_CITY", c.City);
             ReplaceText("ID_PHONENUMBER", c.PhoneNumber);
             ReplaceText("ID_EMAIL", c.Email);
 
-            //Order number and date
-            ReplaceText("ID_ORDRENUMMER", reservation.OrderNumber.ToString());
-            ReplaceText("ID_ARRIVAL", reservation.StartDate.ToShortDateString());
-            ReplaceText("ID_DEPARTURE", reservation.EndDate.ToShortDateString());
+            // **** Order number and date
+            ReplaceText("ID_ORDRENUMMER", r.OrderNumber.ToString("D8"));
+            ReplaceText("ID_ARRIVAL", r.StartDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture));
+            ReplaceText("ID_DEPARTURE", r.EndDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture));
 
-            //Order Information
+            // **** Order Information
 
+            // Spot
+            PushLine(reservation.Spot.ToString(), r.GetTravelPeriodInDays() + " døgn", $"{priceCalculator.GetTotalSpotPrice()} DKK");
+
+            // Default spot addition
+            PushLine("Ekstra god udsigt (75 DKK pr. døgn)", s.IsGoodView ? "Ja" : "Nej", $"{priceCalculator.GetGoodViewPrice()} DKK");
+            if (s.SpotType == SpotType.HutSite)
+            {
+                PushLine("Slutrengøring (150 DKK)", reservation.IsPayForCleaning ? "Ja" : "Nej", $"{priceCalculator.GetHutSpotCleaningPrice()} DKK");
+            }
+
+            // Customer types
+            PushLine(
+                $"Voksne ({s.Prices["ADULT_PRICE"].GetPrice()} DKK pr. voksen)",
+                $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Adult).Count}",
+                $"{priceCalculator.GetTotalAdultPrice()} DKK"
+            );
+            PushLine(
+                 $"Børn ({s.Prices["CHILD_PRICE"].GetPrice()} DKK pr. barn)",
+                 $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Child).Count}",
+                 $"{priceCalculator.GetTotalChildPrice()} DKK"
+             );
+            PushLine(
+                 $"Hunde ({s.Prices["DOG_PRICE"].GetPrice()} DKK pr. hund)",
+                 $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Dog).Count}",
+                 $"{priceCalculator.GetTotalDogPrice()} DKK"
+             );
+            foreach (Addition addition in r.Additions.GroupBy(a => a.Name).Select(y => y.FirstOrDefault()))
+            {
+                int additionAmount = r.Additions.FindAll(a => a.Name == addition.Name).Count;
+                double price = addition.Price * additionAmount;
+
+                if (addition.IsDailyPayment)
+                {
+                    price *= r.GetTravelPeriodInDays();
+                }
+
+                PushLine(
+                    $"{addition.Name} ({addition.Price} DKK {(addition.IsDailyPayment ? "pr. døgn" : "")})", 
+                    $"Antal {additionAmount}", 
+                    $"{price} DKK"
+                );
+            }
+
+            // Total
+            ReplaceText("ID_TOTAL", $"{priceCalculator.GetTotalPrice()} DKK");
+
+            // Set spaces for all the rest fields
             for (int i = 1; i <= 17; i++)
             {
-                ReplaceText($"ID_DESC{i}", "Hello");
-                ReplaceText($"ID_AM{i}", "123");
-                ReplaceText($"ID_PRICE{i}", "Hello");
+                ReplaceText($"ID_DESC{i}", " ");
+                ReplaceText($"ID_AM{i}", " ");
+                ReplaceText($"ID_PRICE{i}", " ");
             }
-            ReplaceText("ID_TOTAL", $"{priceCalculator.GetTotalPrice()} DKK");
+
+            void PushLine(string description, string amount, string price)
+            {
+
+                ReplaceText($"ID_DESC{line}", description);
+                ReplaceText($"ID_AM{line}", amount);
+                ReplaceText($"ID_PRICE{line}", price);
+                line++;
+            }
         }
     }
 }

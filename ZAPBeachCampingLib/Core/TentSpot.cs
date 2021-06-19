@@ -16,5 +16,10 @@ namespace ZAPBeachCampingLib
             : base(SpotType.TentSite, prices)
         {
         }
+
+        public override string ToString()
+        {
+            return $"Telt nr. {Number} på almindelig plads ({prices["SPOT_FEE"].GetPrice()} DKK pr. døgn)";
+        }
     }
 }

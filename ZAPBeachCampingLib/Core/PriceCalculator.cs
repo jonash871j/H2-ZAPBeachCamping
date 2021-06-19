@@ -19,33 +19,29 @@ namespace ZAPBeachCampingLib
         {
             double price = 0.0;
 
-            price += GetTotalTravelersPrice();
-            price += GetTotalCampingSpotPrice();
-            price += GetTotalTentSpotPrice();
-            price += GetTotalHutSpotPrice();
+            price += GetTotalSpotPrice();
             price += GetGoodViewPrice();
             price += GetHutSpotCleaningPrice();
+            price += GetTotalAdditionsPrice();
 
             return price;
         }
         public double GetTotalTravelersPrice()
         {
             double price = 0.0;
-            foreach (CustomerType customerType in Reservation.CustomerTypes)
-            {
-                switch (customerType)
-                {
-                    case CustomerType.Adult:
-                        price += Reservation.Spot.Prices["ADULT_PRICE"].GetPrice();
-                        break;
-                    case CustomerType.Child:
-                        price += Reservation.Spot.Prices["CHILD_PRICE"].GetPrice();
-                        break;
-                    case CustomerType.Dog:
-                        price += Reservation.Spot.Prices["DOG_PRICE"].GetPrice();
-                        break;
-                }
-            }
+            price += GetTotalAdultPrice();
+            price += GetTotalChildPrice();
+            price += GetTotalDogPrice();
+            return price;
+        }
+        public double GetTotalSpotPrice()
+        {
+            double price = 0.0;
+
+            price += GetTotalHutSpotPrice();
+            price += GetTotalCampingSpotPrice();
+            price += GetTotalTentSpotPrice();
+
             return price;
         }
         public double GetTotalCampingSpotPrice()
@@ -59,7 +55,7 @@ namespace ZAPBeachCampingLib
                     case CampingType.Small:
                         return campingSpot.Prices["SMALL_SPOT_FEE"].GetPrice() * Reservation.GetTravelPeriodInDays();
                     case CampingType.Large:
-                        return campingSpot.Prices["LARGE_SPOT_FEE"].GetPrice() * Reservation.GetTravelPeriodInDays();
+                        return campingSpot.Prices["BIG_SPOT_FEE"].GetPrice() * Reservation.GetTravelPeriodInDays();
                     case CampingType.SeasonLarge:
                         break;
                 }
@@ -94,7 +90,7 @@ namespace ZAPBeachCampingLib
         {
             if (Reservation.Spot.IsGoodView)
             {
-                return 50.0;
+                return 75.0 * Reservation.GetTravelPeriodInDays();
             }
             return 0.0;
         }
@@ -105,6 +101,60 @@ namespace ZAPBeachCampingLib
                 return 150.0;
             }
             return 0.0;
+        }
+        public double GetTotalAdultPrice()
+        {
+            double price = 0.0;
+            foreach (CustomerType customerType in Reservation.CustomerTypes)
+            {
+                if (customerType == CustomerType.Adult)
+                {
+                    price += Reservation.Spot.Prices["ADULT_PRICE"].GetPrice();
+                }
+            }
+            return price;
+        }
+        public double GetTotalChildPrice()
+        {
+            double price = 0.0;
+            foreach (CustomerType customerType in Reservation.CustomerTypes)
+            {
+                if (customerType == CustomerType.Child)
+                {
+                    price += Reservation.Spot.Prices["CHILD_PRICE"].GetPrice();
+                }
+            }
+            return price;
+        }
+        public double GetTotalDogPrice()
+        {
+            double price = 0.0;
+            foreach (CustomerType customerType in Reservation.CustomerTypes)
+            {
+                if (customerType == CustomerType.Dog)
+                {
+                    price += Reservation.Spot.Prices["DOG_PRICE"].GetPrice();
+                }
+            }
+            return price;
+        }
+        public double GetTotalAdditionsPrice()
+        {
+            double price = 0.0;
+
+            foreach (Addition addition in Reservation.Additions)
+            {
+                if (addition.IsDailyPayment)
+                {
+                    price += addition.Price * Reservation.GetTravelPeriodInDays();
+                }
+                else
+                {
+                    price += addition.Price;
+                }
+            }
+
+            return price;
         }
     }
 }

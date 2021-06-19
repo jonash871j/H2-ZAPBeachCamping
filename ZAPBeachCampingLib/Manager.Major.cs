@@ -25,7 +25,7 @@ namespace ZAPBeachCampingLib
                     {
                         List<Reservation> reservations = manager.GetAllReservationsWithMissingInvoice();
 
-                        if (reservations != null && reservations.Count == 0)
+                        if (reservations != null && reservations.Count != 0)
                         {
                             Reservation reservation = reservations.FirstOrDefault();
                             reservation = manager.GetReservation(reservation.OrderNumber);
@@ -42,7 +42,7 @@ namespace ZAPBeachCampingLib
                         ConfigurationManager.AppSettings["InvoicePath"] + "InvoiceThread-ErrorLog.log", 
                         $"<{DateTime.Now}> {exception.Message}\n"
                     );
-                    Thread.Sleep(100000);
+                    Thread.Sleep(10000);
                 }
             }).Start();
         }

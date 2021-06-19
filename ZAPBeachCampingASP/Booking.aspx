@@ -277,26 +277,6 @@
                                 <%-- Tab 3: Additions --%>
                                 <div id="dv_orderTab3">
                                     <h4>Tillægsydelser</h4>
-                      <%--              <div class="form-group mt-3">
-                                        <label class="form-label">Morgenkomplet 75,- pr. voksen</label>
-                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label class="form-label">Morgenkomplet 50,- pr. barn</label>
-                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label class="form-label">Adgang til badeland badeland 30,- pr. voksen</label>
-                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label class="form-label">Adgang til badeland 15,- pr. barn</label>
-                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label class="form-label">Cykelleje 200,- pr dag</label>
-                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
-                                    </div>--%>
                                 </div>
                                 <%-- Tab 4: Your information --%>
                                 <div id="dv_orderTab4">
