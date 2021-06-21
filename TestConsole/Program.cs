@@ -11,15 +11,45 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
+
             Manager manager = new Manager();
-            manager.CreateReservation(new Customer(" "," "," "," "," "," "), 
-                new BookingOptions() 
-                { 
-                    StartDate = DateTime.Now.AddDays(1).ToShortDateString(), 
-                    EndDate = DateTime.Now.AddDays(2).ToShortDateString(),
-                    SpotType = SpotType.HutSite,
-                    HutType = HutType.Luxury
-                });
+            Reservation reservation = new Reservation(
+                new Customer(" ", " ", " ", " ", " ", " "),
+                manager.GetSpot("2"),
+                DateTime.Now.AddDays(1),
+                DateTime.Now.AddDays(4),
+                new List<CustomerType>(),
+                new List<Addition>(),
+                true
+                );
+
+
+
+            //manager.CreateReservation(new Customer(" ", " ", " ", " ", " ", " "),
+            //    new BookingOptions()
+            //    {
+            //        StartDate = DateTime.Now.AddDays(1).ToShortDateString(),
+            //        EndDate = DateTime.Now.AddDays(2).ToShortDateString(),
+            //        SpotType = SpotType.CampingSite,
+            //        HutType = HutType.Luxury
+            //    });
+
+            //for (int i = 0; i < 60; i++)
+            //{
+
+            //    if (i % 3 == 0)
+            //    {
+            //        Console.WriteLine(i);
+            //    }
+            //}
+
+
+
+            PriceCalculator priceCalculator = new PriceCalculator(reservation);
+            Console.WriteLine("Hello");
+            Console.WriteLine(priceCalculator.GetTotalCampingSpotPrice());
+            Console.WriteLine(priceCalculator.GetCampingSpotDiscountPrice());
+
 
             //foreach (Reservation reservation in manager.GetAllReservationsWithMissingInvoice())
             //{
