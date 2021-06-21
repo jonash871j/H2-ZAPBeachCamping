@@ -27,7 +27,7 @@ namespace ZAPBeachCampingLib
                            DateTime endDate,
                            List<CustomerType> customerTypes,
                            List<Addition> additions,
-                           bool isPayForCleaning,
+                           bool isPayForCleaning = false,
                            SeasonType seasonType = SeasonType.None)
         {
             Customer = customer;
@@ -43,6 +43,30 @@ namespace ZAPBeachCampingLib
         public int GetTravelPeriodInDays()
         {
             return (int)(EndDate - StartDate).TotalDays;
+        }
+
+        public string GetSpotDescription()
+        {
+            if (SeasonType == SeasonType.None)
+            {
+                return Spot.ToString();
+            }
+            else
+            {
+                switch (SeasonType)
+                {
+                    case SeasonType.SeasonSpring:
+                        return $"Sæsonplads nr. {Spot.Number} på stor plads i forår sæson";
+                    case SeasonType.SeasonSummer:
+                        return $"Sæsonplads nr. {Spot.Number} på stor plads i sommer sæson";
+                    case SeasonType.SeasonAutumn:
+                        return $"Sæsonplads nr. {Spot.Number} på stor plads i efterår sæson";
+                    case SeasonType.SeasonWinter:
+                        return $"Sæsonplads nr. {Spot.Number} på stor plads i vinter sæson";
+                    default:
+                        return "";
+                }
+            }
         }
     }
 }

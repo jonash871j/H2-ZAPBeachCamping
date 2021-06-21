@@ -174,7 +174,7 @@ namespace ZAPBeachCampingLib
         }
         public double GetCampingSpotDiscountPrice()
         {
-            if (Reservation.Spot.SpotType == SpotType.CampingSite)
+            if (Reservation.Spot.SpotType == SpotType.CampingSite && Reservation.SeasonType == SeasonType.None)
             {
                 CampingSpot campingSpot = (CampingSpot)Reservation.Spot;
 

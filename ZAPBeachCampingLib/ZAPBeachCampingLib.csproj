@@ -95,7 +95,7 @@
     <Compile Include="Core\BookingOptions.cs" />
     <Compile Include="Core\Spot.cs" />
     <Compile Include="Core\TentSpot.cs" />
-    <Compile Include="Core\TimeChecker.cs" />
+    <Compile Include="Core\SeasonCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

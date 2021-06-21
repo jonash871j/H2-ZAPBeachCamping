@@ -91,7 +91,7 @@ namespace ZAPBeachCampingLib
             Reservation r = reservation;
             Customer c = reservation.Customer;
             Spot s = reservation.Spot;
-            PriceCalculator priceCalculator = new PriceCalculator(reservation);
+            PriceCalculator pC = new PriceCalculator(reservation);
             int line = 1;
 
             // **** Customer information
@@ -109,36 +109,45 @@ namespace ZAPBeachCampingLib
             // **** Order Information
 
             // Spot
-            PushLine(reservation.Spot.ToString(), r.GetTravelPeriodInDays() + " døgn", $"{priceCalculator.GetTotalSpotPrice()} DKK");
 
-            if (r.Spot.SpotType == SpotType.CampingSite)
+            if (reservation.SeasonType == SeasonType.None)
             {
-                PushLine("Gratis pladsgebyr for hver 3 dag", Math.Floor(r.GetTravelPeriodInDays() / 3.0) + " døgns rabat", $"{priceCalculator.GetCampingSpotDiscountPrice()} DKK");
-            }
+                PushLine(reservation.GetSpotDescription(), $"{r.GetTravelPeriodInDays()} døgn", $"{pC.GetTotalSpotPrice()} DKK");
 
-            // Default spot addition
-            PushLine("Ekstra god udsigt (75 DKK pr. døgn)", s.IsGoodView ? "Ja" : "Nej", $"{priceCalculator.GetGoodViewPrice()} DKK");
-            if (s.SpotType == SpotType.HutSite)
+                if (r.Spot.SpotType == SpotType.CampingSite)
+                {
+                    PushLine("Gratis pladsgebyr for hver 3 dag", Math.Floor(r.GetTravelPeriodInDays() / 3.0) + " døgns rabat", $"{pC.GetCampingSpotDiscountPrice()} DKK");
+                }
+
+                // Default spot addition
+                PushLine("Ekstra god udsigt (75 DKK pr. døgn)", s.IsGoodView ? "Ja" : "Nej", $"{pC.GetGoodViewPrice()} DKK");
+                if (s.SpotType == SpotType.HutSite)
+                {
+                    PushLine("Slutrengøring (150 DKK)", reservation.IsPayForCleaning ? "Ja" : "Nej", $"{pC.GetHutSpotCleaningPrice()} DKK");
+                }
+
+                // Customer types
+                PushLine(
+                    $"Voksne ({s.Prices["ADULT_PRICE"].GetPrice()} DKK pr. voksen)",
+                    $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Adult).Count}",
+                    $"{pC.GetTotalAdultPrice()} DKK"
+                );
+                PushLine(
+                     $"Børn ({s.Prices["CHILD_PRICE"].GetPrice()} DKK pr. barn)",
+                     $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Child).Count}",
+                     $"{pC.GetTotalChildPrice()} DKK"
+                 );
+                PushLine(
+                     $"Hunde ({s.Prices["DOG_PRICE"].GetPrice()} DKK pr. hund)",
+                     $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Dog).Count}",
+                     $"{pC.GetTotalDogPrice()} DKK"
+                 );
+            }
+            else
             {
-                PushLine("Slutrengøring (150 DKK)", reservation.IsPayForCleaning ? "Ja" : "Nej", $"{priceCalculator.GetHutSpotCleaningPrice()} DKK");
+                PushLine(reservation.GetSpotDescription(), $" ", $"{pC.GetTotalSpotPrice()} DKK");
             }
-
-            // Customer types
-            PushLine(
-                $"Voksne ({s.Prices["ADULT_PRICE"].GetPrice()} DKK pr. voksen)",
-                $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Adult).Count}",
-                $"{priceCalculator.GetTotalAdultPrice()} DKK"
-            );
-            PushLine(
-                 $"Børn ({s.Prices["CHILD_PRICE"].GetPrice()} DKK pr. barn)",
-                 $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Child).Count}",
-                 $"{priceCalculator.GetTotalChildPrice()} DKK"
-             );
-            PushLine(
-                 $"Hunde ({s.Prices["DOG_PRICE"].GetPrice()} DKK pr. hund)",
-                 $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Dog).Count}",
-                 $"{priceCalculator.GetTotalDogPrice()} DKK"
-             );
+            
             foreach (Addition addition in r.Additions.GroupBy(a => a.Name).Select(y => y.FirstOrDefault()))
             {
                 int additionAmount = r.Additions.FindAll(a => a.Name == addition.Name).Count;
@@ -150,14 +159,14 @@ namespace ZAPBeachCampingLib
                 }
 
                 PushLine(
-                    $"{addition.Name} ({addition.Price} DKK {(addition.IsDailyPayment ? "pr. døgn" : "")})",
+                    $"{addition.Name} ({addition.Price} DKK{(addition.IsDailyPayment ? "pr. døgn" : "")})",
                     $"Antal {additionAmount}",
                     $"{price} DKK"
                 );
             }
 
             // Total
-            ReplaceText("ID_TOTAL", $"{priceCalculator.GetTotalPrice()} DKK");
+            ReplaceText("ID_TOTAL", $"{pC.GetTotalPrice()} DKK");
 
             // Set spaces for all the rest fields
             for (int i = 1; i <= 17; i++)
@@ -167,11 +176,11 @@ namespace ZAPBeachCampingLib
                 ReplaceText($"ID_PRICE{i}", " ");
             }
 
-            void PushLine(string description, string amount, string price)
+            void PushLine(string description, string other, string price)
             {
 
                 ReplaceText($"ID_DESC{line}", description);
-                ReplaceText($"ID_AM{line}", amount);
+                ReplaceText($"ID_AM{line}", other);
                 ReplaceText($"ID_PRICE{line}", price);
                 line++;
             }

@@ -40,15 +40,18 @@ namespace ZAPBeachCampingLib
 
         public bool IsValidDates(out string errorMsg)
         {
-            if (GetStartDate().Date < DateTime.Now.Date)
+            if (SeasonType == SeasonType.None)
             {
-                errorMsg = "Start dato manlger.";
-                return false;
-            }
-            if (GetEndDate().Date < GetStartDate().Date)
-            {
-                errorMsg = "Slut dato manlger.";
-                return false;
+                if (GetStartDate().Date < DateTime.Now.Date)
+                {
+                    errorMsg = "Start dato manlger.";
+                    return false;
+                }
+                if (GetEndDate().Date < GetStartDate().Date)
+                {
+                    errorMsg = "Slut dato manlger.";
+                    return false;
+                }
             }
             errorMsg = "";
             return true;
@@ -56,11 +59,25 @@ namespace ZAPBeachCampingLib
 
         public DateTime GetStartDate()
         {
-            return Convert.ToDateTime(StartDate);
+            if (SeasonType == SeasonType.None)
+            {
+                return Convert.ToDateTime(StartDate);
+            }
+            else
+            {
+                return SeasonCalculator.GetSeasonStartDate(SeasonType);
+            }
         }
         public DateTime GetEndDate()
         {
-            return Convert.ToDateTime(EndDate);
+            if (SeasonType == SeasonType.None)
+            {
+                return Convert.ToDateTime(EndDate);
+            }
+            else
+            {
+                return SeasonCalculator.GetSeasonEndDate(SeasonType);
+            }
         }
     }
 }
