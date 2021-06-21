@@ -172,29 +172,6 @@ namespace ZAPBeachCampingLib
 
             return price;
         }
-
-        public double CampingSpotDiscount()
-        {
-
-
-            if (Reservation.GetTravelPeriodInDays() >= 3)
-            {
-                if (Reservation.Spot.SpotType == SpotType.CampingSite)
-                {
-                    CampingSpot campingSpot = (CampingSpot)Reservation.Spot;
-                    switch (campingSpot.CampingType)
-                    {
-                        case CampingType.Small:
-                            return GetTotalCampingSpotPrice() - campingSpot.Prices["SMALL_SPOT_FEE"].GetPrice();
-                        case CampingType.Large:
-                            return GetTotalCampingSpotPrice() - campingSpot.Prices["BIG_SPOT_FEE"].GetPrice();
-                        case CampingType.SeasonLarge:
-                            return 0.0;
-                    }
-                }
-            }
-            return 0.0;
-        }
         public double GetCampingSpotDiscountPrice()
         {
             if (Reservation.Spot.SpotType == SpotType.CampingSite)
@@ -207,8 +184,7 @@ namespace ZAPBeachCampingLib
                         return -campingSpot.Prices["SMALL_SPOT_FEE"].GetPrice() * Math.Floor(Reservation.GetTravelPeriodInDays() / 3.0);
                     case CampingType.Large:
                         return -campingSpot.Prices["BIG_SPOT_FEE"].GetPrice() * Math.Floor(Reservation.GetTravelPeriodInDays() / 3.0);
-                    case CampingType.SeasonLarge:
-                        break;
+
                 }
             }
             return 0.0;
