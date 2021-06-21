@@ -17,3 +17,9 @@ SELECT *
 FROM Reservations
 WHERE Reservations.StartDate = CONVERT(DATE, SYSDATETIME())
 GO
+
+CREATE OR ALTER VIEW HutSpotCleaningToday
+AS
+SELECT * FROM Reservations
+WHERE Reservations.IsPayForCleaning = 1 AND Reservations.EndDate = CONVERT(DATE, SYSDATETIME()) 
+GO
