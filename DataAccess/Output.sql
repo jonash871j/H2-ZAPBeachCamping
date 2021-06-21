@@ -1,7 +1,9 @@
-CREATE OR ALTER PROCEDURE GetAllAddtion
+CREATE OR ALTER PROCEDURE GetAllAddtions
 AS
 	SELECT * FROM Additions
 GO
+
+
 
 CREATE OR ALTER PROCEDURE GetCustomer
 	@Email VARCHAR(100)
@@ -51,17 +53,21 @@ CREATE OR ALTER PROCEDURE CreateReservation
 						@Address VARCHAR(128), 
 						@PhoneNumber VARCHAR(20), 
 						@SpotNumber VARCHAR(8), 
-						@TotalPrice FLOAT, 
 						@StartDate DATE, 
-						@EndDate DATE
+						@EndDate DATE,
+						@IsPayForCleaning BIT
 AS
+	DECLARE @OrderNumber INTEGER;
+
 	IF EXISTS (
 	SELECT Customers.Email 
 	FROM Customers 
 	WHERE Customers.Email = @Email)
 	BEGIN
-		INSERT INTO Reservations(CustomerEmail, SpotNumber, TotalPrice, StartDate, EndDate, IsInvoiceSent) 
-		VALUES(@Email, @SpotNumber, @TotalPrice, @StartDate, @EndDate, 0); 
+		INSERT INTO Reservations(CustomerEmail, SpotNumber, StartDate, EndDate, IsInvoiceSent, IsPayForCleaning) 
+		VALUES(@Email, @SpotNumber, @StartDate, @EndDate, 0, @IsPayForCleaning); 
+		SET @OrderNumber = SCOPE_IDENTITY()
+		RETURN @OrderNumber;
 	END
 
 	ELSE
@@ -75,45 +81,12 @@ AS
 	FROM Reservations 
 	WHERE Reservations.CustomerEmail = @Email)
 	BEGIN
-		INSERT INTO Reservations(CustomerEmail, SpotNumber, TotalPrice, StartDate, EndDate, IsInvoiceSent) 
-		VALUES (@Email, @SpotNumber, @TotalPrice, @StartDate, @EndDate, 0);
+		INSERT INTO Reservations(CustomerEmail, SpotNumber, StartDate, EndDate, IsInvoiceSent, IsPayForCleaning) 
+		VALUES(@Email, @SpotNumber, @StartDate, @EndDate, 0, @IsPayForCleaning); 
+			SET @OrderNumber = SCOPE_IDENTITY()
+		RETURN @OrderNumber;
 	END
 GO
-
-CREATE OR ALTER PROCEDURE GetAllReservationsWithMissingInvoice 
-AS
-	SELECT * 
-	FROM Reservations 
-	WHERE Reservations.IsInvoiceSent = 0
-GO
-
-CREATE OR ALTER PROCEDURE MarkReservationAsSent
-	@OrderNumber INT
-AS
-	UPDATE Reservations
-	SET IsInvoiceSent = 1
-	WHERE OrderNumber = @OrderNumber;
-GO
-
-CREATE OR ALTER PROCEDURE GetReservation
-	@OrderNumber INT
-AS
-	SELECT *
-	FROM Reservations
-	WHERE Reservations.OrderNumber = @OrderNumber
-GO
---CREATE OR ALTER PROCEDURE GetSpotsBySearch
---	@SpotType INT,
---	@IsGoodView BIT
---AS
---BEGIN
---	SELECT * 
---	FROM Spots
---	WHERE SpotType = @SpotType
---	AND IsGoodView = @IsGoodView
---END
---GO	
-
 CREATE OR ALTER PROCEDURE GetSiteBySearch
 	@IsGoodView BIT
 AS
@@ -123,23 +96,25 @@ AS
 GO	
 
 CREATE OR ALTER PROCEDURE GetCampingSiteBySearch
-	@IsGoodView BIT
+	@IsGoodView BIT,
+	@CampingType INTEGER
 AS
 	SELECT * 
 	FROM CampingSpots
 	JOIN Spots
 	ON Spots.Number = CampingSpots.Number
-	WHERE IsGoodView = @IsGoodView
+	WHERE IsGoodView = @IsGoodView AND CampingSpots.CampingType = @CampingType
 GO
 
 CREATE OR ALTER PROCEDURE GetHutSiteBySearch
-	@IsGoodView BIT
+	@IsGoodView BIT,
+	@HutType INTEGER
 AS
 	SELECT * 
 	FROM HutSpots
 	JOIN Spots
 	ON Spots.Number = HutSpots.Number
-	WHERE IsGoodView = @IsGoodView
+	WHERE IsGoodView = @IsGoodView AND HutType = @HutType
 GO	
 
 CREATE OR ALTER PROCEDURE GetAllSpotNumbersBetweenDate

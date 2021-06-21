@@ -12,7 +12,7 @@ namespace ZAPBeachCampingLib
     {
         // **** Addition
         public List<Addition> GetAllAddtion()
-            => dal.GetAllAddtion();
+            => dal.GetAllAddition();
 
         // **** Customer
         public Customer GetCustomer(string email)

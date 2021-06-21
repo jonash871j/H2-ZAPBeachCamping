@@ -18,8 +18,8 @@ namespace ZAPBeachCampingLib
         }
 
         // **** Additions
-        public List<Addition> GetAllAddtion()
-            => GetDB((c) => c.Query<Addition>("GetAllAddtions").ToList());
+        public List<Addition> GetAllAddition()
+            => GetDB((c) => c.Query<Addition>("GetAllAdditions").ToList());
 
         // **** Customer
         public Customer GetCustomer(string email)
