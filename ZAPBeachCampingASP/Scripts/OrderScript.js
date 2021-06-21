@@ -51,6 +51,7 @@ class Session {
         campingSettingsHandler.sessionDefault();
         additionsHandler.sessionDefault();
         customerHandler.sessionDefault();
+        travelperiodHandler.sessionDefault();
     }
     clear() {
         this.default();
@@ -74,6 +75,7 @@ class Session {
         campingSettingsHandler.sessionLoad();
         additionsHandler.sessionLoad();
         customerHandler.sessionLoad();
+        travelperiodHandler.sessionLoad();
     }
     save() {
         sessionStorage.setItem("prb_orderProgrss", document.getElementById("prb_orderProgrss").style.width);
@@ -85,5 +87,6 @@ class Session {
         campingSettingsHandler.sessionSave();
         additionsHandler.sessionSave();
         customerHandler.sessionSave();
+        travelperiodHandler.sessionSave();
     }
 }

@@ -10,6 +10,7 @@ namespace ZAPBeachCampingLib
         public string EndDate { get; set; }
         public SpotType SpotType { get; set; }
         public CampingType CampingType { get; set; }
+        public SeasonType SeasonType { get; set; }
         public HutType HutType { get; set; }
         public int Adult { get; set; }
         public int Child { get; set; }

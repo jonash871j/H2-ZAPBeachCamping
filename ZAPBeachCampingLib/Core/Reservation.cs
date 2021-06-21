@@ -17,10 +17,18 @@ namespace ZAPBeachCampingLib
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public bool IsInvoiceSent { get; private set; } = false;
-        public bool IsPayForCleaning { get; private set; } = false;
+        public bool IsPayForCleaning { get; private set; }
+        public SeasonType SeasonType { get; private set; }
 
         internal Reservation() { }
-        public Reservation(Customer customer, Spot spot, DateTime startDate, DateTime endDate, List<CustomerType> customerTypes, List<Addition> additions, bool isPayForCleaning)
+        public Reservation(Customer customer,
+                           Spot spot,
+                           DateTime startDate,
+                           DateTime endDate,
+                           List<CustomerType> customerTypes,
+                           List<Addition> additions,
+                           bool isPayForCleaning,
+                           SeasonType seasonType = SeasonType.None)
         {
             Customer = customer;
             Spot = spot;
@@ -29,6 +37,7 @@ namespace ZAPBeachCampingLib
             CustomerTypes = customerTypes;
             Additions = additions;
             IsPayForCleaning = isPayForCleaning;
+            SeasonType = seasonType;
         }
 
         public int GetTravelPeriodInDays()

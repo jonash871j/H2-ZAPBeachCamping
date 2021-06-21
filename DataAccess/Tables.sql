@@ -39,6 +39,7 @@ CREATE TABLE Reservations
 	EndDate DATE NOT NULL,
 	IsInvoiceSent BIT NOT NULL,
 	IsPayForCleaning BIT NOT NULL,
+	SeasonType INTEGER NOT NULL,
 
 	FOREIGN KEY (CustomerEmail) REFERENCES Customers(Email),
 	FOREIGN KEY (SpotNumber) REFERENCES Spots(Number),

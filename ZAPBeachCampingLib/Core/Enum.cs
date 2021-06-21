@@ -20,7 +20,14 @@ namespace ZAPBeachCampingLib
     {
         Small = 1,
         Large = 2,
-        SeasonLarge = 3
+    }
+    public enum SeasonType
+    {
+        None = 0,
+        SeasonSpring = 1,
+        SeasonSummer = 2,
+        SeasonAutumn = 3,
+        SeasonWinter = 4
     }
     public enum CustomerType
     {

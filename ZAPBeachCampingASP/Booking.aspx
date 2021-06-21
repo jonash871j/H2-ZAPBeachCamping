@@ -141,31 +141,31 @@
                                         <h4>Sæsonplads</h4>
                                         <div class="form-check disabled">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings1" checked="">
+                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings1" onclick="travelperiodHandler.updateSettings();">
                                                 Forår 1. april til 30. juni (4.100,-)
                                             </label>
                                         </div>
                                         <div class="form-check disabled">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings2">
+                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings2" onclick="travelperiodHandler.updateSettings();">
                                                 Sommer 1. april til 30. semptember (9.300,-)
                                             </label>
                                         </div>
                                         <div class="form-check disabled">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings3">
+                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings3" onclick="travelperiodHandler.updateSettings();">
                                                 Efterår 15. august til 31. oktober (2.900,-)
                                             </label>
                                         </div>
                                         <div class="form-check disabled">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings4">
+                                                <input type="radio" class="form-check-input" name="rb_seasonSettings" id="rb_seasonSettings4" onclick="travelperiodHandler.updateSettings();">
                                                 Vinter 1. oktober til 31. marts (3.500,-)
                                             </label>
                                         </div>
                                     </div>
                                     <div class="form-check mt-4">
-                                        <input class="form-check-input" type="checkbox" value="" id="cb_seasonSite" onclick="travelperiodHandler.seasonSiteSelectionChanged();" />
+                                        <input class="form-check-input" type="checkbox" value="" id="cb_seasonSite" onclick="travelperiodHandler.showActiveTab();" />
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Sæsonplads
                                         </label>
@@ -314,7 +314,7 @@
                             <div class="col-6">
                                 <h4>Din ordre</h4>
                                 <div class="mt-3 row">
-                                    <div class="col-6">
+                                    <div class="col-5">
                                         <h6>Ankomst dato: </h6>
                                         <h6>Hjem dato: </h6>
                                         <h6 class="mt-4">Antal voksne: </h6>
@@ -326,7 +326,7 @@
                                         <h6>Slutrengøring i hytte: </h6>
                                         <h6 class="mt-4">Antal tilægsydelser: </h6>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-7">
                                         <h6 id="h_startDate">-</h6>
                                         <h6 id="h_endDate">-</h6>
                                         <h6 class="mt-4" id="h_adult">-</h6>

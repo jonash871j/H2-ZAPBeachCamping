@@ -1,6 +1,6 @@
 ﻿setInterval(function () {
-    document.getElementById("h_startDate").innerHTML = document.getElementById("dat_start").value;
-    document.getElementById("h_endDate").innerHTML = document.getElementById("dat_end").value;
+    document.getElementById("h_startDate").innerHTML = travelperiodHandler.getStartDate();
+    document.getElementById("h_endDate").innerHTML = travelperiodHandler.getEndDate();
 
     document.getElementById("h_adult").innerHTML = document.getElementById("nb_adult").value;
     document.getElementById("h_child").innerHTML = document.getElementById("nb_child").value;

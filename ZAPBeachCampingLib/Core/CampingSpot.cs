@@ -32,9 +32,9 @@ namespace ZAPBeachCampingLib
             switch (CampingType)
             {
                 case CampingType.Small:
-                    return $"Campingvogn nr. {Number} på lille plads ({prices["SMALL_SPOT_FEE"].GetPrice()} DKK pr. døgn)";
+                    return $"Campingplads nr. {Number} på lille plads ({prices["SMALL_SPOT_FEE"].GetPrice()} DKK pr. døgn)";
                 case CampingType.Large:
-                    return $"Campingvogn nr. {Number} på stor plads ({prices["BIG_SPOT_FEE"].GetPrice()} DKK pr. døgn)";
+                    return $"Campingplads nr. {Number} på stor plads ({prices["BIG_SPOT_FEE"].GetPrice()} DKK pr. døgn)";
             }
             return "";
         }

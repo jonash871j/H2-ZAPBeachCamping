@@ -86,11 +86,11 @@ namespace ZAPBeachCampingLib
         /// Used to create a new reservation
         /// </summary>
         /// <returns>True if successfull</returns>
-        public bool CreateReservation(Customer customer, BookingOptions reservationPrefences)
+        public bool CreateReservation(Customer customer, BookingOptions bookingOptions)
         {
             // Error checking
             string errorMsg;
-            if (!reservationPrefences.IsValidDates(out errorMsg) || !customer.IsValid(out errorMsg))
+            if (!bookingOptions.IsValidDates(out errorMsg) || !customer.IsValid(out errorMsg))
             {
                 MissingInformation?.Invoke(errorMsg);
                 return false;
@@ -98,12 +98,12 @@ namespace ZAPBeachCampingLib
 
             // Makes a seach to get all avaible spots
             List<Spot> spots = GetSpotsBySearch(
-                reservationPrefences.GetStartDate(),
-                reservationPrefences.GetEndDate(),
-                reservationPrefences.SpotType,
-                reservationPrefences.CampingType,
-                reservationPrefences.HutType,
-                reservationPrefences.IsGoodView
+                bookingOptions.GetStartDate(),
+                bookingOptions.GetEndDate(),
+                bookingOptions.SpotType,
+                bookingOptions.CampingType,
+                bookingOptions.HutType,
+                bookingOptions.IsGoodView
             );
             if (spots.Count > 0)
             {
@@ -111,11 +111,12 @@ namespace ZAPBeachCampingLib
                 dal.CreateReservation(new Reservation(
                     customer,
                     spots[0],
-                    reservationPrefences.GetStartDate(),
-                    reservationPrefences.GetEndDate(),
-                    reservationPrefences.GetCustomerTypes(),
-                    reservationPrefences.Additions,
-                    reservationPrefences.IsPayingForCleaning
+                    bookingOptions.GetStartDate(),
+                    bookingOptions.GetEndDate(),
+                    bookingOptions.GetCustomerTypes(),
+                    bookingOptions.Additions,
+                    bookingOptions.IsPayingForCleaning,
+                    bookingOptions.SeasonType
                 ));
 
                 return true;

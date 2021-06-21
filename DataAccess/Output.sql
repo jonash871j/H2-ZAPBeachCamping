@@ -1,4 +1,4 @@
-CREATE OR ALTER PROCEDURE GetAllAddtions
+CREATE OR ALTER PROCEDURE GetAllAdditions
 AS
 	SELECT * FROM Additions
 GO
@@ -86,6 +86,30 @@ AS
 			SET @OrderNumber = SCOPE_IDENTITY()
 		RETURN @OrderNumber;
 	END
+GO
+
+
+CREATE OR ALTER PROCEDURE GetAllReservationsWithMissingInvoice 
+AS
+	SELECT * 
+	FROM Reservations 
+	WHERE Reservations.IsInvoiceSent = 0
+GO
+
+CREATE OR ALTER PROCEDURE MarkReservationAsSent
+	@OrderNumber INT
+AS
+	UPDATE Reservations
+	SET IsInvoiceSent = 1
+	WHERE OrderNumber = @OrderNumber;
+GO
+
+CREATE OR ALTER PROCEDURE GetReservation
+	@OrderNumber INT
+AS
+	SELECT *
+	FROM Reservations
+	WHERE Reservations.OrderNumber = @OrderNumber
 GO
 CREATE OR ALTER PROCEDURE GetSiteBySearch
 	@IsGoodView BIT

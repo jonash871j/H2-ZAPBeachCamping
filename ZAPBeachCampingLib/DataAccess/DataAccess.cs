@@ -55,6 +55,7 @@ namespace ZAPBeachCampingLib
                 parameters.Add("StartDate", reservation.StartDate);
                 parameters.Add("EndDate", reservation.EndDate);
                 parameters.Add("IsPayForCleaning", reservation.IsPayForCleaning);
+                parameters.Add("SeasonType", reservation.SeasonType);
                 parameters.Add("OrderNumber", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
 
                 con.Execute("CreateReservation", parameters, commandType: CommandType.StoredProcedure);

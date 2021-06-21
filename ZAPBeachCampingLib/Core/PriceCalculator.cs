@@ -50,14 +50,29 @@ namespace ZAPBeachCampingLib
             {
                 CampingSpot campingSpot = (CampingSpot)Reservation.Spot;
 
-                switch (campingSpot.CampingType)
+                if (Reservation.SeasonType == SeasonType.None)
                 {
-                    case CampingType.Small:
-                        return campingSpot.Prices["SMALL_SPOT_FEE"].GetPrice() * Reservation.GetTravelPeriodInDays();
-                    case CampingType.Large:
-                        return campingSpot.Prices["BIG_SPOT_FEE"].GetPrice() * Reservation.GetTravelPeriodInDays();
-                    case CampingType.SeasonLarge:
-                        break;
+                    switch (campingSpot.CampingType)
+                    {
+                        case CampingType.Small:
+                            return campingSpot.Prices["SMALL_SPOT_FEE"].GetPrice() * Reservation.GetTravelPeriodInDays();
+                        case CampingType.Large:
+                            return campingSpot.Prices["BIG_SPOT_FEE"].GetPrice() * Reservation.GetTravelPeriodInDays();
+                    }
+                }
+                else
+                {
+                    switch (Reservation.SeasonType)
+                    {
+                        case SeasonType.SeasonSpring:
+                            return campingSpot.Prices["SPRING_PRICE"].GetPrice();
+                        case SeasonType.SeasonSummer:
+                            return campingSpot.Prices["SUMMER_PRICE"].GetPrice();
+                        case SeasonType.SeasonAutumn:
+                            return campingSpot.Prices["AUTUMN_PRICE"].GetPrice();
+                        case SeasonType.SeasonWinter:
+                            return campingSpot.Prices["VINTER_PRICE"].GetPrice();
+                    }
                 }
             }
             return 0.0;
