@@ -27,10 +27,16 @@ namespace ZAPBeachCampingLib
 
         }
 
-        public CampingSpot(string number, bool isGoodView, CampingType campingType)
-            : base(number, SpotType.CampingSite, isGoodView, prices)
+        public override string ToString()
         {
-            CampingType = campingType;
+            switch (CampingType)
+            {
+                case CampingType.Small:
+                    return $"Campingvogn nr. {Number} på lille plads ({prices["SMALL_SPOT_FEE"].GetPrice()} DKK pr. døgn)";
+                case CampingType.Large:
+                    return $"Campingvogn nr. {Number} på stor plads ({prices["BIG_SPOT_FEE"].GetPrice()} DKK pr. døgn)";
+            }
+            return "";
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace ZAPBeachCampingLib
 {
@@ -19,11 +17,9 @@ namespace ZAPBeachCampingLib
         {
         }
 
-        public TentSpot(string number, bool isGoodView) 
-            : base(number, SpotType.TentSite, isGoodView, prices)
+        public override string ToString()
         {
-
+            return $"Telt nr. {Number} på almindelig plads ({prices["SPOT_FEE"].GetPrice()} DKK pr. døgn)";
         }
-
     }
 }

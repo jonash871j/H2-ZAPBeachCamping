@@ -6,21 +6,14 @@ namespace ZAPBeachCampingLib
 {
     public class Price
     {
-        #region Properties
-
         public double HighSeason { get; private set; }
         public double LowSeason { get; private set; }
-        #endregion
 
-        #region Constructors
         public Price(double highSeason, double lowSeason)
         {
             HighSeason = highSeason;
             LowSeason = lowSeason;
         }
-        #endregion
-
-        #region Methods
 
         public double GetPrice()
         {
@@ -33,6 +26,5 @@ namespace ZAPBeachCampingLib
                 return LowSeason;
             }
         }
-        #endregion
     }
 }

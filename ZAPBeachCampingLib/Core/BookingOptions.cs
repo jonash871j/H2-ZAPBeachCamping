@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace ZAPBeachCampingLib
 {
-    public class ReservationPrefences
+    public class BookingOptions
     {
         public string StartDate { get; set; }
         public string EndDate { get; set; }
@@ -16,6 +14,9 @@ namespace ZAPBeachCampingLib
         public int Adult { get; set; }
         public int Child { get; set; }
         public int Dog { get; set; }
+        public bool IsGoodView { get; set; }
+        public bool IsPayingForCleaning { get; set; }
+        public List<Addition> Additions { get; set; }
 
         public List<CustomerType> GetCustomerTypes()
         {

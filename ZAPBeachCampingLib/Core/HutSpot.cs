@@ -20,10 +20,17 @@ namespace ZAPBeachCampingLib
               : base(SpotType.HutSite, prices)
         {
         }
-        public HutSpot(string number, bool isGoodView, HutType hutType) 
-            : base(number, SpotType.HutSite, isGoodView, prices)
+
+        public override string ToString()
         {
-            HutType = hutType;
+            switch (HutType)
+            {
+                case HutType.Default:
+                    return $"Almindelig hytte nr. {Number} ({prices["DEFAULT_PRICE"].GetPrice()} DKK pr. døgn)";
+                case HutType.Luxury:
+                    return $"Luksus hytte nr. {Number} ({prices["LUXURY_PRICE"].GetPrice()} DKK pr. døgn)";
+            }
+            return "";
         }
     }
 }

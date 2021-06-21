@@ -15,13 +15,22 @@ namespace ZAPBeachCampingASP
     {
 
         /// <summary>
-        /// LB_Error control.
+        /// LB_ModalTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LB_Error;
+        protected global::System.Web.UI.WebControls.Label LB_ModalTitle;
+
+        /// <summary>
+        /// LB_ModalBody control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LB_ModalBody;
 
         /// <summary>
         /// form1 control.
@@ -33,13 +42,13 @@ namespace ZAPBeachCampingASP
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// BN_Order control.
+        /// HF_Additions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BN_Order;
+        protected global::System.Web.UI.WebControls.HiddenField HF_Additions;
 
         /// <summary>
         /// MF_Success control.
@@ -49,5 +58,14 @@ namespace ZAPBeachCampingASP
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField MF_Success;
+
+        /// <summary>
+        /// BN_Order control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BN_Order;
     }
 }

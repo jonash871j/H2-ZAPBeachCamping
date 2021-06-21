@@ -14,11 +14,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-    <script src="\Scripts\OrderSessionScript.js"></script>
+    <script src="\Scripts\Handlers\CampingSettingsHandler.js"></script>
+    <script src="\Scripts\Handlers\CustomerHandler.js"></script>
+    <script src="\Scripts\Handlers\TravelperiodHandler.js"></script>
+    <script src="\Scripts\Handlers\ProgressHandler.js"></script>
+    <script src="\Scripts\Handlers\AdditionsHandler.js"></script>
+    <script src="\Scripts\CSMapper.js"></script>
     <script src="\Scripts\OrderScript.js"></script>
+    <script src="\Scripts\OrderView.js"></script>
     <script src="\Scripts\DateLimitScript.js"></script>
+    <script src="\Scripts\Events.js"></script>
 </head>
 <body>
+
     <%-- Error modal-dialog --%>
     <div class="container">
         <div class="row">
@@ -27,14 +35,16 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Noget gik galt</h5>
+                                <h5 class="modal-title">
+                                    <asp:Label runat="server" ID="LB_ModalTitle" />
+                                </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-dismiss="modal">
                                     <span aria-hidden="true"></span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <p>
-                                    <asp:Label runat="server" ID="LB_Error" />
+                                    <asp:Label runat="server" ID="LB_ModalBody" />
                                 </p>
                             </div>
                             <div class="modal-footer">
@@ -46,9 +56,16 @@
             </div>
         </div>
     </div>
-
     <%-- Banner --%>
     <form id="form1" runat="server">
+        <%-- Client to server data --%>
+        <input type="hidden" name="HF_Customer" id="HF_Customer" value="" />
+        <input type="hidden" name="HF_BookingOptions" id="HF_BookingOptions" value="" />
+
+        <%-- Server to client data --%>
+        <asp:HiddenField runat="server" ID="HF_Additions" />
+        <asp:HiddenField runat="server" ID="MF_Success" />
+
         <div class="container-fluid px-0">
             <div class="row mx-0">
                 <div class="col-12 px-0">
@@ -104,10 +121,7 @@
                             </div>
                             <div class="col-2">
                                 <button id="bn_nextTab" type="button" class="btn btn-primary" onclick="progressHandler.nextTab();">Næste</button>
-                                <asp:Button runat="server" ID="BN_Order" CssClass="btn btn-primary" OnClick="BN_Order_Click" OnClientClick="return orderData.update();" Text="Bestil" />
-                                <input type="hidden" name="HF_Customer" id="HF_Customer" value="" />
-                                <input type="hidden" name="HF_Camping" id="HF_Camping" value="" />
-                                <asp:HiddenField runat="server" ID="MF_Success" />
+                                <asp:Button runat="server" ID="BN_Order" CssClass="btn btn-primary" OnClick="BN_Order_Click" OnClientClick="return updateCSMapperHiddenElements();" Text="Bestil" />
                             </div>
                         </div>
 
@@ -165,19 +179,19 @@
                                     <fieldset class="form-group">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="spotType" id="rb_spotType1" value="2" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                <input type="radio" class="form-check-input" name="spotType" id="rb_spotType1" onclick="campingSettingsHandler.showActiveSpotTab();">
                                                 Campingvogn
                                             </label>
                                         </div>
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="spotType" id="rb_spotType2" value="1" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                <input type="radio" class="form-check-input" name="spotType" id="rb_spotType2" onclick="campingSettingsHandler.showActiveSpotTab();">
                                                 Telt
                                             </label>
                                         </div>
                                         <div class="form-check disabled">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="spotType" id="rb_spotType3" value="3" onclick="campingSettingsHandler.campingTypeSelectionChanged();">
+                                                <input type="radio" class="form-check-input" name="spotType" id="rb_spotType3" onclick="campingSettingsHandler.showActiveSpotTab();">
                                                 Hytte
                                             </label>
                                         </div>
@@ -187,13 +201,13 @@
                                         <div id="dv_campingSettingsTab1">
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="campingType" id="rb_campingType1" value="1">
+                                                    <input type="radio" class="form-check-input" name="campingType" id="rb_campingType1" onclick="campingSettingsHandler.showActiveSpotTab();">
                                                     Lille plads (pr. dag høj: 60,- lav: 50,-)
                                                 </label>
                                             </div>
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="campingType" id="rb_campingType2" value="2">
+                                                    <input type="radio" class="form-check-input" name="campingType" id="rb_campingType2" onclick="campingSettingsHandler.showActiveSpotTab();">
                                                     Stor plads (pr. dag høj: 80,- lav: 65,-)
                                                 </label>
                                             </div>
@@ -201,7 +215,7 @@
                                         <div id="dv_campingSettingsTab2">
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="tentType" id="rb_tentType1" value="1">
+                                                    <input type="radio" class="form-check-input" name="tentType" id="rb_tentType1" onclick="campingSettingsHandler.showActiveSpotTab();">
                                                     Telt plads (pr. dag høj: 35,- lav: 45,-)
                                                 </label>
                                             </div>
@@ -209,16 +223,30 @@
                                         <div id="dv_campingSettingsTab3">
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="hutType" id="rb_hutType1"  value="1">
+                                                    <input type="radio" class="form-check-input" name="hutType" id="rb_hutType1" onclick="campingSettingsHandler.showActiveSpotTab();">
                                                     Standard hytte (pr. dag høj: 500,- lav: 350,-)
                                                 </label>
                                             </div>
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="hutType" id="rb_hutType2" value="2">
+                                                    <input type="radio" class="form-check-input" name="hutType" id="rb_hutType2" onclick="campingSettingsHandler.showActiveSpotTab();">
                                                     Luksus hytte (pr. dag høj: 850,- lav: 600,-)
                                                 </label>
                                             </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset class="form-group mt-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="cb_isGoodView">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Udsigt til vandet (75,- pr. dag)
+                                            </label>
+                                        </div>
+                                        <div class="form-check" id="dv_isPayingForCleaning">
+                                            <input class="form-check-input" type="checkbox" value="" id="cb_isPayingForCleaning" />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Slutrengøring i hytte (150,-)
+                                            </label>
                                         </div>
                                     </fieldset>
 
@@ -227,63 +255,27 @@
                                     <div class="row">
                                         <div class="col-4">
                                             <label>Voksne</label>
-                                            <input class="form-control" type="number" id="nb_adult" min="0" max="10" value="1">
+                                            <input class="form-control" type="number" id="nb_adult" min="0" max="10" onchange="onNumberBoxChange(this);">
                                         </div>
                                         <div class="col-4">
                                             <label>Børn</label>
-                                            <input class="form-control" type="number" id="nb_child" min="0" max="10" value="0">
+                                            <input class="form-control" type="number" id="nb_child" min="0" max="10" onchange="onNumberBoxChange(this);">
                                         </div>
                                         <div class="col-4">
                                             <label>Hunde</label>
-                                            <input class="form-control" type="number" id="nb_dog" min="0" max="10" value="0">
+                                            <input class="form-control" type="number" id="nb_dog" min="0" max="10" onchange="onNumberBoxChange(this);">
                                         </div>
 
                                     </div>
+                                    <label class="mt-3" id="lb_adultDescription">-</label><br />
+                                    <label id="lb_childDescription">-</label><br />
+                                    <label id="lb_dogDescription">-</label>
 
-
-
-                                    <label class="mt-3">Hver voksen koster pr. dag høj: 50,- lav: 50,-</label>
-                                    <label>Hver barn koster pr. dag høj: 50,- lav: 50,-</label>
-                                    <label>Hver hund koster pr. dag høj: 50,- lav: 50,-</label>
 
                                 </div>
                                 <%-- Tab 3: Additions --%>
                                 <div id="dv_orderTab3">
                                     <h4>Tillægsydelser</h4>
-                                    <div class="form-group mt-3">
-                                        <label class="form-label">Morgenkomplet 75,- pr. voksen</label>
-                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label class="form-label">Morgenkomplet 50,- pr. barn</label>
-                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label class="form-label">Adgang til badeland badeland 30,- pr. voksen</label>
-                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label class="form-label">Adgang til badeland 15,- pr. barn</label>
-                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
-                                    </div>
-                                    <div class="form-group mt-3">
-                                        <label class="form-label">Cykelleje 200,- pr dag</label>
-                                        <input class="form-control" type="number" id="quantity" name="quantity" min="0" max="5" value="0">
-                                    </div>
-                                    <fieldset class="form-group mt-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Udsigt til vandet (75,- pr. dag)
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Slutrengøring i hytte (150,-)
-                                            </label>
-                                        </div>
-                                    </fieldset>
                                 </div>
                                 <%-- Tab 4: Your information --%>
                                 <div id="dv_orderTab4">
@@ -315,7 +307,7 @@
                                 </div>
                                 <%-- Tab 5: Order successful --%>
                                 <div id="dv_orderTab5">
-                                    <h4>Tak for din besilling!</h4>
+                                    <h4>Tak for din bestilling!</h4>
                                 </div>
                             </div>
                             <%-- Booking order --%>
@@ -335,19 +327,18 @@
                                         <h6 class="mt-4">Antal tilægsydelser: </h6>
                                     </div>
                                     <div class="col-6">
-                                        <h6>22-07-2018</h6>
-                                        <h6>22-07-2018</h6>
-                                        <h6 class="mt-4">1</h6>
-                                        <h6>0</h6>
-                                        <h6>0</h6>
-                                        <h6 class="mt-4">Campingvogn</h6>
-                                        <h6>Stor plads</h6>
-                                        <h6>Nej</h6>
-                                        <h6>Nej</h6>
-                                        <h6 class="mt-4">4</h6>
+                                        <h6 id="h_startDate">-</h6>
+                                        <h6 id="h_endDate">-</h6>
+                                        <h6 class="mt-4" id="h_adult">-</h6>
+                                        <h6 id="h_child">-</h6>
+                                        <h6 id="h_dog">-</h6>
+                                        <h6 id="h_spotType" class="mt-4">-</h6>
+                                        <h6 id="h_spotSettingsType">-</h6>
+                                        <h6 id="h_isGoodView">-</h6>
+                                        <h6 id="h_isPayingForCleaning">-</h6>
+                                        <h6 class="mt-4" id="h_additionAmount">-</h6>
                                     </div>
                                 </div>
-                                <h4 class="mt-5" style="text-align: right;">Total 1000,00 kr.</h4>
                             </div>
                         </div>
                     </div>
