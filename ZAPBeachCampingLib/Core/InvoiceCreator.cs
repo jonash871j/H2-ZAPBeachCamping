@@ -111,6 +111,11 @@ namespace ZAPBeachCampingLib
             // Spot
             PushLine(reservation.Spot.ToString(), r.GetTravelPeriodInDays() + " døgn", $"{priceCalculator.GetTotalSpotPrice()} DKK");
 
+            if (r.Spot.SpotType == SpotType.CampingSite)
+            {
+                PushLine("Gratis pladsgebyr for hver 3 dag", Math.Floor(r.GetTravelPeriodInDays() / 3.0) + " døgns rabat", $"{priceCalculator.GetCampingSpotDiscountPrice()} DKK");
+            }
+
             // Default spot addition
             PushLine("Ekstra god udsigt (75 DKK pr. døgn)", s.IsGoodView ? "Ja" : "Nej", $"{priceCalculator.GetGoodViewPrice()} DKK");
             if (s.SpotType == SpotType.HutSite)
@@ -145,8 +150,8 @@ namespace ZAPBeachCampingLib
                 }
 
                 PushLine(
-                    $"{addition.Name} ({addition.Price} DKK {(addition.IsDailyPayment ? "pr. døgn" : "")})", 
-                    $"Antal {additionAmount}", 
+                    $"{addition.Name} ({addition.Price} DKK {(addition.IsDailyPayment ? "pr. døgn" : "")})",
+                    $"Antal {additionAmount}",
                     $"{price} DKK"
                 );
             }
