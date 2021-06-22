@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -40,7 +41,7 @@ namespace ZAPBeachSerialSender
         {
             string[] spotsNumber = { "H2", "H3", "H4", "H5", "H7", "H8", "H10", "H11" };
 
-            BufferWriter writer = new BufferWriter(new SerialPort("COM3", 11200));
+            BufferWriter writer = new BufferWriter(new SerialPort(ConfigurationManager.AppSettings["COMPort"], 11200));
 
             while(true)
             {
