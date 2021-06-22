@@ -69,3 +69,15 @@ CREATE TABLE CustomerTypes
 
 	FOREIGN KEY (OrderNumber) REFERENCES Reservations(OrderNumber),
 )
+
+CREATE TABLE TR_Reservations(
+	OrderNumber INTEGER PRIMARY KEY NOT NULL,
+	CustomerEmail VarChar(100) NOT NULL,
+	SpotNumber VARCHAR(8) NOT NULL,
+	StartDate DATE NOT NULL,
+	EndDate DATE NOT NULL,
+	IsInvoiceSent BIT NOT NULL,
+	IsPayForCleaning BIT NOT NULL,
+	SeasonType INTEGER NOT NULL,
+	LogTime DATETIME NOT NULL
+);
