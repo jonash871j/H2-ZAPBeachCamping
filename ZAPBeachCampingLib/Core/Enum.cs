@@ -37,4 +37,11 @@ namespace ZAPBeachCampingLib
         Child = 2,
         Dog = 3,
     }
+    public enum SpotStatus
+    {
+        NoReservation = 1,
+        AnyReservation = 2,
+        CommingToday = 3,
+        LeavingYoday = 4
+    };
 }

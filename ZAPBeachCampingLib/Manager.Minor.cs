@@ -29,9 +29,6 @@ namespace ZAPBeachCampingLib
         public Reservation GetReservation(int orderNumber)
             => dal.GetReservation(orderNumber);
 
-        public List<Reservation> GetReservationsFromStartDateAndSpotNumber(DateTime startDate, string spotNumber)
-            => dal.GetReservationsFromStartDateAndSpotNumber(startDate, spotNumber);
-
         public List<Reservation> GetAllReservationsWithMissingInvoice()
             => dal.GetAllReservationsWithMissingInvoice();
 
@@ -41,5 +38,8 @@ namespace ZAPBeachCampingLib
         // **** Spot
         public Spot GetSpot(string spotNumber)
             => dal.GetSpot(spotNumber);
+
+       public SpotStatus GetSpotStatus(string spotNumber)
+            => dal.GetSpotStatus(spotNumber);
     }
 }

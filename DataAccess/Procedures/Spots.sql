@@ -66,3 +66,39 @@ AS
 	ON Spots.Number = HutSpots.Number
 	WHERE HutSpots.Number = @Number
 GO	
+
+CREATE OR ALTER PROCEDURE GetSpotStatus
+	@SpotNumber VARCHAR(8)
+AS
+	
+IF NOT EXISTS (
+	SELECT * 
+	FROM Reservations
+	WHERE SpotNumber = @SpotNumber)
+BEGIN
+	RETURN 1
+END
+ELSE
+BEGIN
+	IF EXISTS (
+	SELECT * 
+	FROM Reservations
+	WHERE SpotNumber = @SpotNumber AND StartDate = CONVERT(DATE, SYSDATETIME()))
+	BEGIN
+		RETURN 3
+	END
+	ELSE IF EXISTS (
+	SELECT * 
+	FROM Reservations
+	WHERE SpotNumber = @SpotNumber AND EndDate = CONVERT(DATE, SYSDATETIME()))
+	BEGIN
+		RETURN 4
+	END
+	ELSE
+	BEGIN
+		RETURN 2
+	END
+END
+GO
+
+

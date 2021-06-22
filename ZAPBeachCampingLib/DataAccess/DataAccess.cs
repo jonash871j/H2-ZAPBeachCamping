@@ -83,10 +83,7 @@ namespace ZAPBeachCampingLib
 
             return reservation;
         }
-        public List<Reservation> GetReservationsFromStartDateAndSpotNumber(DateTime startDate, string spotNumber)
-        {
-            return GetDB((c) => c.Query<Reservation>("GetReservationsFromStartDateAndSpotNumber @StartDate, @SpotNumber", new { StartDate = startDate, SpotNumber = spotNumber }).ToList());
-        }
+    
         public List<Reservation> GetAllReservationsWithMissingInvoice()
             => GetDB(c => c.Query<Reservation>("GetAllReservationsWithMissingInvoice").ToList());
 
@@ -130,6 +127,19 @@ namespace ZAPBeachCampingLib
         public List<string> GetAllUnavailbleSpotNumbersBetweenDate(DateTime startDate, DateTime endDate)
         {
             return GetDB(c => c.Query<string>("GetAllSpotNumbersBetweenDate @StartDate, @EndDate", new { StartDate = startDate, EndDate = endDate }).ToList());
+        }
+        public SpotStatus GetSpotStatus(string spotNumber)
+        {
+            return GetDB(con =>
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("SpotNumber", spotNumber);
+                parameters.Add("SpotStatus", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
+
+                con.Execute("GetSpotStatus", parameters, commandType: CommandType.StoredProcedure);
+
+                return (SpotStatus)parameters.Get<int>("SpotStatus");
+            });
         }
 
         // **** Other

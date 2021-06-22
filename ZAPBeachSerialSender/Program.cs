@@ -36,49 +36,21 @@ namespace ZAPBeachSerialSender
     {
         static Manager manager = new Manager();
 
-        static List<Reservation> GetReservationsToday(string spotNumber)
-        {
-            return manager.GetReservationsFromStartDateAndSpotNumber(DateTime.Now, spotNumber);
-        }
-        static List<Reservation> GetToday(string spotNumber)
-        {
-            return manager.GetReservationsFromStartDateAndSpotNumber(DateTime.Now, spotNumber);
-        }
-        static List<Reservation> GetCommingTheNextWeek(string spotNumber)
-        {
-            return manager.GetReservationsFromStartDateAndSpotNumber(DateTime.Now.AddDays(1), spotNumber);
-        }
-        enum SpotStatus
-        {
-            NoOrder = 1,
-            LeavingYoday = 2,
-            OrderReservated = 3,
-            CommingToday = 4
-        };
-
         static void Main(string[] args)
         {
-            string[] spotsNames = { "H2", "H3", "H4", "H5", "H7", "H8", "H10", "H11", "H12" };
+            string[] spotsNumber = { "H2", "H3", "H4", "H5", "H7", "H8", "H10", "H11" };
 
             BufferWriter writer = new BufferWriter(new SerialPort("COM3", 11200));
 
             while(true)
             {
-                Console.WriteLine();
-                SpotStatus[] spotStatuses = new SpotStatus[8];
-                Random rng = new Random();
-
-                for (int i = 0; i < 8; i++)
-                {
-                    spotStatuses[i] = (SpotStatus)rng.Next(1, 5);
-                    Console.WriteLine(spotStatuses[i]);
-                }
                 List<byte> data = new List<byte>();
 
-                for (int i = 0; i < spotStatuses.Length; i++)
+                foreach(string spotNumber in spotsNumber)
                 {
-                    data.Add((byte)spotStatuses[i]);
+                    data.Add((byte)manager.GetSpotStatus(spotNumber));
                 }
+
 
                 writer.SendBuffer(data.ToArray());
                 Thread.Sleep(5000);
