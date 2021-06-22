@@ -15,6 +15,10 @@ class ProgressHandler {
                 break;
             }
         }
+        if (prb_orderProgrss.style.width == "25%" && travelperiodHandler.seasonSite.checked) {
+            this.nextTab();
+        }
+
         this.update();
     }
 
@@ -27,6 +31,10 @@ class ProgressHandler {
                 break;
             }
         }
+        if (prb_orderProgrss.style.width == "25%" && travelperiodHandler.seasonSite.checked) {
+            this.previewsTab();
+        }
+
         this.update();
     }
 

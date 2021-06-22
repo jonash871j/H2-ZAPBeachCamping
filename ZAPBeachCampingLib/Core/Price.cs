@@ -17,7 +17,7 @@ namespace ZAPBeachCampingLib
 
         public double GetPrice()
         {
-            if (TimeChecker.IsHighSeason())
+            if (SeasonCalculator.IsHighSeason())
             {
                 return HighSeason;
             }

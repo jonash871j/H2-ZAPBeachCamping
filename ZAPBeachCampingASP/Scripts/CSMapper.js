@@ -24,6 +24,7 @@ class BookingOptions {
         this.IsGoodView = campingSettingsHandler.isGoodView.checked;
         this.IsPayingForCleaning = campingSettingsHandler.isPayingForCleaning.checked;
         this.Additions = additionsHandler.getAdditions();
+        this.SeasonType = travelperiodHandler.seasonType;
     }
 }
 

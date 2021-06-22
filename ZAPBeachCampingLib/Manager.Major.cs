@@ -96,35 +96,71 @@ namespace ZAPBeachCampingLib
                 return false;
             }
 
-            // Makes a seach to get all avaible spots
-            List<Spot> spots = GetSpotsBySearch(
-                bookingOptions.GetStartDate(),
-                bookingOptions.GetEndDate(),
-                bookingOptions.SpotType,
-                bookingOptions.CampingType,
-                bookingOptions.HutType,
-                bookingOptions.IsGoodView
-            );
-            if (spots.Count > 0)
+            if (bookingOptions.SeasonType == SeasonType.None)
             {
-                // Adds the reservation to the database
-                dal.CreateReservation(new Reservation(
-                    customer,
-                    spots[0],
+                // Makes a seach to get all avaible spots
+                List<Spot> spots = GetSpotsBySearch(
                     bookingOptions.GetStartDate(),
                     bookingOptions.GetEndDate(),
-                    bookingOptions.GetCustomerTypes(),
-                    bookingOptions.Additions,
-                    bookingOptions.IsPayingForCleaning,
-                    bookingOptions.SeasonType
-                ));
+                    bookingOptions.SpotType,
+                    bookingOptions.CampingType,
+                    bookingOptions.HutType,
+                    bookingOptions.IsGoodView
+                );
 
-                return true;
+                if (spots.Count > 0)
+                {
+                    // Adds the reservation to the database
+                    dal.CreateReservation(new Reservation(
+                        customer,
+                        spots[0],
+                        bookingOptions.GetStartDate(),
+                        bookingOptions.GetEndDate(),
+                        bookingOptions.GetCustomerTypes(),
+                        bookingOptions.Additions,
+                        bookingOptions.IsPayingForCleaning
+                    ));
+
+                    return true;
+                }
+                else
+                {
+                    MissingInformation?.Invoke("Der er desværre ikke flere ledige pladser udfra dine valg.");
+                    return false;
+                }
             }
             else
             {
-                MissingInformation?.Invoke("Der er desværre ikke flere ledige pladser udfra dine valg.");
-                return false;
+                // Makes a seach to get all avaible spots
+                List<Spot> spots = GetSpotsBySearch(
+                    bookingOptions.GetStartDate(),
+                    bookingOptions.GetEndDate(),
+                    SpotType.CampingSite,
+                    CampingType.Large,
+                    HutType.None,
+                    isGoodView: false
+                );
+
+                if (spots.Count > 0)
+                {
+                    // Adds the reservation to the database
+                    dal.CreateReservation(new Reservation(
+                        customer,
+                        spots[0],
+                        bookingOptions.GetStartDate(),
+                        bookingOptions.GetEndDate(),
+                        new List<CustomerType>(),
+                        bookingOptions.Additions,
+                        seasonType: bookingOptions.SeasonType
+                    ));
+
+                    return true;
+                }
+                else
+                {
+                    MissingInformation?.Invoke("Der er desværre ikke flere ledige pladser udfra dine valg.");
+                    return false;
+                }
             }
         }
     }

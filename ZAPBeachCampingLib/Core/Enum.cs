@@ -13,11 +13,13 @@ namespace ZAPBeachCampingLib
 
     public enum HutType
     {
+        None = 0,
         Default = 1,
         Luxury = 2,
     }
     public enum CampingType
     {
+        None = 0,
         Small = 1,
         Large = 2,
     }
