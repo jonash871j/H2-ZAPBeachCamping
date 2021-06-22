@@ -15,10 +15,10 @@ int ledPins[LEDY_AMOUNT][LEDX_AMOUNT]
 
 enum class SpotStatus
 {
-  NoOrder,
-  LeavingYoday,
-  OrderReservated,
-  CommingToday
+  NoOrder = 1,
+  LeavingYoday = 2,
+  OrderReservated = 3,
+  CommingToday = 4
 };
 enum class LedColor
 {
@@ -39,15 +39,6 @@ bool ReadUSBBuffer(uint8_t* buffer, uint32_t size)
       return true;
   }
   return false;
-}
-
-uint32_t ReadDWORD(uint8_t* buffer, uint32_t index)
-{
-    return (short)((buffer[index] << 24) | (buffer[index+1] << 16) | (buffer[index+2] << 8) | (buffer[index+3] << 0));
-}
-uint16_t ReadWORD(uint8_t* buffer, uint32_t index)
-{
-    return (short)((buffer[index+1] << 8) | (buffer[index] << 0));
 }
 
 void ChangeLed(int y, LedColor ledColor)
@@ -84,22 +75,22 @@ void ChangeLed(int y, LedColor ledColor)
 SpotStatus* GetSpotStatues(int& length)
 {
   length = 8;
-  SpotStatus* spotStatuses = new SpotStatus[length]
+  SpotStatus* spotStatuses = new SpotStatus[length];
+  uint8_t buffer[30];
+  buffer[0] = 0;
+  while (buffer[0] == 0)
   {
-    SpotStatus::NoOrder,
-    SpotStatus::NoOrder,
-    SpotStatus::CommingToday,
-    SpotStatus::OrderReservated,
-    SpotStatus::CommingToday,
-    SpotStatus::OrderReservated,
-    SpotStatus::NoOrder,
-    SpotStatus::LeavingYoday,
-  };
+    ReadUSBBuffer(buffer, 30);
+  }
+  for (int i = 0; i < length; i++)
+  {
+    spotStatuses[i] = (SpotStatus)buffer[i];
+  }
   return spotStatuses;
 }
 
 void setup() {
-
+Serial.begin(11200);
 for (int i = 0; i < LEDY_AMOUNT; i++)
 {
   for (int j = 0; j < LEDX_AMOUNT; j++)
@@ -123,7 +114,7 @@ void loop()
     }
     else if (spotStatues[i] == SpotStatus::CommingToday)
     {
-      ChangeLed(i, LedColor::Orange);
+      ChangeLed(i, LedColor::None);
     }
     else if (spotStatues[i] == SpotStatus::LeavingYoday)
     {

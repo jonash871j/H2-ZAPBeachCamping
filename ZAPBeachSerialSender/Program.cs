@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ZAPBeachCampingLib;
 
@@ -49,36 +50,40 @@ namespace ZAPBeachSerialSender
         }
         enum SpotStatus
         {
-            NoOrder,
-            LeavingYoday,
-            OrderReservated,
-            CommingToday
+            NoOrder = 1,
+            LeavingYoday = 2,
+            OrderReservated = 3,
+            CommingToday = 4
         };
 
         static void Main(string[] args)
         {
             string[] spotsNames = { "H2", "H3", "H4", "H5", "H7", "H8", "H10", "H11", "H12" };
 
-            SpotStatus[] spotStatuses =
-            {
-                SpotStatus.NoOrder,
-                SpotStatus.CommingToday,
-                SpotStatus.OrderReservated,
-                SpotStatus.CommingToday,
-                SpotStatus.LeavingYoday,
-                SpotStatus.CommingToday,
-                SpotStatus.NoOrder,
-                SpotStatus.CommingToday,
-            };
-            BufferWriter writer = new BufferWriter(new SerialPort("COM5", 11200));
-            List<byte> data = new List<byte>();
+            BufferWriter writer = new BufferWriter(new SerialPort("COM3", 11200));
 
-            for (int i = 0; i < spotStatuses.Length; i++)
+            while(true)
             {
-                data.Add((byte)spotStatuses[i]);
+                Console.WriteLine();
+                SpotStatus[] spotStatuses = new SpotStatus[8];
+                Random rng = new Random();
+
+                for (int i = 0; i < 8; i++)
+                {
+                    spotStatuses[i] = (SpotStatus)rng.Next(1, 5);
+                    Console.WriteLine(spotStatuses[i]);
+                }
+                List<byte> data = new List<byte>();
+
+                for (int i = 0; i < spotStatuses.Length; i++)
+                {
+                    data.Add((byte)spotStatuses[i]);
+                }
+
+                writer.SendBuffer(data.ToArray());
+                Thread.Sleep(5000);
             }
-
-            writer.SendBuffer(data.ToArray());
+           
         }
     }
 }
