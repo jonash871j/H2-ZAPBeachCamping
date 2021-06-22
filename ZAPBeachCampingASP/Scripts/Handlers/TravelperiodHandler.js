@@ -22,6 +22,7 @@ class TravelperiodHandler {
         if (this.seasonSettings2.checked) this.seasonType = SeasonTypeEnum.Summer;
         if (this.seasonSettings3.checked) this.seasonType = SeasonTypeEnum.Atumn;
         if (this.seasonSettings4.checked) this.seasonType = SeasonTypeEnum.Winter;
+        if (this.seasonSite.checked == false) this.seasonType = SeasonTypeEnum.None;
     }
 
     showActiveTab() {
