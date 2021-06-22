@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{54DF8E77-5598-477E-807B-3D5924F3AF6C}</ProjectGuid>
+    <ProjectGuid>{30B2514D-D398-4233-B387-8842D0D61436}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TestConsole</RootNamespace>
-    <AssemblyName>TestConsole</AssemblyName>
+    <RootNamespace>ZAPBeachSerialSender</RootNamespace>
+    <AssemblyName>ZAPBeachSerialSender</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -51,12 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZAPBeachCampingLib\ZAPBeachCampingLib.csproj">
-      <Project>{83372daa-595a-4199-ac4f-8f87ca18caf2}</Project>
+      <Project>{83372DAA-595A-4199-AC4F-8F87CA18CAF2}</Project>
       <Name>ZAPBeachCampingLib</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SQL Procedure Combiner.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

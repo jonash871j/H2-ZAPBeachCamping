@@ -55,7 +55,8 @@ CREATE OR ALTER PROCEDURE CreateReservation
 						@SpotNumber VARCHAR(8), 
 						@StartDate DATE, 
 						@EndDate DATE,
-						@IsPayForCleaning BIT
+						@IsPayForCleaning BIT,
+						@SeasonType INTEGER
 AS
 	DECLARE @OrderNumber INTEGER;
 
@@ -64,8 +65,8 @@ AS
 	FROM Customers 
 	WHERE Customers.Email = @Email)
 	BEGIN
-		INSERT INTO Reservations(CustomerEmail, SpotNumber, StartDate, EndDate, IsInvoiceSent, IsPayForCleaning) 
-		VALUES(@Email, @SpotNumber, @StartDate, @EndDate, 0, @IsPayForCleaning); 
+		INSERT INTO Reservations(CustomerEmail, SpotNumber, StartDate, EndDate, IsInvoiceSent, IsPayForCleaning, SeasonType) 
+		VALUES(@Email, @SpotNumber, @StartDate, @EndDate, 0, @IsPayForCleaning, @SeasonType); 
 		SET @OrderNumber = SCOPE_IDENTITY()
 		RETURN @OrderNumber;
 	END
@@ -81,8 +82,8 @@ AS
 	FROM Reservations 
 	WHERE Reservations.CustomerEmail = @Email)
 	BEGIN
-		INSERT INTO Reservations(CustomerEmail, SpotNumber, StartDate, EndDate, IsInvoiceSent, IsPayForCleaning) 
-		VALUES(@Email, @SpotNumber, @StartDate, @EndDate, 0, @IsPayForCleaning); 
+		INSERT INTO Reservations(CustomerEmail, SpotNumber, StartDate, EndDate, IsInvoiceSent, IsPayForCleaning, SeasonType) 
+		VALUES(@Email, @SpotNumber, @StartDate, @EndDate, 0, @IsPayForCleaning, @SeasonType); 
 			SET @OrderNumber = SCOPE_IDENTITY()
 		RETURN @OrderNumber;
 	END
