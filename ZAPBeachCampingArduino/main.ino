@@ -15,10 +15,10 @@ int ledPins[LEDY_AMOUNT][LEDX_AMOUNT]
 
 enum class SpotStatus
 {
-  NoOrder = 1,
-  LeavingYoday = 2,
-  OrderReservated = 3,
-  CommingToday = 4
+    NoReservation = 1,
+    AnyReservation = 2,
+    CommingToday = 3,
+    LeavingYoday = 4
 };
 enum class LedColor
 {
@@ -108,21 +108,21 @@ void loop()
 
   for (int i = 0; i < length; i++)
   {
-    if (spotStatues[i] == SpotStatus::NoOrder)
+    if (spotStatues[i] == SpotStatus::NoReservation)
     {
-      ChangeLed(i, LedColor::Green);
+      ChangeLed(i, LedColor::None);
     }
     else if (spotStatues[i] == SpotStatus::CommingToday)
     {
-      ChangeLed(i, LedColor::None);
+      ChangeLed(i, LedColor::Red);
     }
     else if (spotStatues[i] == SpotStatus::LeavingYoday)
     {
       ChangeLed(i, LedColor::Blue);
     }
-    else if (spotStatues[i] == SpotStatus::OrderReservated)
+    else if (spotStatues[i] == SpotStatus::AnyReservation)
     {
-      ChangeLed(i, LedColor::Red);
+      ChangeLed(i, LedColor::Green);
     }
   }
   delete spotStatues;
