@@ -30,7 +30,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZAPBeachCampingASP", "ZAPBe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZAPBeachCampingLib", "ZAPBeachCampingLib\ZAPBeachCampingLib.csproj", "{83372DAA-595A-4199-AC4F-8F87CA18CAF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZAPBeachSerialSender", "ZAPBeachSerialSender\ZAPBeachSerialSender.csproj", "{30B2514D-D398-4233-B387-8842D0D61436}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZAPBeachCampingSerialSender", "ZAPBeachSerialSender\ZAPBeachCampingSerialSender.csproj", "{30B2514D-D398-4233-B387-8842D0D61436}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -83,6 +83,10 @@ namespace ZAPBeachCampingLib
 
             return reservation;
         }
+        public List<Reservation> GetReservationsFromStartDateAndSpotNumber(DateTime startDate, string spotNumber)
+        {
+            return GetDB((c) => c.Query<Reservation>("GetReservationsFromStartDateAndSpotNumber @StartDate, @SpotNumber", new { StartDate = startDate, SpotNumber = spotNumber }).ToList());
+        }
         public List<Reservation> GetAllReservationsWithMissingInvoice()
             => GetDB(c => c.Query<Reservation>("GetAllReservationsWithMissingInvoice").ToList());
 

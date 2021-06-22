@@ -29,6 +29,9 @@ namespace ZAPBeachCampingLib
         public Reservation GetReservation(int orderNumber)
             => dal.GetReservation(orderNumber);
 
+        public List<Reservation> GetReservationsFromStartDateAndSpotNumber(DateTime startDate, string spotNumber)
+            => dal.GetReservationsFromStartDateAndSpotNumber(startDate, spotNumber);
+
         public List<Reservation> GetAllReservationsWithMissingInvoice()
             => dal.GetAllReservationsWithMissingInvoice();
 

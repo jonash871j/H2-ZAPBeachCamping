@@ -65,3 +65,13 @@ AS
 	FROM Reservations
 	WHERE Reservations.OrderNumber = @OrderNumber
 GO
+
+CREATE OR ALTER PROCEDURE GetReservationsFromStartDateAndSpotNumber
+	@StartDate DATE,
+	@SpotNumber VARCHAR(8)
+AS
+	SELECT * 
+	FROM Reservations
+	WHERE StartDate >= @StartDate AND SpotNumber = @SpotNumber;
+GO
+
