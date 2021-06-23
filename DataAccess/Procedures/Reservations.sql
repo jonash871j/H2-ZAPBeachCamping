@@ -55,7 +55,7 @@ AS
 GO
 
 --Used to mark invoice is sent
-CREATE OR ALTER PROCEDURE MarkReservationAsSent
+CREATE OR ALTER PROCEDURE MarkInvoiceAsSent
 	@OrderNumber INT
 AS
 	UPDATE Reservations

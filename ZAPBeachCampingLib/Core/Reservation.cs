@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using ZAPBeachCampingLib.Invoice;
 
 namespace ZAPBeachCampingLib.Core
 {
-    public class Reservation
+    public class Reservation : IInvoiceRows
     {
         internal string CustomerEmail { get; set; } // FOREIGN KEY
         internal string SpotNumber { get; set; } // FOREIGN KEY
 
-        public int OrderNumber { get; internal set; } = -1; 
+        public int OrderNumber { get; internal set; } = -1;
         public Customer Customer { get; internal set; }
         public Spot Spot { get; internal set; }
         public List<CustomerType> CustomerTypes { get; internal set; }
@@ -43,6 +45,11 @@ namespace ZAPBeachCampingLib.Core
         {
             return (int)(EndDate - StartDate).TotalDays;
         }
+        public double GetTotalPrice()
+        {
+            PriceCalculator pC = new PriceCalculator(this);
+            return pC.GetTotalPrice();
+        }
 
         public string GetSpotDescription()
         {
@@ -66,6 +73,89 @@ namespace ZAPBeachCampingLib.Core
                         return "";
                 }
             }
+        }
+
+        public InvoiceRow[] ToInvoiceRows()
+        {
+            PriceCalculator pC = new PriceCalculator(this);
+            List<InvoiceRow> invoiceRows = new List<InvoiceRow>();
+
+            invoiceRows.Add(new InvoiceRow(GetSpotDescription(), $"{GetTravelPeriodInDays()} døgn", $"{pC.GetTotalSpotPrice()} DKK"));
+            invoiceRows.AddRange(GetSpecialAdditionsInvoiceRows());
+            invoiceRows.AddRange(GetCustomerTypesInvoiceRows());
+            invoiceRows.AddRange(GetAdditionsInvoiceRows());
+
+            return invoiceRows.ToArray();
+        }
+        private InvoiceRow[] GetSpecialAdditionsInvoiceRows()
+        {
+            PriceCalculator pC = new PriceCalculator(this);
+            List<InvoiceRow> invoiceRows = new List<InvoiceRow>();
+
+            if (SeasonType == SeasonType.None)
+            {
+                if (Spot.SpotType == SpotType.CampingSite)
+                {
+                    invoiceRows.Add(new InvoiceRow("Gratis pladsgebyr for hver 3 dag", Math.Floor(GetTravelPeriodInDays() / 3.0) + " døgns rabat", $"{pC.GetCampingSpotDiscountPrice()} DKK"));
+                }
+
+                invoiceRows.Add(new InvoiceRow("Ekstra god udsigt (75 DKK pr. døgn)", Spot.IsGoodView ? "Ja" : "Nej", $"{pC.GetGoodViewPrice()} DKK"));
+                if (Spot.SpotType == SpotType.HutSite)
+                {
+                    invoiceRows.Add(new InvoiceRow("Slutrengøring (150 DKK)", IsPayForCleaning ? "Ja" : "Nej", $"{pC.GetHutSpotCleaningPrice()} DKK"));
+                }
+            }
+
+            return invoiceRows.ToArray();
+        }
+        private InvoiceRow[] GetCustomerTypesInvoiceRows()
+        {
+            PriceCalculator pC = new PriceCalculator(this);
+            List<InvoiceRow> invoiceRows = new List<InvoiceRow>();
+
+            if (SeasonType == SeasonType.None)
+            {
+                invoiceRows.Add(new InvoiceRow(
+                    $"Voksne ({Spot.Prices["ADULT_PRICE"].GetPrice()} DKK pr. voksen)",
+                    $"Antal {CustomerTypes.FindAll(ct => ct == CustomerType.Adult).Count}",
+                    $"{pC.GetTotalAdultPrice()} DKK"
+                ));
+                invoiceRows.Add(new InvoiceRow(
+                     $"Børn ({Spot.Prices["CHILD_PRICE"].GetPrice()} DKK pr. barn)",
+                     $"Antal {CustomerTypes.FindAll(ct => ct == CustomerType.Child).Count}",
+                     $"{pC.GetTotalChildPrice()} DKK"
+                 ));
+                invoiceRows.Add(new InvoiceRow(
+                     $"Hunde ({Spot.Prices["DOG_PRICE"].GetPrice()} DKK pr. hund)",
+                     $"Antal {CustomerTypes.FindAll(ct => ct == CustomerType.Dog).Count}",
+                     $"{pC.GetTotalDogPrice()} DKK"
+                 ));
+            }
+
+            return invoiceRows.ToArray();
+        }
+        private InvoiceRow[] GetAdditionsInvoiceRows()
+        {
+            List<InvoiceRow> invoiceRows = new List<InvoiceRow>();
+
+            foreach (Addition addition in Additions.GroupBy(a => a.Name).Select(y => y.FirstOrDefault()))
+            {
+                int additionAmount = Additions.FindAll(a => a.Name == addition.Name).Count;
+                double price = addition.Price * additionAmount;
+
+                if (addition.IsDailyPayment)
+                {
+                    price *= GetTravelPeriodInDays();
+                }
+
+                invoiceRows.Add(new InvoiceRow(
+                    $"{addition.Name} ({addition.Price} DKK{(addition.IsDailyPayment ? "pr. døgn" : "")})",
+                    $"Antal {additionAmount}",
+                    $"{price} DKK"
+                ));
+            }
+
+            return invoiceRows.ToArray();
         }
     }
 }

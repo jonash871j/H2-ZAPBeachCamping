@@ -83,6 +83,7 @@
     <Compile Include="Core\CampingSpot.cs" />
     <Compile Include="Core\Customer.cs" />
     <Compile Include="Delegates.cs" />
+    <Compile Include="Invoice\IInvoiceRows.cs" />
     <Compile Include="Invoice\InvoiceManager.cs" />
     <Compile Include="Core\PriceCalculator.cs" />
     <Compile Include="DataAccess\DataAccess.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Core\Manager.CreateReservation.cs" />
     <Compile Include="Core\Manager.Main.cs" />
     <Compile Include="Core\Price.cs" />
+    <Compile Include="Invoice\InvoiceRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Reservation.cs" />
     <Compile Include="Core\BookingOptions.cs" />

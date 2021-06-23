@@ -88,8 +88,8 @@ namespace ZAPBeachCampingLib
         public List<Reservation> GetAllReservationsWithMissingInvoice()
             => GetDB(c => c.Query<Reservation>("GetAllReservationsWithMissingInvoice").ToList());
 
-        public void MarkReservationAsSent(int orderNumber)
-            => GetDB(c => c.Query<Reservation>("MarkReservationAsSent @OrderNumber", new { OrderNumber = orderNumber }).FirstOrDefault());
+        public void MarkInvoiceAsSent(int orderNumber)
+            => GetDB(c => c.Query<Reservation>("MarkInvoiceAsSent @OrderNumber", new { OrderNumber = orderNumber }).FirstOrDefault());
 
 
         // **** Spots

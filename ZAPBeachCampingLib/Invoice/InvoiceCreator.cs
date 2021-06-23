@@ -11,7 +11,7 @@ namespace ZAPBeachCampingLib.Invoice
     {
         private Application applicationWord;
         private Document document;
-
+        private int rowNumber = 1;
         public InvoiceCreator()
         {
         }
@@ -22,8 +22,6 @@ namespace ZAPBeachCampingLib.Invoice
         /// <returns>path of pdf file</returns>
         public string Create(Reservation reservation, string templatePath, string templateFilename)
         {
-            OpenWord();
-
             // Overide template document
             if (File.Exists(templatePath + "Temp.docx"))
             {
@@ -38,19 +36,75 @@ namespace ZAPBeachCampingLib.Invoice
             }
 
             // Opens invoice template in word
+            OpenWord();
             document = applicationWord.Documents.Open(templatePath + "Temp.docx");
 
-            // Creates a invoice document for customer
-            CreateInvoice(reservation);
+            // Replaces bookmarks in invoice with reservation data 
+            ReplaceBookmarks(reservation);
 
             // Convents .docx to .pdf
             document.Save();
             document.ExportAsFixedFormat(templatePath + "Faktura.pdf", WdExportFormat.wdExportFormatPDF, false);
+            
+            // Close word down
             document.Close();
-
             CloseWord();
 
             return templatePath + "Faktura.pdf";
+        }
+
+        /// <summary>
+        /// Used to replace bookmarks in invoice with reservation data
+        /// </summary>
+        private void ReplaceBookmarks(Reservation reservation)
+        {
+            Customer customer = reservation.Customer;
+
+            // **** Customer information
+            SetText("ID_NAME", customer.FirstName + " " + customer.LastName);
+            SetText("ID_ADDRESS", customer.Address);
+            SetText("ID_CITY", customer.City);
+            SetText("ID_PHONENUMBER", customer.PhoneNumber);
+            SetText("ID_EMAIL", customer.Email);
+
+            // **** Order number and date
+            SetText("ID_ORDRENUMMER", reservation.OrderNumber.ToString("D8"));
+            SetText("ID_ARRIVAL", reservation.StartDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture));
+            SetText("ID_DEPARTURE", reservation.EndDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture));
+
+            // **** Order Information
+            PushInvoiceRows(reservation);
+            SetText("ID_TOTAL", $"{reservation.GetTotalPrice()} DKK");
+
+            // Set spaces for all the rest rows
+            ReplaceRowsWithSpaces();
+        }
+
+        /// <summary>
+        /// Used to push row text to the invoice
+        /// </summary>
+        void PushInvoiceRows(IInvoiceRows invoiceRows)
+        {
+            foreach (InvoiceRow invoiceRow in invoiceRows.ToInvoiceRows())
+            {
+                SetText($"ID_DESC{rowNumber}", invoiceRow.Description);
+                SetText($"ID_AM{rowNumber}", invoiceRow.Other);
+                SetText($"ID_PRICE{rowNumber}", invoiceRow.Price);
+                rowNumber++;
+            }
+        }
+
+        /// <summary>
+        /// Used to replace rows with spaces
+        /// </summary>
+        void ReplaceRowsWithSpaces()
+        {
+            for (int i = 1; i <= 17; i++)
+            {
+                SetText($"ID_DESC{i}", " ");
+                SetText($"ID_AM{i}", " ");
+                SetText($"ID_PRICE{i}", " ");
+            }
         }
 
         /// <summary>
@@ -72,117 +126,15 @@ namespace ZAPBeachCampingLib.Invoice
 
         /// <summary>
         /// Used to replace bookmark with text
+        /// Can only be called once per bookmark
         /// </summary>
-        private void ReplaceText(string bookmark, string text)
+        private void SetText(string bookmark, string text)
         {
             // Finds a bookmark in a word document and replaces it with text
             if (document.Bookmarks.Exists(bookmark))
             {
                 object oBookMark = bookmark;
                 document.Bookmarks.get_Item(ref oBookMark).Range.Text = text;
-            }
-        }
-
-        /// <summary>
-        /// Used to create a invoice document based on reservation
-        /// </summary>
-        private void CreateInvoice(Reservation reservation)
-        {
-            Reservation r = reservation;
-            Customer c = reservation.Customer;
-            Spot s = reservation.Spot;
-            PriceCalculator pC = new PriceCalculator(reservation);
-            int line = 1;
-
-            // **** Customer information
-            ReplaceText("ID_NAME", c.FirstName + " " + c.LastName);
-            ReplaceText("ID_ADDRESS", c.Address);
-            ReplaceText("ID_CITY", c.City);
-            ReplaceText("ID_PHONENUMBER", c.PhoneNumber);
-            ReplaceText("ID_EMAIL", c.Email);
-
-            // **** Order number and date
-            ReplaceText("ID_ORDRENUMMER", r.OrderNumber.ToString("D8"));
-            ReplaceText("ID_ARRIVAL", r.StartDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture));
-            ReplaceText("ID_DEPARTURE", r.EndDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture));
-
-            // **** Order Information
-
-            // Spot
-
-            if (reservation.SeasonType == SeasonType.None)
-            {
-                PushLine(reservation.GetSpotDescription(), $"{r.GetTravelPeriodInDays()} døgn", $"{pC.GetTotalSpotPrice()} DKK");
-
-                if (r.Spot.SpotType == SpotType.CampingSite)
-                {
-                    PushLine("Gratis pladsgebyr for hver 3 dag", Math.Floor(r.GetTravelPeriodInDays() / 3.0) + " døgns rabat", $"{pC.GetCampingSpotDiscountPrice()} DKK");
-                }
-
-                // Default spot addition
-                PushLine("Ekstra god udsigt (75 DKK pr. døgn)", s.IsGoodView ? "Ja" : "Nej", $"{pC.GetGoodViewPrice()} DKK");
-                if (s.SpotType == SpotType.HutSite)
-                {
-                    PushLine("Slutrengøring (150 DKK)", reservation.IsPayForCleaning ? "Ja" : "Nej", $"{pC.GetHutSpotCleaningPrice()} DKK");
-                }
-
-                // Customer types
-                PushLine(
-                    $"Voksne ({s.Prices["ADULT_PRICE"].GetPrice()} DKK pr. voksen)",
-                    $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Adult).Count}",
-                    $"{pC.GetTotalAdultPrice()} DKK"
-                );
-                PushLine(
-                     $"Børn ({s.Prices["CHILD_PRICE"].GetPrice()} DKK pr. barn)",
-                     $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Child).Count}",
-                     $"{pC.GetTotalChildPrice()} DKK"
-                 );
-                PushLine(
-                     $"Hunde ({s.Prices["DOG_PRICE"].GetPrice()} DKK pr. hund)",
-                     $"Antal {r.CustomerTypes.FindAll(ct => ct == CustomerType.Dog).Count}",
-                     $"{pC.GetTotalDogPrice()} DKK"
-                 );
-            }
-            else
-            {
-                PushLine(reservation.GetSpotDescription(), $" ", $"{pC.GetTotalSpotPrice()} DKK");
-            }
-            
-            foreach (Addition addition in r.Additions.GroupBy(a => a.Name).Select(y => y.FirstOrDefault()))
-            {
-                int additionAmount = r.Additions.FindAll(a => a.Name == addition.Name).Count;
-                double price = addition.Price * additionAmount;
-
-                if (addition.IsDailyPayment)
-                {
-                    price *= r.GetTravelPeriodInDays();
-                }
-
-                PushLine(
-                    $"{addition.Name} ({addition.Price} DKK{(addition.IsDailyPayment ? "pr. døgn" : "")})",
-                    $"Antal {additionAmount}",
-                    $"{price} DKK"
-                );
-            }
-
-            // Total
-            ReplaceText("ID_TOTAL", $"{pC.GetTotalPrice()} DKK");
-
-            // Set spaces for all the rest fields
-            for (int i = 1; i <= 17; i++)
-            {
-                ReplaceText($"ID_DESC{i}", " ");
-                ReplaceText($"ID_AM{i}", " ");
-                ReplaceText($"ID_PRICE{i}", " ");
-            }
-
-            void PushLine(string description, string other, string price)
-            {
-
-                ReplaceText($"ID_DESC{line}", description);
-                ReplaceText($"ID_AM{line}", other);
-                ReplaceText($"ID_PRICE{line}", price);
-                line++;
             }
         }
     }

@@ -29,14 +29,21 @@ namespace ZAPBeachCampingLib.Invoice
                 {
                     try
                     {
+                        // Gets all reservations with missing invoice
                         List<Reservation> reservations = dal.GetAllReservationsWithMissingInvoice();
 
                         if (reservations != null && reservations.Count != 0)
                         {
                             Reservation reservation = reservations.FirstOrDefault();
+
+                            // Gets full reservation object
                             reservation = dal.GetReservation(reservation.OrderNumber);
+                            
+                            // Send invoice based on reservation
                             SendInvoice(reservation);
-                            dal.MarkReservationAsSent(reservation.OrderNumber);
+
+                            // Marks invoice as send to the reservation
+                            dal.MarkInvoiceAsSent(reservation.OrderNumber);
                         }
                         Thread.Sleep(1000);
                     }
@@ -75,6 +82,8 @@ namespace ZAPBeachCampingLib.Invoice
                     "Med venlig hilsen\n\nZAP Beach Camping",
                     invoicePath
                 );
+
+                Log?.Invoke("Invoice was send to " + reservation.Customer.Email);
             }
         }
     }

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 using ZAPBeachCampingLib;
+using ZAPBeachCampingLib.Core;
 
 namespace ZAPBeachCampingASP
 {
