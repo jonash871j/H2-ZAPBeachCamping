@@ -20,6 +20,7 @@ namespace ZAPBeachSerialSender
 
         }
 
+         
         public void SendBuffer(byte[] buffer)
         {
             if (buffer.Length > 1000)
@@ -51,7 +52,6 @@ namespace ZAPBeachSerialSender
                 {
                     data.Add((byte)manager.GetSpotStatus(spotNumber));
                 }
-
 
                 writer.SendBuffer(data.ToArray());
                 Thread.Sleep(5000);
