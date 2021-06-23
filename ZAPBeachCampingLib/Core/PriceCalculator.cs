@@ -82,10 +82,10 @@ namespace ZAPBeachCampingLib.Core
 
                 switch (hutSpot.HutType)
                 {
-                    //Returns price of a default hutspot and period of days
+                    //Returns the total price of a default hutspot times period of days
                     case HutType.Default:
                         return hutSpot.Prices["DEFAULT_PRICE"].GetPrice() * Reservation.GetTravelPeriodInDays();
-                    //Returns price of a luxury hutspot and period of days
+                    //Returns the total price of a luxury hutspot times period of days
                     case HutType.Luxury:
                         return hutSpot.Prices["LUXURY_PRICE"].GetPrice() * Reservation.GetTravelPeriodInDays();
                 }
@@ -93,7 +93,7 @@ namespace ZAPBeachCampingLib.Core
             return 0.0;
         }
         public double GetTotalTentSpotPrice()
-        {
+        { 
             //Checks if spotType is tentsite
             if (Reservation.Spot.SpotType == SpotType.TentSite)
             {
@@ -124,48 +124,18 @@ namespace ZAPBeachCampingLib.Core
         }
         public double GetTotalAdultPrice()
         {
-            double price = 0.0;
-            //Loop through reservation customerTypes
-            foreach (CustomerType customerType in Reservation.CustomerTypes)
-            {
-                //Check if customerType is adult
-                if (customerType == CustomerType.Adult)
-                {
-                    //Returns the price of an adult
-                    price += Reservation.Spot.Prices["ADULT_PRICE"].GetPrice();
-                }
-            }
-            return price;
+            return Reservation.CustomerTypes.FindAll(cT => cT == CustomerType.Adult).Count
+                * Reservation.Spot.Prices["ADULT_PRICE"].GetPrice();
         }
         public double GetTotalChildPrice()
         {
-            double price = 0.0;
-            //Loop through reservation customerTypes
-            foreach (CustomerType customerType in Reservation.CustomerTypes)
-            {
-                //Check if customerType is child
-                if (customerType == CustomerType.Child)
-                {
-                    //Returns the price of an child
-                    price += Reservation.Spot.Prices["CHILD_PRICE"].GetPrice();
-                }
-            }
-            return price;
+            return Reservation.CustomerTypes.FindAll(cT => cT == CustomerType.Child).Count 
+                * Reservation.Spot.Prices["CHILD_PRICE"].GetPrice();
         }
         public double GetTotalDogPrice()
         {
-            double price = 0.0;
-            //Loop through reservation customerTypes
-            foreach (CustomerType customerType in Reservation.CustomerTypes)
-            {
-                //Check if customerType is child
-                if (customerType == CustomerType.Dog)
-                {
-                    //Returns the price of an dog
-                    price += Reservation.Spot.Prices["DOG_PRICE"].GetPrice();
-                }
-            }
-            return price;
+            return Reservation.CustomerTypes.FindAll(cT => cT == CustomerType.Dog).Count
+                * Reservation.Spot.Prices["DOG_PRICE"].GetPrice();
         }
         public double GetTotalAdditionsPrice()
         {
