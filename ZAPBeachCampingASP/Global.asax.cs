@@ -20,7 +20,7 @@ namespace ZAPBeachCampingASP
 
         protected void Session_Start(object sender, EventArgs e)
         {
-            Session["Manager"] = new Manager();
+            Session["Manager"] = new CampingManager();
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

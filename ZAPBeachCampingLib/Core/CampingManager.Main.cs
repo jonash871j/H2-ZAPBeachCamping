@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace ZAPBeachCampingLib.Core
 {
-    public partial class Manager
+    public partial class CampingManager
     {
         private DataAccess dal;
         public event MessageEventHandler MissingInformation;
 
-        public Manager()
+        public CampingManager()
         {
             dal = new DataAccess();
         }

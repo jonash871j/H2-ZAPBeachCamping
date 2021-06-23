@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ZAPBeachCampingLib.Core
 {
-    public partial class Manager
+    public partial class CampingManager
     {
         /// <summary>
         /// Used to create a new reservation

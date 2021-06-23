@@ -91,8 +91,8 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Core\HutSpot.cs" />
     <Compile Include="Invoice\InvoiceCreator.cs" />
-    <Compile Include="Core\Manager.CreateReservation.cs" />
-    <Compile Include="Core\Manager.Main.cs" />
+    <Compile Include="Core\CampingManager.CreateReservation.cs" />
+    <Compile Include="Core\CampingManager.Main.cs" />
     <Compile Include="Core\Price.cs" />
     <Compile Include="Invoice\InvoiceRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
