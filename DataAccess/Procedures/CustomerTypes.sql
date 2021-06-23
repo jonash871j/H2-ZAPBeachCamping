@@ -1,4 +1,5 @@
-﻿CREATE OR ALTER PROCEDURE CreateCustomerType
+﻿--Used to create customer type
+CREATE OR ALTER PROCEDURE CreateCustomerType
 	@OrderNumber INT,
 	@Value INT
 AS
@@ -6,6 +7,7 @@ AS
 	VALUES (@OrderNumber, @Value)
 GO
 
+--Used to get customer type by order number
 CREATE OR ALTER PROCEDURE GetCustomerType 
 	@OrderNumber INT
 AS

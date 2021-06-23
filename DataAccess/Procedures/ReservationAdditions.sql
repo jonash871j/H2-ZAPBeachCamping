@@ -1,4 +1,5 @@
-﻿CREATE OR ALTER PROCEDURE CreateReservationAdditions
+﻿--Used to create reservations additions
+CREATE OR ALTER PROCEDURE CreateReservationAdditions
 	@OrderNumber INT,
 	@AdditionName VARCHAR(50)
 AS
@@ -6,6 +7,7 @@ AS
 	VALUES(@AdditionName, @OrderNumber)
 GO
 
+--Used to get reservation additions by order number
 CREATE OR ALTER PROCEDURE GetReservationAdditions  
 	@OrderNumber INT 
 AS

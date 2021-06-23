@@ -1,4 +1,5 @@
-﻿CREATE OR ALTER PROCEDURE CreateReservation 
+﻿--Used to create reservation.
+CREATE OR ALTER PROCEDURE CreateReservation 
 						@Email VARCHAR(100), 
 						@Firstname VARCHAR(25), 
 						@LastName VARCHAR(25), 
@@ -13,6 +14,7 @@
 AS
 	DECLARE @OrderNumber INTEGER;
 
+	--If customer email already exists inserts CustomerEmail from customer
 	IF EXISTS (
 	SELECT Customers.Email 
 	FROM Customers 
@@ -24,12 +26,14 @@ AS
 		RETURN @OrderNumber;
 	END
 
+	--If customer not exists inserts customer values
 	ELSE
 	BEGIN 
 		INSERT INTO Customers(Email, FirstName, LastName, City, Address, PhoneNumber) 
 		VALUES (@Email, @Firstname, @LastName, @City, @Address, @PhoneNumber);
 	END
 
+	--If reservations.customerEmail does not exists insert customer.email as reservations.CustomerEmail
 	IF NOT EXISTS (
 	SELECT Reservations.CustomerEmail 
 	FROM Reservations 
@@ -42,7 +46,7 @@ AS
 	END
 GO
 
-
+--Used to check if invoice is sent
 CREATE OR ALTER PROCEDURE GetAllReservationsWithMissingInvoice 
 AS
 	SELECT * 
@@ -50,6 +54,7 @@ AS
 	WHERE Reservations.IsInvoiceSent = 0
 GO
 
+--Used to mark invoice is sent
 CREATE OR ALTER PROCEDURE MarkReservationAsSent
 	@OrderNumber INT
 AS
