@@ -2,7 +2,7 @@
 
 namespace ZAPBeachCampingLib.Arduino
 {
-    internal class SerialBufferSender
+    public class SerialBufferSender
     {
         private SerialPort serialPort;
 
@@ -14,7 +14,6 @@ namespace ZAPBeachCampingLib.Arduino
         /// <summary>
         /// Sends buffer via serial port
         /// </summary>
-        /// <param name="buffer"></param>
         public void SendBuffer(byte[] buffer)
         {
             serialPort.RtsEnable = true;

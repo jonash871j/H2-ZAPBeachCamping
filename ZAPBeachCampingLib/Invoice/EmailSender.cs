@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZAPBeachCampingLib.Invoice
 {
-    internal class EmailSender
+    public class EmailSender
     {
-
-        private string clientEmail { get; set; }
-        private SmtpClient smtpServer { get; set; }
-
+        private string clientEmail;
+        private SmtpClient smtpServer;
 
         public EmailSender(string clientEmail, string clientPassword)
         {

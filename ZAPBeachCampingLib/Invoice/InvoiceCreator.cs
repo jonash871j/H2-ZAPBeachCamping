@@ -108,6 +108,20 @@ namespace ZAPBeachCampingLib.Invoice
         }
 
         /// <summary>
+        /// Used to replace bookmark with text
+        /// Can only be called once per bookmark
+        /// </summary>
+        private void SetText(string bookmark, string text)
+        {
+            // Finds a bookmark in a word document and replaces it with text
+            if (document.Bookmarks.Exists(bookmark))
+            {
+                object oBookMark = bookmark;
+                document.Bookmarks.get_Item(ref oBookMark).Range.Text = text;
+            }
+        }
+
+        /// <summary>
         /// Used to opens office word
         /// </summary>
         private void OpenWord()
@@ -122,20 +136,6 @@ namespace ZAPBeachCampingLib.Invoice
         private void CloseWord()
         {
             applicationWord.Quit(false);
-        }
-
-        /// <summary>
-        /// Used to replace bookmark with text
-        /// Can only be called once per bookmark
-        /// </summary>
-        private void SetText(string bookmark, string text)
-        {
-            // Finds a bookmark in a word document and replaces it with text
-            if (document.Bookmarks.Exists(bookmark))
-            {
-                object oBookMark = bookmark;
-                document.Bookmarks.get_Item(ref oBookMark).Range.Text = text;
-            }
         }
     }
 }

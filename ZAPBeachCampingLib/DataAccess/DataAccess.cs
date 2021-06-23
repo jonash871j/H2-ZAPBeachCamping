@@ -11,37 +11,37 @@ namespace ZAPBeachCampingLib
 {
     internal class DataAccess
     {
-        private string _connectionString;
+        private string connectionString;
 
         internal DataAccess()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
         }
 
         // **** Additions
-        public List<Addition> GetAllAddition()
+        internal List<Addition> GetAllAddition()
             => GetDB((c) => c.Query<Addition>("GetAllAdditions").ToList());
 
         // **** Customer
-        public Customer GetCustomer(string email)
+        internal Customer GetCustomer(string email)
             => GetDB((c) => c.Query<Customer>("GetCustomer @Email", new Customer { Email = email }).FirstOrDefault());
 
         // ****  CustomerTypes
-        public List<CustomerType> GetCustomerType(int orderNumber)
+        internal List<CustomerType> GetCustomerType(int orderNumber)
             => GetDB((c) => c.Query<CustomerType>("GetCustomerType @OrderNumber", new { OrderNumber = orderNumber }).ToList());
 
-        public void CreateCustomerTypes(int orderNumber, CustomerType value)
+        internal void CreateCustomerTypes(int orderNumber, CustomerType value)
             => GetDB((c) => c.Query<CustomerType>("CreateCustomerType @OrderNumber,  @Value", new { OrderNumber = orderNumber, Value = (int)value }));
 
         // **** ReservationAdditions
-        public void CreateReservationAdditions(int orderNumber, string additionName)
+        internal void CreateReservationAdditions(int orderNumber, string additionName)
             => GetDB((c) => c.Query<Addition>("CreateReservationAdditions @OrderNumber, @AdditionName", new { OrderNumber = orderNumber, AdditionName = additionName })).ToList();
-        
-        public List<Addition> GetReservationAdditions(int orderNumber)
+
+        internal List<Addition> GetReservationAdditions(int orderNumber)
             => GetDB((c) => c.Query<Addition>("GetReservationAdditions @OrderNumber", new { OrderNumber = orderNumber })).ToList();
 
         // **** Reservation
-        public void CreateReservation(Reservation reservation)
+        internal void CreateReservation(Reservation reservation)
         {
             GetDB(con =>
             {
@@ -74,7 +74,7 @@ namespace ZAPBeachCampingLib
             }
         }
 
-        public Reservation GetReservation(int orderNumber)
+        internal Reservation GetReservation(int orderNumber)
         {
             Reservation reservation = GetDB((c) => c.Query<Reservation>("GetReservation @OrderNumber", new { OrderNumber = orderNumber }).FirstOrDefault());
             reservation.Customer = GetCustomer(reservation.CustomerEmail);
@@ -84,16 +84,15 @@ namespace ZAPBeachCampingLib
 
             return reservation;
         }
-    
-        public List<Reservation> GetAllReservationsWithMissingInvoice()
+
+        internal List<Reservation> GetAllReservationsWithMissingInvoice()
             => GetDB(c => c.Query<Reservation>("GetAllReservationsWithMissingInvoice").ToList());
 
-        public void MarkInvoiceAsSent(int orderNumber)
+        internal void MarkInvoiceAsSent(int orderNumber)
             => GetDB(c => c.Query<Reservation>("MarkInvoiceAsSent @OrderNumber", new { OrderNumber = orderNumber }).FirstOrDefault());
 
-
         // **** Spots
-        public List<Spot> GetSpotsBySearch(SpotType spotType, CampingType campingType, HutType hutType, bool isGoodView)
+        internal List<Spot> GetSpotsBySearch(SpotType spotType, CampingType campingType, HutType hutType, bool isGoodView)
         {
             switch (spotType)
             {
@@ -108,7 +107,7 @@ namespace ZAPBeachCampingLib
             }
         }
 
-        public Spot GetSpot(string spotNumber)
+        internal Spot GetSpot(string spotNumber)
         {
             Spot spot = GetDB(c => c.Query<TentSpot>("GetSite @Number", new { Number = spotNumber }).FirstOrDefault());
 
@@ -125,11 +124,11 @@ namespace ZAPBeachCampingLib
             }
         }
 
-        public List<string> GetAllUnavailbleSpotNumbersBetweenDate(DateTime startDate, DateTime endDate)
+        internal List<string> GetAllUnavailbleSpotNumbersBetweenDate(DateTime startDate, DateTime endDate)
         {
             return GetDB(c => c.Query<string>("GetAllSpotNumbersBetweenDate @StartDate, @EndDate", new { StartDate = startDate, EndDate = endDate }).ToList());
         }
-        public SpotStatus GetSpotStatus(string spotNumber)
+        internal SpotStatus GetSpotStatus(string spotNumber)
         {
             return GetDB(con =>
             {
@@ -147,14 +146,14 @@ namespace ZAPBeachCampingLib
 
         private T GetDB<T>(Func<IDbConnection, T> func)
         {
-            using (IDbConnection c = new SqlConnection(_connectionString))
+            using (IDbConnection c = new SqlConnection(connectionString))
             {
                 return func(c);
             }
         }
         private void GetDB(Action<IDbConnection> func)
         {
-            using (IDbConnection c = new SqlConnection(_connectionString))
+            using (IDbConnection c = new SqlConnection(connectionString))
             {
                 func(c);
             }
