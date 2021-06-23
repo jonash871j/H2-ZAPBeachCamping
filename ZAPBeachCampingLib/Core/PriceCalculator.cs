@@ -47,10 +47,10 @@ namespace ZAPBeachCampingLib.Core
                 {
                     switch (campingSpot.CampingType)
                     {
-                        //Returns price of a small camping type and period of days
+                        //Returns the total price of a small camping spot times period of days
                         case CampingType.Small:
                             return campingSpot.Prices["SMALL_SPOT_FEE"].GetPrice() * Reservation.GetTravelPeriodInDays();
-                        //Returns price of a large camping type and period of days
+                        //Returns the total price of a large camping spot times period of days
                         case CampingType.Large:
                             return campingSpot.Prices["BIG_SPOT_FEE"].GetPrice() * Reservation.GetTravelPeriodInDays();
                     }
@@ -97,7 +97,7 @@ namespace ZAPBeachCampingLib.Core
             //Checks if spotType is tentsite
             if (Reservation.Spot.SpotType == SpotType.TentSite)
             {
-                //Returns price of a tent spot and period of days
+                //Returns the total price of a tent spot times period of days
                 return ((TentSpot)Reservation.Spot).Prices["SPOT_FEE"].GetPrice() * Reservation.GetTravelPeriodInDays();
             }
             return 0.0;
@@ -107,7 +107,7 @@ namespace ZAPBeachCampingLib.Core
             //Checks if reservation has IsGoodView
             if (Reservation.Spot.IsGoodView)
             {
-                //Returns price for IsGoodView by period of days
+                //Returns price of IsGoodview times period of days
                 return 75.0 * Reservation.GetTravelPeriodInDays();
             }
             return 0.0;
