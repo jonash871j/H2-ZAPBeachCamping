@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace ZAPBeachCampingLib
+namespace ZAPBeachCampingLib.Core
 {
     public class CampingSpot : Spot
     {
+        // Prices over camping spot
         private static Dictionary<string, Price> prices = new Dictionary<string, Price>()
         {
             {"SMALL_SPOT_FEE", new Price(60, 50) },
@@ -19,7 +18,7 @@ namespace ZAPBeachCampingLib
             {"VINTER_PRICE", new Price(3500, 3500)},
         };
 
-        public CampingType CampingType { get; set; }
+        public CampingType CampingType { get; private set; }
 
         internal CampingSpot()
             : base(SpotType.CampingSite, prices)

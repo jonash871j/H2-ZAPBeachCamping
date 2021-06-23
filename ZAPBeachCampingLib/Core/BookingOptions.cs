@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
-namespace ZAPBeachCampingLib
+namespace ZAPBeachCampingLib.Core
 {
+    /// <summary>
+    /// Represents the pre reservation class 
+    /// that is being directly casted from json
+    /// </summary>
     public class BookingOptions
     {
         public string StartDate { get; set; }
@@ -19,6 +22,10 @@ namespace ZAPBeachCampingLib
         public bool IsPayingForCleaning { get; set; }
         public List<Addition> Additions { get; set; }
 
+        /// <summary>
+        /// Used to combine customer types into a single list
+        /// </summary>
+        /// <returns>list of CustomerType</returns>
         public List<CustomerType> GetCustomerTypes()
         {
             List<CustomerType> customerTypes = new List<CustomerType>();
@@ -38,6 +45,11 @@ namespace ZAPBeachCampingLib
             return customerTypes;
         }
 
+        /// <summary>
+        /// Used to check if dates are valid
+        /// </summary>
+        /// <param name="errorMsg">Returns error msg on failure</param>
+        /// <returns>true if succesfull</returns>
         public bool IsValidDates(out string errorMsg)
         {
             if (SeasonType == SeasonType.None)
@@ -57,6 +69,9 @@ namespace ZAPBeachCampingLib
             return true;
         }
 
+        /// <summary>
+        /// Used to get start date as DateTime
+        /// </summary>
         public DateTime GetStartDate()
         {
             if (SeasonType == SeasonType.None)
@@ -68,6 +83,11 @@ namespace ZAPBeachCampingLib
                 return SeasonCalculator.GetSeasonStartDate(SeasonType);
             }
         }
+
+        /// <summary>
+        /// Used to get end date as DateTime
+        /// </summary>
+        /// <returns></returns>
         public DateTime GetEndDate()
         {
             if (SeasonType == SeasonType.None)

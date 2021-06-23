@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ZAPBeachCampingLib
+﻿namespace ZAPBeachCampingLib.Core
 {
     public class Addition
     {

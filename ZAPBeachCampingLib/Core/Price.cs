@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ZAPBeachCampingLib
+namespace ZAPBeachCampingLib.Core
 {
     public class Price
     {
@@ -15,6 +15,9 @@ namespace ZAPBeachCampingLib
             LowSeason = lowSeason;
         }
 
+        /// <summary>
+        /// Used to get the right price based on the season
+        /// </summary>
         public double GetPrice()
         {
             if (SeasonCalculator.IsHighSeason())

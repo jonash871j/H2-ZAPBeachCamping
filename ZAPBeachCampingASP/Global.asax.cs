@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -13,7 +15,6 @@ namespace ZAPBeachCampingASP
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            Manager.StartInvoiceThread();
         }
 
         protected void Session_Start(object sender, EventArgs e)

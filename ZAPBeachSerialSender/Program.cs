@@ -10,28 +10,7 @@ using ZAPBeachCampingLib;
 
 namespace ZAPBeachSerialSender
 {
-    public class BufferWriter
-    {
-        private SerialPort serialPort;
 
-        public BufferWriter(SerialPort serialPort)
-        {
-            this.serialPort = serialPort;
-
-        }
-
-        public void SendBuffer(byte[] buffer)
-        {
-            if (buffer.Length > 1000)
-            {
-                throw new Exception("To large");
-            }
-            serialPort.RtsEnable = true;
-            serialPort.Open();
-            serialPort.Write(buffer, 0, buffer.Length);
-            serialPort.Close();
-        }
-    }
 
     class Program
     {
@@ -41,7 +20,7 @@ namespace ZAPBeachSerialSender
         {
             string[] spotsNumber = { "H2", "H3", "H4", "H5", "H7", "H8", "H10", "H11" };
 
-            BufferWriter writer = new BufferWriter(new SerialPort(ConfigurationManager.AppSettings["COMPort"], 11200));
+            SerialBufferSender writer = new SerialBufferSender(new SerialPort(ConfigurationManager.AppSettings["COMPort"], 11200));
 
             while(true)
             {

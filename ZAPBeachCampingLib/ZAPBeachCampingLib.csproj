@@ -77,18 +77,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arduino\ArduionoManager.cs" />
+    <Compile Include="Arduino\SerialBufferSender.cs" />
     <Compile Include="Core\Addition.cs" />
     <Compile Include="Core\CampingSpot.cs" />
     <Compile Include="Core\Customer.cs" />
+    <Compile Include="Delegates.cs" />
+    <Compile Include="Invoice\InvoiceManager.cs" />
     <Compile Include="Core\PriceCalculator.cs" />
     <Compile Include="DataAccess\DataAccess.cs" />
-    <Compile Include="Core\EmailSender.cs" />
-    <Compile Include="Core\Enum.cs" />
+    <Compile Include="Invoice\EmailSender.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Core\HutSpot.cs" />
-    <Compile Include="Core\InvoiceCreator.cs" />
-    <Compile Include="Manager.Major.cs" />
-    <Compile Include="Manager.Minor.cs" />
-    <Compile Include="Manager.Main.cs" />
+    <Compile Include="Invoice\InvoiceCreator.cs" />
+    <Compile Include="Core\Manager.Major.cs" />
+    <Compile Include="Core\Manager.Main.cs" />
     <Compile Include="Core\Price.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Reservation.cs" />

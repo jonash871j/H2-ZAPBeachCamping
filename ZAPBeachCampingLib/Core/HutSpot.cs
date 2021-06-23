@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ZAPBeachCampingLib
+namespace ZAPBeachCampingLib.Core
 {
     public class HutSpot : Spot
     {
+        // Prices over hut spot
         private static Dictionary<string, Price> prices = new Dictionary<string, Price>()
         {
             {"DEFAULT_PRICE", new Price(500, 350) },
