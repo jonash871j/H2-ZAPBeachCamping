@@ -13,7 +13,7 @@ namespace ZAPBeachCampingASP
 {
     public partial class Booking : System.Web.UI.Page
     {
-        private Manager Manager { get => (Manager)Session["Manager"]; }
+        private CampingManager Manager { get => (CampingManager)Session["Manager"]; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
