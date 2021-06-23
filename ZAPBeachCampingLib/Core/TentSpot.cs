@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace ZAPBeachCampingLib
+namespace ZAPBeachCampingLib.Core
 {
     public class TentSpot : Spot
     {
+        // Prices over tent spot
         private static Dictionary<string, Price> prices = new Dictionary<string, Price>()
         {
             {"ADULT_PRICE" , new Price(82, 87) },

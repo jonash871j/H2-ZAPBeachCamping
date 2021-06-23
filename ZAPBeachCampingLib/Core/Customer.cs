@@ -1,24 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-
-namespace ZAPBeachCampingLib
+﻿namespace ZAPBeachCampingLib.Core
 {
     public class Customer
     {
-        #region Properties
-
         public string FirstName { get; internal set; }
         public string LastName { get; internal set; }
         public string Email { get; internal set; }
         public string City { get; internal set; }
         public string Address { get; internal set; }
         public string PhoneNumber { get; internal set; }
-        #endregion
         
-        #region Constructor
-
         internal Customer() 
         { 
         }
@@ -31,6 +21,12 @@ namespace ZAPBeachCampingLib
             Address = address;
             PhoneNumber = phoneNumber;
         }
+
+        /// <summary>
+        /// Used to check if customer is valid
+        /// </summary>
+        /// <param name="errorMsg">Returns error msg on failure</param>
+        /// <returns>true if succesfull</returns>
         public bool IsValid(out string errorMsg)
         {
             if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(LastName) ||
@@ -43,12 +39,5 @@ namespace ZAPBeachCampingLib
             errorMsg = "";
             return true;
         }
-        private bool IsValidPhoneNumber()
-        {
-            return Regex.Match(PhoneNumber, @"^(\+[0-9]{9})$").Success;
-        }
-
-
-        #endregion
     }
 }
