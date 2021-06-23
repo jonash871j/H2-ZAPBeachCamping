@@ -41,16 +41,26 @@ namespace ZAPBeachCampingLib.Core
             SeasonType = seasonType;
         }
 
+        /// <summary>
+        /// Used to get total travel period in days
+        /// </summary>
         public int GetTravelPeriodInDays()
         {
             return (int)(EndDate - StartDate).TotalDays;
         }
+
+        /// <summary>
+        /// Used to get total price of reservation
+        /// </summary>
         public double GetTotalPrice()
         {
             PriceCalculator pC = new PriceCalculator(this);
             return pC.GetTotalPrice();
         }
 
+        /// <summary>
+        /// Used to get spot description
+        /// </summary>
         public string GetSpotDescription()
         {
             if (SeasonType == SeasonType.None)
@@ -75,6 +85,10 @@ namespace ZAPBeachCampingLib.Core
             }
         }
 
+        /// <summary>
+        /// Used to get invoice rows of reservation, includes
+        /// description, other and price for each row
+        /// </summary>
         public InvoiceRow[] ToInvoiceRows()
         {
             PriceCalculator pC = new PriceCalculator(this);
@@ -87,6 +101,10 @@ namespace ZAPBeachCampingLib.Core
 
             return invoiceRows.ToArray();
         }
+
+        /// <summary>
+        /// Used to get invoice rows of all special addtions
+        /// </summary>
         private InvoiceRow[] GetSpecialAdditionsInvoiceRows()
         {
             PriceCalculator pC = new PriceCalculator(this);
@@ -108,6 +126,10 @@ namespace ZAPBeachCampingLib.Core
 
             return invoiceRows.ToArray();
         }
+
+        /// <summary>
+        /// Used to get invoice rows of all customer types
+        /// </summary>
         private InvoiceRow[] GetCustomerTypesInvoiceRows()
         {
             PriceCalculator pC = new PriceCalculator(this);
@@ -134,6 +156,10 @@ namespace ZAPBeachCampingLib.Core
 
             return invoiceRows.ToArray();
         }
+
+        /// <summary>
+        /// Used to get invoice rows of all additions
+        /// </summary>
         private InvoiceRow[] GetAdditionsInvoiceRows()
         {
             List<InvoiceRow> invoiceRows = new List<InvoiceRow>();
