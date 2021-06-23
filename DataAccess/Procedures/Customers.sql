@@ -1,4 +1,5 @@
-﻿CREATE OR ALTER PROCEDURE GetCustomer
+﻿--Used to get customer by email
+CREATE OR ALTER PROCEDURE GetCustomer
 	@Email VARCHAR(100)
 AS
 	SELECT * 

@@ -1,4 +1,5 @@
-﻿CREATE OR ALTER PROCEDURE GetSiteBySearch
+﻿--Used to search for site with IsGoodView
+CREATE OR ALTER PROCEDURE GetSiteBySearch
 	@IsGoodView BIT
 AS
 	SELECT * 
@@ -6,6 +7,7 @@ AS
 	WHERE IsGoodView = @IsGoodView
 GO	
 
+--Used to get campingSite where IsGoodView and CampingType is true
 CREATE OR ALTER PROCEDURE GetCampingSiteBySearch
 	@IsGoodView BIT,
 	@CampingType INTEGER
@@ -17,6 +19,7 @@ AS
 	WHERE IsGoodView = @IsGoodView AND CampingSpots.CampingType = @CampingType
 GO
 
+--Used to get HutSite Where Isgoodview and HutType is true
 CREATE OR ALTER PROCEDURE GetHutSiteBySearch
 	@IsGoodView BIT,
 	@HutType INTEGER
@@ -28,6 +31,7 @@ AS
 	WHERE IsGoodView = @IsGoodView AND HutType = @HutType
 GO	
 
+--Used to get all spots between dates
 CREATE OR ALTER PROCEDURE GetAllSpotNumbersBetweenDate
 	@StartDate Date,
 	@EndDate Date
