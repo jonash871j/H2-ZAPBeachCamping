@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ZAPBeachCampingLib.Core
 {
@@ -34,5 +36,26 @@ namespace ZAPBeachCampingLib.Core
         // **** Spot
         public Spot GetSpot(string spotNumber)
             => dal.GetSpot(spotNumber);
+
+        /// <summary>
+        /// Used to make a seach on spots
+        /// </summary>
+        /// <returns>all available spots based on search</returns>
+        public List<Spot> GetSpotsBySearch(DateTime startDate, DateTime endDate, SpotType spotType, CampingType campingType, HutType hutType, bool isGoodView)
+        {
+            // Get every spot based on search
+            List<Spot> spots = dal.GetSpotsBySearch(spotType, campingType, hutType, isGoodView);
+
+            // Removes all unavailble spots based on date
+            foreach (string unavaibleSpotNumber in dal.GetAllUnavailbleSpotNumbersBetweenDate(startDate, endDate))
+            {
+                Spot spotToRemove = spots.SingleOrDefault(s => s.Number == unavaibleSpotNumber);
+                if (spotToRemove != null)
+                {
+                    spots.Remove(spotToRemove);
+                }
+            }
+            return spots;
+        }
     }
 }

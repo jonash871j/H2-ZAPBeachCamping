@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using ZAPBeachCampingLib.Core;
 
 namespace ZAPBeachCampingLib.Invoice
 {
@@ -55,18 +54,27 @@ namespace ZAPBeachCampingLib.Invoice
         /// </summary>
         public void SendInvoice(Reservation reservation)
         {
+            // Checks if invoice ignore settings is disabled
             if (bool.Parse(ConfigurationManager.AppSettings["InvoiceIgnore"]) == false)
             {
-                InvoiceCreator invoiceCreator = new InvoiceCreator(
-                    new EmailSender(
-                        ConfigurationManager.AppSettings["Email"],
-                        ConfigurationManager.AppSettings["EmailPassword"]
-                    )
+                EmailSender emailSender = new EmailSender(
+                    ConfigurationManager.AppSettings["Email"],
+                    ConfigurationManager.AppSettings["EmailPassword"]
                 );
+                InvoiceCreator invoiceCreator = new InvoiceCreator();
 
-                invoiceCreator.OpenWord();
-                invoiceCreator.Send(reservation, ConfigurationManager.AppSettings["InvoicePath"], "Skabalon.docx");
-                invoiceCreator.CloseWord();
+                // Creates invoice as a PDF file 
+                string invoicePath = invoiceCreator.Create(reservation, ConfigurationManager.AppSettings["InvoicePath"], "Skabalon.docx");
+
+                // Sends email with invoice to customer
+                emailSender.SendEmailAttachement(
+                    reservation.Customer.Email,
+                    "ZAP Beach Camping faktura",
+                    "Hej " + reservation.Customer.FirstName + "\n\nTusind tak for din bestilling, " +
+                    "vi håber du får en uforglemmelig tur hos ZAP Beach Camping.\n\n\n" +
+                    "Med venlig hilsen\n\nZAP Beach Camping",
+                    invoicePath
+                );
             }
         }
     }

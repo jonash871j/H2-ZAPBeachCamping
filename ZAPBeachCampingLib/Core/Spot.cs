@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ZAPBeachCampingLib
+namespace ZAPBeachCampingLib.Core
 {
     public abstract class Spot
     {

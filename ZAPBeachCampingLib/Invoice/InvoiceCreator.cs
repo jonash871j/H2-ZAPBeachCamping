@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Office.Interop.Word;
+using ZAPBeachCampingLib.Core;
 
 namespace ZAPBeachCampingLib.Invoice
 {
@@ -13,26 +11,31 @@ namespace ZAPBeachCampingLib.Invoice
     {
         private Application applicationWord;
         private Document document;
-        private EmailSender email;
 
-        public InvoiceCreator(EmailSender email)
+        public InvoiceCreator()
         {
-            this.email = email;
         }
 
         /// <summary>
-        /// Sends invoice to customer from reservation 
+        /// Used to create invoice as a PDF file based on reservation
         /// </summary>
-        public void Send(Reservation reservation, string templatePath, string templateFilename)
+        /// <returns>path of pdf file</returns>
+        public string Create(Reservation reservation, string templatePath, string templateFilename)
         {
+            OpenWord();
+
             // Overide template document
             if (File.Exists(templatePath + "Temp.docx"))
+            {
                 File.Delete(templatePath + "Temp.docx");
+            }
             File.Copy(templatePath + templateFilename, templatePath + "Temp.docx");
 
             // Delete invoice pdf
             if (File.Exists(templatePath + "Faktura.pdf"))
+            {
                 File.Delete(templatePath + "Faktura.pdf");
+            }
 
             // Opens invoice template in word
             document = applicationWord.Documents.Open(templatePath + "Temp.docx");
@@ -45,18 +48,15 @@ namespace ZAPBeachCampingLib.Invoice
             document.ExportAsFixedFormat(templatePath + "Faktura.pdf", WdExportFormat.wdExportFormatPDF, false);
             document.Close();
 
-            // Sends email to customer
-            email.SendEmailAttachement(
-                reservation.Customer.Email,
-                "ZAP Beach Camping faktura",
-                "Hej " + reservation.Customer.FirstName + "\n\nTusind tak for din bestilling, vi håber du får en uforglemmelig tur hos ZAP Beach Camping.\n\n\nMed venlig hilsen\n\nZAP Beach Camping",
-                templatePath + "Faktura.pdf");
+            CloseWord();
+
+            return templatePath + "Faktura.pdf";
         }
 
         /// <summary>
         /// Used to opens office word
         /// </summary>
-        public void OpenWord()
+        private void OpenWord()
         {
             applicationWord = new Application();
             applicationWord.Visible = false;
@@ -65,7 +65,7 @@ namespace ZAPBeachCampingLib.Invoice
         /// <summary>
         /// Used to close office word
         /// </summary>
-        public void CloseWord()
+        private void CloseWord()
         {
             applicationWord.Quit(false);
         }

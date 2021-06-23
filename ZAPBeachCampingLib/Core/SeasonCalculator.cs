@@ -35,7 +35,7 @@ namespace ZAPBeachCampingLib.Core
         /// </summary>
         public static DateTime GetSeasonStartDate(SeasonType seasonType)
         {
-            // Gets date time with month and date based on season type
+            // Gets season start date time with month and date based on season type
             DateTime seasonStart = seasonDatePeriods[seasonType][SEASON_START];
 
             // Set year of season start to current year
@@ -58,13 +58,17 @@ namespace ZAPBeachCampingLib.Core
         /// </summary>
         public static DateTime GetSeasonEndDate(SeasonType seasonType)
         {
+            // Gets season start and end date time with month and date based on season type
             DateTime seasonStart = seasonDatePeriods[seasonType][SEASON_START];
             DateTime seasonEnd = seasonDatePeriods[seasonType][SEASON_END];
+
+            // Set year of season start and end to current year
             seasonStart = seasonStart.AddYears(DateTime.Now.Year - 1);
             seasonEnd = seasonEnd.AddYears(DateTime.Now.Year - 1);
 
             if (DateTime.Now > seasonStart)
             {
+                // If it's to late then the first valid season is next year.
                 return new DateTime(seasonEnd.Year + 1, seasonEnd.Month, seasonEnd.Day);
             }
             else
