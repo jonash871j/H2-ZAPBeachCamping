@@ -60,11 +60,14 @@
 
                         <label for="exampleTextarea" class="form-label mt-4 text-size">Message</label>
                         <textarea class="form-control" id="message" rows="3" placeholder="Skriv besked"></textarea>
+                        
+                        <br />
+                        <button type="submit" class="btn btn-primary form-control">Send</button>
                     </div>
 
                     <div class="col-xs-12 col-sm-10 col-md-6 box-padding">
                         <h2 class="color-id-1">Find os her</h2>
-                        <p><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1149883.5929327388!2d9.466432563581018!3d55.74345038104961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf800a10ad4bfa766!2sGuden%C3%A5ens%20Camping%20Silkeborg!5e0!3m2!1sda!2sdk!4v1624043311390!5m2!1sda!2sdk" width="100%" height="430px" style="border:0;" allowfullscreen="" loading="lazy"></iframe></p>
+                        <p><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1149883.5929327388!2d9.466432563581018!3d55.74345038104961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf800a10ad4bfa766!2sGuden%C3%A5ens%20Camping%20Silkeborg!5e0!3m2!1sda!2sdk!4v1624043311390!5m2!1sda!2sdk" width="100%" height="480px" style="border:0;" allowfullscreen="" loading="lazy"></iframe></p>
                     </div>
                 </div>
             </div>
