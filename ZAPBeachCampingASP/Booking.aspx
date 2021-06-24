@@ -59,7 +59,6 @@
     <%-- Banner --%>
     <form id="form1" runat="server">
         <%-- Client to server data --%>
-        <input type="button" id="bn_defaultButton" />
         <input type="hidden" name="HF_Customer" id="HF_Customer" value="" />
         <input type="hidden" name="HF_BookingOptions" id="HF_BookingOptions" value="" />
 
