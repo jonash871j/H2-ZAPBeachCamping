@@ -21,6 +21,7 @@ namespace ZAPBeachCampingASP
         protected void Session_Start(object sender, EventArgs e)
         {
             Session["Manager"] = new CampingManager();
+            Session["IsOrderMade"] = false;
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

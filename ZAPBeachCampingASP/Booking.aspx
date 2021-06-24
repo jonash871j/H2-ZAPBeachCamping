@@ -308,7 +308,7 @@
                                 <%-- Tab 5: Order successful --%>
                                 <div id="dv_orderTab5">
                                     <h4>Tak for din bestilling!</h4>
-                                    <button type="button" class="btn btn-primary" onclick="session.clear();" style="float: right;">Start forfra</button>
+                                    <asp:Button runat="server" ID="BN_Reset" CssClass="btn btn-primary" OnClick="BN_Reset_Click" OnClientClick="return session.clear();" Text="Start forfra" />
                                 </div>
                             </div>
                             <%-- Booking order --%>

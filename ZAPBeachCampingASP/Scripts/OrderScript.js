@@ -44,7 +44,7 @@ class Session {
         sessionStorage.setItem("firstLoad", "false");
         this.default();
         this.load();
-        location.reload();
+        return true;
     }
     load() {
         if (sessionStorage.getItem("firstLoad") == null || sessionStorage.getItem("firstLoad") == "false") {
