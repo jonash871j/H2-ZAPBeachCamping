@@ -42,7 +42,7 @@ AS
 GO	
 
 
-
+--Used to get tent site by number
 CREATE OR ALTER PROCEDURE GetSite
 	@Number VARCHAR(8)
 AS
@@ -50,7 +50,7 @@ AS
 	FROM Spots
 	WHERE Number = @Number
 GO	
-
+--Used to get camping site by number
 CREATE OR ALTER PROCEDURE GetCampingSite
 	@Number VARCHAR(8)
 AS
@@ -61,6 +61,7 @@ AS
 	WHERE CampingSpots.Number = @Number
 GO
 
+--Used to get hut site by number
 CREATE OR ALTER PROCEDURE GetHutSite
 	@Number VARCHAR(8)
 AS
@@ -71,10 +72,12 @@ AS
 	WHERE HutSpots.Number = @Number
 GO	
 
+--Used to get spot status
 CREATE OR ALTER PROCEDURE GetSpotStatus
 	@SpotNumber VARCHAR(8)
 AS
-	
+
+--Gets unorder reservations
 IF NOT EXISTS (
 	SELECT * 
 	FROM Reservations
@@ -84,6 +87,7 @@ BEGIN
 END
 ELSE
 BEGIN
+	--Gets reservations where start date equal System datetime
 	IF EXISTS (
 	SELECT * 
 	FROM Reservations
@@ -91,6 +95,7 @@ BEGIN
 	BEGIN
 		RETURN 3
 	END
+	--Gets reservations where end date equal System datetime
 	ELSE IF EXISTS (
 	SELECT * 
 	FROM Reservations
@@ -100,6 +105,7 @@ BEGIN
 	END
 	ELSE
 	BEGIN
+	--Gets ordered reservations 
 		RETURN 2
 	END
 END
