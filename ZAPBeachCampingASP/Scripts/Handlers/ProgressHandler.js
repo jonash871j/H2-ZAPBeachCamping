@@ -1,12 +1,7 @@
 ﻿
 class ProgressHandler {
     constructor() {
-        document.getElementById("dv_orderTab1").style.display = "block";
-        document.getElementById("dv_orderTab2").style.display = "none";
-        document.getElementById("dv_orderTab3").style.display = "none";
-        document.getElementById("dv_orderTab4").style.display = "none";
-        document.getElementById("dv_orderTab5").style.display = "none";
-        document.getElementById("BN_Order").style.display = "none";
+        this.sessionDefault();
     }
     nextTab() {
         for (var i = 0; i < 100; i += 25) {
@@ -88,5 +83,13 @@ class ProgressHandler {
                 document.getElementById("dv_orderTab" + i).style.display = "none";
             }
         }
+    }
+    sessionDefault() {
+        document.getElementById("dv_orderTab1").style.display = "block";
+        document.getElementById("dv_orderTab2").style.display = "none";
+        document.getElementById("dv_orderTab3").style.display = "none";
+        document.getElementById("dv_orderTab4").style.display = "none";
+        document.getElementById("dv_orderTab5").style.display = "none";
+        document.getElementById("BN_Order").style.display = "none";
     }
 }

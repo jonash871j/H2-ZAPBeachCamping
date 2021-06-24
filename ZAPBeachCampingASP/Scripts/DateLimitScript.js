@@ -22,8 +22,6 @@ $(function () {
     updateEndDate();
 });
 
-
-
 $(function () {
     document.getElementById("dat_start").addEventListener("change", function () {
         // Convert start date value to date object
@@ -36,7 +34,6 @@ $(function () {
         $('#dat_end').attr('min', getDateString(minEndDate));
     });
 });
-
 
 function updateEndDate() {
     // Convert start date value to date object

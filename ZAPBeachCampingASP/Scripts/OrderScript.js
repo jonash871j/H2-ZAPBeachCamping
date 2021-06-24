@@ -18,24 +18,10 @@ window.onload = function () {
     if (document.getElementById("MF_Success").value == "true") {
         progressHandler.nextTab();
     }
-
-
 }
 window.onbeforeunload = function () {
     session.save();
-
-    if (document.getElementById("prb_orderProgrss").style.width == "100%") {
-        session.clear();
-    }
 };
-
-
-function onTest() {
-    //var s = new Session();
-    //s.default();
-    //s.load();
-
-}
 
 class Session {
     constructor() {
@@ -48,16 +34,19 @@ class Session {
         sessionStorage.setItem("endDate", "");
         sessionStorage.setItem("startDate", "");
 
+        progressHandler.sessionDefault();
         campingSettingsHandler.sessionDefault();
         additionsHandler.sessionDefault();
         customerHandler.sessionDefault();
         travelperiodHandler.sessionDefault();
     }
     clear() {
+        sessionStorage.setItem("firstLoad", "false");
         this.default();
+        location.reload();
     }
     load() {
-        if (sessionStorage.getItem("firstLoad") == null) {
+        if (sessionStorage.getItem("firstLoad") == null || sessionStorage.getItem("firstLoad") == "false") {
             sessionStorage.setItem("firstLoad", "true");
             this.default();
         }

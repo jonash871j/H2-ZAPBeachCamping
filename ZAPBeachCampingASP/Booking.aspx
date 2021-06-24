@@ -59,6 +59,7 @@
     <%-- Banner --%>
     <form id="form1" runat="server">
         <%-- Client to server data --%>
+        <input type="button" id="bn_defaultButton" />
         <input type="hidden" name="HF_Customer" id="HF_Customer" value="" />
         <input type="hidden" name="HF_BookingOptions" id="HF_BookingOptions" value="" />
 
@@ -308,6 +309,7 @@
                                 <%-- Tab 5: Order successful --%>
                                 <div id="dv_orderTab5">
                                     <h4>Tak for din bestilling!</h4>
+                                    <button type="button" class="btn btn-primary" onclick="session.clear();" style="float: right;">Start forfra</button>
                                 </div>
                             </div>
                             <%-- Booking order --%>
