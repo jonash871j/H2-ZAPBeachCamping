@@ -43,6 +43,7 @@ class Session {
     clear() {
         sessionStorage.setItem("firstLoad", "false");
         this.default();
+        this.load();
         location.reload();
     }
     load() {
