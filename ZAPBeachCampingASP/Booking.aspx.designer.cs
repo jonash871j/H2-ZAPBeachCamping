@@ -67,5 +67,14 @@ namespace ZAPBeachCampingASP
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BN_Order;
+
+        /// <summary>
+        /// BN_Reset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BN_Reset;
     }
 }

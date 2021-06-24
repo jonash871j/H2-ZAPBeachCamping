@@ -14,6 +14,7 @@ namespace ZAPBeachCampingASP
     public partial class Booking : System.Web.UI.Page
     {
         private CampingManager Manager { get => (CampingManager)Session["Manager"]; }
+        private bool IsOrderMade { get => (bool)Session["IsOrderMade"]; set => Session["IsOrderMade"] = value; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,6 +26,11 @@ namespace ZAPBeachCampingASP
 
         protected void BN_Order_Click(object sender, EventArgs e)
         {
+            if (IsOrderMade == true)
+            {
+                return;
+            }
+
             if (ConvertOrderDataFromJson(out var customer, out var reservationPrefences))
             {
                 try
@@ -33,6 +39,7 @@ namespace ZAPBeachCampingASP
                     if (Manager.CreateReservation(customer, reservationPrefences))
                     {
                         MF_Success.Value = "true";
+                        IsOrderMade = true;
                     }
                 }
                 catch (Exception exception)
@@ -70,6 +77,14 @@ namespace ZAPBeachCampingASP
                 customer = null;
                 reservationPrefences = null;
                 return false;
+            }
+        }
+
+        protected void BN_Reset_Click(object sender, EventArgs e)
+        {
+            if (IsOrderMade == true)
+            {
+                IsOrderMade = false;
             }
         }
     }
